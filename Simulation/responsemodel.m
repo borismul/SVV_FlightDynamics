@@ -4,7 +4,7 @@
 %
 %  by Robert
 
-function [V,Theta,alpha,q,t] = responsemodel(A,B,C,D,U,T)
+function [ V, Theta, alpha, q, t ] = responsemodel( A, B, C, D, U, T )
 %% Aircraft response model
 % Input variables
 % A,B,C,D: State-space matrices
@@ -23,9 +23,9 @@ q     = Y(:,4);
 t     = T;
 
 % Output variables
-% V    : True airspeed [m/s]
-% Theta: Pitch angle [deg]
-% alpha: Angle of attack [deg]
-% q    : Pitch rate [rad/s]
-% t    : Time vector
+% V    : True airspeed      [m/s]
+% Theta: Pitch angle        [rad]
+% alpha: Angle of attack    [rad]
+% q    : Pitch rate         [rad/s]
+% t    : Time vector        [s]
 end

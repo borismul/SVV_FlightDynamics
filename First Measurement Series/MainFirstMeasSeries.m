@@ -5,16 +5,16 @@ close all
 clear all
 
 % Input vectors
-h_p = [2000,2500,3000,8000];         % Pressure height                       (m)
+h_p = [2000,2500,3000,8000];        % Pressure height                       (m)
 Mfl = [0.7,0.6,0.5,0.7];            % Fuel flow to left engine              (kg/s)
 Mfr = [0.65,0.5,0.55,0.6];          % Fuel flow to right engine             (kg/s)
+massFlow = Mfl+Mfr;                 % Mass flow                             (kg/s)
 T_m = [280, 275, 270, 250];         % Measured temperature                  (K)
 VCAS = [180, 170, 175, 178];        % Calibrated airspeed                   (m/s)
-alpha = [0.09, 0.095 0.08, 0.04];  % Angle of attack                       (rad)
+alpha = [0.09, 0.095 0.08, 0.04];   % Angle of attack                       (rad)
 
 % Input constants
 rampWeight = 50000;                 % Initial weight                        (kg)
-massFlow = 10;                      % Mass flow                             (kg/s)
 rho_0 = 1.225;                      % Density of the air at ground level    (kg/m^3)
 lambda = 0.005;                     % Temperature change                    (deg K/m)
 T_0 = 288;                          % Temperature at ground level           (deg K)
