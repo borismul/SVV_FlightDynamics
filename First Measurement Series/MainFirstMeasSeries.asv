@@ -11,11 +11,11 @@ Mfr = [0.65,0.5,0.55,0.6];          % Fuel flow to right engine             (kg/
 T_m = [280, 275, 270, 250];         % Measured temperature                  (K)
 VCAS = [180, 170, 175, 178];        % Calibrated airspeed                   (m/s)
 alpha = [0.09, 0.095 0.08, 0.04];   % Angle of attack                       (rad)
-t = [100, 500, 800, 1500];          % Time at measurement                   (s)
-fuelUsed = [20, 100, 200, 500];     % Fuel used                             (kg)
-    
+t = [100, 500, 800, 
+
 % Input constants
 rampWeight = 50000;                 % Initial weight                        (kg)
+massFlow = 10;                      % Mass flow                             (kg/s)
 rho_0 = 1.225;                      % Density of the air at ground level    (kg/m^3)
 lambda = -0.0065;                   % Temperature change                    (deg K/m)
 T_0 = 288;                          % Temperature at ground level           (deg K)
