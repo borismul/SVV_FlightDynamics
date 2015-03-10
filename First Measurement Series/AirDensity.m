@@ -1,3 +1,5 @@
-function [] = AirDensity(rho_0, lambda, hp, T_0, g_0, R)
+%Created on 10-3 by Christel
 
+function [rho] = AirDensity(p,R,T)
+    rho = p./(R.*T);
 end
