@@ -1,0 +1,6 @@
+function[delta_e_alpha, Cm_delta] = long_stab(Cm_delta,Cm_alpha)
+
+Cm_alpha = - Cm_delta*
+
+
+end
