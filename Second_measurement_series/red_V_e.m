@@ -1,15 +1,10 @@
-function[r_V_e] = red_elev_defl(p0, lambda, hp, T0, g0, R, gamma, rho0, Vcas, Tm)
+function[r_V_e] = red_elev_defl(Vtas, rho, rho0, Ws, W)
 
-% function: determine the pressure, mach number, temperature and reduced equivalent airspeed
+% function: determine the reduced equivalent airspeed
 % writer: Nichsan
 
-p = p0*(1+lambda*hp/T0)^(-g0/lambda/R);
+Ve = Vtas*(rho/rho0)^0.5; % Equivalent airspeed
 
-M = (2/(gamma-1)*((1+p0/p((1+(gamma-1)/(2*gamma)*rho0/p0*Vcas^2)^(gamma/(gamma-1))-1))^(1-1/gamma)-1))^0.5;
-
-T = Tm/(1+(gamma-1)/2*M^2);
-
-r_V_e = V_e*(W_s/W)^0.5;
-
+r_V_e = V_e*(Ws/W)^0.5; % Reduced equivalent airspeed
 
 end
