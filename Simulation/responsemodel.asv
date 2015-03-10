@@ -23,9 +23,9 @@ q     = Y(:,4);
 t     = T;
 
 % Output variables
-% V    : True airspeed      [m/s]
-% Theta: Pitch angle        [rad]
-% alpha: Angle of attack    [rad]
-% q    : Pitch rate         [rad/s]
-% t    : Time vector        [s]
+% V    : True airspeed [m/s]
+% Theta: Pitch angle [rad]
+% alpha: Angle of attack [rad]
+% q    : Pitch rate [rad/s]
+% t    : Time vector [s]
 end
