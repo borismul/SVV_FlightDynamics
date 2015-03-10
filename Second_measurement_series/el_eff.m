@@ -1,4 +1,4 @@
-function[Cmdelta] = el_eff(del_dele,del_xcg,cbar,CN)
+function[Cmdelta] = el_eff(del_dele,CN,del_xcg,cbar)
 %Calculates elevator effectiveness based on lift coefficient, change of
 %required elevator deflection, change of the c.g., mean aerodynamic chord.
 %

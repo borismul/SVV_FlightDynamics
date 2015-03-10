@@ -1,4 +1,4 @@
-function[r_V_e] = red_elev_defl(p0, lambda, hp, T0, g0, R, gamma, rho0, Vcas, Tm, Ws, W)
+function[r_V_e] = red_elev_defl(Vtas, rho, rho0, Ws, W)
 
 % function: determine the reduced equivalent airspeed
 % writer: Nichsan
