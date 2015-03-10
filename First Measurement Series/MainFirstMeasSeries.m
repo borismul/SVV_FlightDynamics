@@ -4,7 +4,6 @@ clc
 close all
 clear all
 
-<<<<<<< HEAD
 % Input vectors
 hp = [2000,2500,3000,8000];         % Pressure height                       (m)
 Mfl = [0.7,0.6,0.5,0.7];            % Fuel flow to left engine              (kg/s)
@@ -25,18 +24,11 @@ gamma = 1.4;                        % Ratio of specific heats               (-)
 p_0 = 10125;                        % pressure at ground level              (Pa)
 
 
-thrust = ThrustExecution(hp,M,dT,Mfl,Mfr);
-
-=======
-hp = [1,2,3,4];
-M = [1,1.1,1,10];
-dT = [1,1,1,1];
-Mf1 = [1,1.1,1.2,1.3];
-Mf2 = [1,1.1,1.2,1.4];
 
 [p,M,T,a,dT] = AtmosphereParameters(p_0, rho_0, lamdba, h_p, T_0, T_m, g_0, R, gamma, V_cas);
 
 thrust = ThrustExecution(hp,M,dT,Mf1,Mf2)
 
 [V_TAS] = VTAS(a,M)
->>>>>>> e0e2e5d232d1592dde0eac428613c26227988d7a
+
+[rho] = AirDensity(p,R,T)
