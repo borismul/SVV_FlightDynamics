@@ -4,13 +4,13 @@ close all
 clear all
 
 % Input vectors
-h_p = [2000,2500,3000,3500];        % Pressure height                       (m)
-Mfl = [0.05,0.06,0.05,0.07];        % Fuel flow to left engine              (kg/s)
-Mfr = [0.065,0.05,0.055,0.06];      % Fuel flow to right engine             (kg/s)
-T_m = [280, 275, 270, 250];         % Measured temperature                  (K)
-VCAS = [80, 70, 75, 78];           % Calibrated airspeed                   (m/s)
-alpha = [0.2, 0.15 0.05, 0.1];      % Angle of attack                       (rad)
-fuelUsed = [20, 100, 200, 500];     % Fuel used                             (kg)
+h_p = [7040,7040,7050,7040, 7030, 7040];        % Pressure height           (m)
+Mfl = [772,617, 517, 423, 403, 403];            % Fuel flow to left engine  (kg/s)
+Mfr = [817,654, 556, 460, 430, 448];            % Fuel flow to right engine (kg/s)
+T_m = [14.2, 11.5, 9.8, 7.8, 6.7, 5.8];         % Measured temperature      (K)
+VCAS = [255, 222, 193, 159, 129, 115];          % Calibrated airspeed       (m/s)
+alpha = [1.1, 1.9, 3.0, 5.0, 8.1, 10.3];        % Angle of attack           (rad)
+fuelUsed = [386, 434, 464, 490, 524, 543];      % Fuel used                 (kg)
 
 % Input constants
 rampWeight = 50000;                 % Initial weight                        (kg)
@@ -24,6 +24,7 @@ p_0 = 10125;                        % pressure at ground level              (Pa)
 S = 25;                             % Wing surface area                     (m^2)
 
 % Executing functions
+[h_p, Mfl, Mfr, T_m, VCAS, alpha, fuelUsed] = CreateSIUnits(h_p, Mfl, Mfr, T_m, VCAS, alpha, fuelUsed);
 [p,M,T,a,dT] = AtmosphereParameters(p_0, rho_0, lambda, h_p, T_0, T_m, g_0, R, gamma, VCAS);
 thrust = ThrustExecution(h_p,M,dT,Mfl,Mfr)';
 [V_TAS] = VTAS(a,M);
