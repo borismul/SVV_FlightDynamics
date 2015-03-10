@@ -22,9 +22,10 @@ function [thrust] = ThrustExecution(hp,M,dT,Mfl,Mfr)
     
     thrust = 0;
     load thrust.dat;
-%     clc
+    clc
     
     %Unit test
+    disp(sum(sum(thrust == -1)));
     if sum(sum(thrust == -1)) == 0
         thrust = thrust(:,1) + thrust(:,2);
     else

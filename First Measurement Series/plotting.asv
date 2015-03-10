@@ -1,3 +1,0 @@
-function [] = plotting(CL, CD, alpha)
-    2*(trh
-end
