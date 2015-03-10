@@ -24,11 +24,8 @@ gamma = 1.4;                        % Ratio of specific heats               (-)
 p_0 = 10125;                        % pressure at ground level              (Pa)
 
 
-
-[p,M,T,a,dT] = AtmosphereParameters(p_0, rho_0, lambda, h_p, T_0, T_m, g_0, R, gamma, VCAS);
-
-thrust = ThrustExecution(h_p,M,dT,Mfl,Mfr);
-
+% Executing functions
+[p,M,T,a,dT] = AtmosphereParameters(p_0, rho_0, lamdba, h_p, T_0, T_m, g_0, R, gamma, V_cas);
+thrust = ThrustExecution(hp,M,dT,Mf1,Mf2);
 [V_TAS] = VTAS(a,M);
-
 [rho] = AirDensity(p,R,T);
