@@ -6,7 +6,6 @@
 
 function [V,Theta,alpha,q,t] = responsemodel(A,B,C,D,U,T)
 %% Aircraft response model
-% by Robert
 % Input variables
 % A,B,C,D: State-space matrices
 % U      : Disturbance input vector
