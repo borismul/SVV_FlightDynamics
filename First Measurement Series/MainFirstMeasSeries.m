@@ -4,13 +4,13 @@ close all
 clear all
 
 % Input vectors
-h_p = [7040,7040,7050,7040, 7030, 7040];        % Pressure height           (m)
-Mfl = [772,617, 517, 423, 403, 403];            % Fuel flow to left engine  (kg/s)
-Mfr = [817,654, 556, 460, 430, 448];            % Fuel flow to right engine (kg/s)
-T_m = [14.2, 11.5, 9.8, 7.8, 6.7, 5.8];         % Measured temperature      (K)
-VCAS = [255, 222, 193, 159, 129, 115];          % Calibrated airspeed       (m/s)
-alpha = [1.1, 1.9, 3.0, 5.0, 8.1, 10.3];        % Angle of attack           (rad)
-fuelUsed = [386, 434, 464, 490, 524, 543];      % Fuel used                 (kg)
+h_p = [7040,7040,7050,7040, 7030, 7040];        % Pressure height           (ft)
+Mfl = [772,617, 517, 423, 403, 403];            % Fuel flow to left engine  (lbs/h)
+Mfr = [817,654, 556, 460, 430, 448];            % Fuel flow to right engine (lbs/h)
+T_m = [14.2, 11.5, 9.8, 7.8, 6.7, 5.8];         % Measured temperature      (C)
+VCAS = [255, 222, 193, 159, 129, 115];          % Calibrated airspeed       (kts)
+alpha = [1.1, 1.9, 3.0, 5.0, 8.1, 10.3];        % Angle of attack           (deg)
+fuelUsed = [386, 434, 464, 490, 524, 543];      % Fuel used                 (lbs)
 
 % Input constants
 rampWeight = 50000;                 % Initial weight                        (kg)
