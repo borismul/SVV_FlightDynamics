@@ -6,6 +6,8 @@
 % The command 'fprintf' writes the calculated data to the file
 % associated with the file identifier fid.
 % 'fclose' closes the file associated with the file identifier fid.
+
+%Created on 10-3 by Christel
 function [thrust] = ThrustExecution(hp,M,dT,Mf1,Mf2)
     fid = fopen('matlab.dat','w');
     for i = 1:length(hp);
@@ -15,8 +17,8 @@ function [thrust] = ThrustExecution(hp,M,dT,Mf1,Mf2)
     fclose(fid);
     !thrust; % the computer program thrust.exe is run.
     load thrust.dat;
-    
-    thrust = thrust(:,1) + thrust(:,2)
+    clc
+    thrust = thrust(:,1) + thrust(:,2);
     
     
     
