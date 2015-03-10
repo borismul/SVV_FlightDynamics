@@ -5,7 +5,7 @@ close all
 clear all
 
 % Input vectors
-hp = [2000,2500,3000,8000];         % Pressure height                       (m)
+h_p = [2000,2500,3000,8000];         % Pressure height                       (m)
 Mfl = [0.7,0.6,0.5,0.7];            % Fuel flow to left engine              (kg/s)
 Mfr = [0.65,0.5,0.55,0.6];          % Fuel flow to right engine             (kg/s)
 T_m = [280, 275, 270, 250];         % Measured temperature                  (K)
@@ -25,10 +25,10 @@ p_0 = 10125;                        % pressure at ground level              (Pa)
 
 
 
-[p,M,T,a,dT] = AtmosphereParameters(p_0, rho_0, lamdba, h_p, T_0, T_m, g_0, R, gamma, V_cas);
+[p,M,T,a,dT] = AtmosphereParameters(p_0, rho_0, lambda, h_p, T_0, T_m, g_0, R, gamma, VCAS);
 
-thrust = ThrustExecution(hp,M,dT,Mf1,Mf2)
+thrust = ThrustExecution(h_p,M,dT,Mfl,Mfr);
 
-[V_TAS] = VTAS(a,M)
+[V_TAS] = VTAS(a,M);
 
-[rho] = AirDensity(p,R,T)
+[rho] = AirDensity(p,R,T);
