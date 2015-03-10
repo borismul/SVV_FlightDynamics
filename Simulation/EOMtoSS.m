@@ -15,9 +15,13 @@ B = - inv(C1) * C3;
 C = eye(4);
 
 if strcmp(symmetry,'symmetric')
-D = zeros(4,1);
+    
+    D = zeros(4,1);
+
 elseif strcmp(symmetry,'asymmetric')
-D = zeros(4,2)
+    
+    D = zeros(4,2)
+
 end
 
 % Output variables
