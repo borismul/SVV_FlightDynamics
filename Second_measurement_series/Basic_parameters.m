@@ -1,4 +1,4 @@
-function[rho, CN] = basic(W, S, p0, lambda, hp, T0, g0, R)
+function[rho, Vtas, CN] = basic(p0, lambda, hp, T0, g0, R, gamma, rho0, Vcas, Tm, W, S)
 
 % function: determine the basic parameters
 % writer: Nichsan
