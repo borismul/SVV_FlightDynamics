@@ -10,5 +10,5 @@ a = sqrt(gamma.*R.*T);
 
 T_ISA = T_0 + (lambda.*h_p);
 
-dT = T -T_ISA;
+dT = 
 end
