@@ -1,7 +1,6 @@
 
 
-function [h_p, VCAS,alpha,Mfl,Mfr,fuelUsed,T_m]= ImportExcelFirst()
-filename = 'Flight20303.xlsx';
+function [h_p, VCAS,alpha,Mfl,Mfr,fuelUsed,T_m, rampWeight]= ImportExcelFirst(filename)
 
 h_p = xlsread(filename,'D28:D34');
 VCAS = xlsread(filename,'E28:E34');
@@ -10,5 +9,6 @@ Mfl = xlsread(filename,'G28:G34');
 Mfr = xlsread(filename,'H28:H34');
 fuelUsed = xlsread(filename,'I28:I34');
 T_m = xlsread(filename,'J28:J34');
+rampWeight = xlsread(filename,'D18:D18');
 
 end
