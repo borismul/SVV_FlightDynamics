@@ -16,19 +16,20 @@ gamma = 1.4;            % Heat capacity ratio                                   
 rho0 = 1.225;           % Sea level air density                                             [kg/m^3]
 
 % AIRCRAFT DEPENDENT CONSTANTS
-S = ;                   % Aircraft wing surface                                             [m^2]
+S = 30.00;                   % Aircraft wing surface                                             [m^2]
 Se = ;                  % Elevator surface area                                             [m^2]
 c_bar = ;               % Mean aerodynamic chord                                            [m]
 c_bar_e = ;             % Mean aerodynamic chord of elevator                                [m]
 Ws = ;                  % Standard aircraft weight                                          [N]  
 
 % Measured data
-
-[h_p, VCAS,alpha,de,detr,FeMfl,Mfr,fuelUsed,T_m, fuelRampWeight]= ImportExcelSecond(filename)
-hp = ;                  % Pressure altitude                                                 [m]
-Vcas = ;                % Calibrated airspeed                                               [m/s]
-Tm = ;                  % Measured temperature                                              [K]             
-Ddelta_e = ;            % Change in elevator deflection                                     [rad]
+[h_p, VCAS,alpha,de,detr,FeMfl,Mfr,fuelUsed,T_m, fuelStartWeight,payloadWeight]= ImportExcelSecond(filename);
+%convert data to SI units
+[h_p, Mfl, Mfr, T_m, VCAS, alpha, fuelUsed, emptyWeight, fuelStartWeight] = CreateSIUnits(h_p, Mfl, Mfr, T_m, VCAS, alpha, fuelUsed, emptyWeight, fuelStartWeight);
+% hp = ;                  % Pressure altitude                                                 [m]
+% Vcas = ;                % Calibrated airspeed                                               [m/s]
+% Tm = ;                  % Measured temperature                                              [K]             
+% Ddelta_e = ;            % Change in elevator deflection                                     [rad]
                                       
 % Calculated from flight test data.
 x_cg = ;                % Center of gravity position                                        [m]
