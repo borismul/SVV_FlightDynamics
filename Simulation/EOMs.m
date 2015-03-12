@@ -48,6 +48,6 @@ C3 = zeros(4,1); % Define matrix size and fill with zeros
     C3(4,1) = Cmde;
 
 % Three output matrices
-% C1, C2 and C3
+% C1 [4x4], C2 [4x4] and C3 [4x1]
 end
 
