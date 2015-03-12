@@ -2,7 +2,7 @@ function [] = plotting(CL, CD, alpha)
     
     figure();
     
-    alpha = rad2deg(alpha);
+    %alpha = rad2deg(alpha);
     
     [alpha,a] = sort(alpha); 
     CL = CL(a);
@@ -33,6 +33,4 @@ function [] = plotting(CL, CD, alpha)
     xlabel('alpha -->');
     ylabel('C_D -->');
     
-
-
 end

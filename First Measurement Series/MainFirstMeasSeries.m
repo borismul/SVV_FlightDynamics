@@ -3,6 +3,8 @@ clc
 close all
 clear all
 
+ImportExcelData
+
 % Input vectors
 h_p = [7040,7040,7050,7040, 7030, 7040];        % Pressure height           (ft)
 Mfl = [772,617, 517, 423, 403, 403];            % Fuel flow to left engine  (lbs/h)
@@ -33,3 +35,6 @@ W = WeightAtTime(rampWeight,fuelUsed);
 C_D = CD(thrust, rho, V_TAS, S);
 C_L = CL(W,rho, V_TAS, S);
 plotting(C_L,C_D,alpha);
+
+%Calculation of oswald factor and Cd0 (slope of CL^2-CD is dependant on e,
+%CD(CL^2=0)-> Cd0
