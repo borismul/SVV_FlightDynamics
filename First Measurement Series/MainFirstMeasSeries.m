@@ -22,21 +22,21 @@ p_0 = 10125;                        % pressure at ground level              (Pa)
 filename = 'Flight20303.xlsx'; %Define which excel file should be used  
 [h_p, VCAS,alpha,Mfl,Mfr,fuelUsed,T_m, fuelStartWeight,payloadWeight]= ImportExcelFirst(filename);
 
-[h_p, Mfl, Mfr, T_m, VCAS, alpha, fuelUsed, emptyWeight, fuelStartWeight] = CreateSIUnits(h_p, Mfl, Mfr, T_m, VCAS, alpha, fuelUsed, emptyWeight, fuelStartWeight)
+[h_p, Mfl, Mfr, T_m, VCAS, alpha, fuelUsed, emptyWeight, fuelStartWeight] = CreateSIUnits(h_p, Mfl, Mfr, T_m, VCAS, alpha, fuelUsed, emptyWeight, fuelStartWeight);
 %Calculate rampWeight [kg]
 rampWeight = emptyWeight + fuelStartWeight + payloadWeight;
 
 
 % Executing functions
 [p,M,T,a,dT] = AtmosphereParameters(p_0, rho_0, lambda, h_p, T_0, T_m, g_0, R, gamma, VCAS);
-thrust = ThrustExecution(h_p,M,dT,Mfl,Mfr)';
-[V_TAS] = VTAS(a,M);
-rho = AirDensity(p,R,T);
-W = WeightAtTime(rampWeight,fuelUsed);
-C_D = CD(thrust, rho, V_TAS, S);
-C_L = CL(W,rho, V_TAS, S);
-[e,C_D0] = LinearRegression(C_L, C_D, A);
-plotting(C_L,C_D,alpha);
-
+% thrust = ThrustExecution(h_p,M,dT,Mfl,Mfr)';
+ [V_TAS] = VTAS(a,M);
+% rho = AirDensity(p,R,T);
+% W = WeightAtTime(rampWeight,fuelUsed);
+% C_D = CD(thrust, rho, V_TAS, S);
+% C_L = CL(W,rho, V_TAS, S);
+% [e,C_D0, CLalpha] = LinearRegression(C_L, C_D, A, alpha);
+% plotting(C_L,C_D,alpha);
+% CLalpha
 
 
