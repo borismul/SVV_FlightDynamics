@@ -26,9 +26,9 @@ C2(4,:) = [1 1 0 1];
 
 C3 = zeros(4,1); % Define matrix size and fill with zeros
 % Overwrite cells in matrix C3 with nonzero values
-C3(1,1) = 1;
-C3(2,1) = 1;
-C3(4,1) = 1;
+C3(1,1) = CXde;
+C3(2,1) = CZde;
+C3(4,1) = Cmde;
 
 % Output variables
 %
