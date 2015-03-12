@@ -4,7 +4,9 @@
 %
 %  by Robert
 
-function [ V, Theta, alpha, q, t ] = responsemodel( A, B, C, D, U, T )
+function [  ] = responsemodel( A, B, C, D )
+% [ V, Theta, alpha, q, t ] = responsemodel( A, B, C, D, U, T )
+
 %% Aircraft response model
 % Input variables
 % A,B,C,D: State-space matrices
@@ -13,14 +15,15 @@ function [ V, Theta, alpha, q, t ] = responsemodel( A, B, C, D, U, T )
 
 sys = ss(A,B,C,D); % Define the state-space system
 
-[Y] = lsim(sys,U,T); % Simulate time response of the aircraft
+%[Y] = lsim(sys,U,T); % Simulate time response of the aircraft
+step(sys,3600); % Simulate step response of the aircraft
 
-    u = Y(:,1); % Get the deviation of the velocity from the response
-V     = V0 + u; % Add the initial airspeed to the deviation of the velocity
-alpha = Y(:,2);
-Theta = Y(:,3);
-q     = Y(:,4);
-t     = T;
+%     u = Y(:,1); % Get the deviation of the velocity from the response
+% V     = V0 + u; % Add the initial airspeed to the deviation of the velocity
+% alpha = Y(:,2);
+% Theta = Y(:,3);
+% q     = Y(:,4);
+% t     = T;
 
 % Output variables
 % V    : True airspeed      [m/s]
