@@ -20,5 +20,5 @@ run('Cit_par_dummy');
 
 hold off;
 responsemodel( Aa, Ba, Ca, Da );
-hold on;
+figure
 responsemodel( As, Bs, Cs, Ds );
