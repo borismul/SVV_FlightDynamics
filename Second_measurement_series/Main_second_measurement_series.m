@@ -4,19 +4,30 @@
 
 %% Define inputs:
 
-% CONSTANTS
+% AIRCRAFT INDEPENDENT CONSTANTS
 p0 = 101325;            % Sea level air pressure                                        [Pa]
-lambda = ;              % ?                                                             [?]
-hp = ;                  % Pressure altitude                                             [m]
+lambda = -0.0065;        % Temperature gradient below Troposphere                        [K/m]
 T0 = 293;               % Sea level air temperature                                     [K]
 g0 = 9.81;              % Gravitational acceleration                                    [m/s^2]
 R = 287;                % Dry air gas constant                                          [J/kg/K)]
 gamma = 1.4;            % Heat capacity ratio                                           [-]
 rho0 = 1.225;           % Sea level air density                                         [kg/m^3]
-Vcas = ;                % Calibrated airspeed                                           [m/s]
-Tm = ;                  % Measured temperature                                          [K]
-W = ;                   % Aircraft weight                                               [kg]
+
+
+% AIRCRAFT DEPENDENT CONSTANTS
 S = ;                   % Aircraft wing surface                                         [m^2]
+Se = ;                  % Elevator surface area                                         [m^2]
+c_bar = ;               % Mean aerodynamic chord        [m]
+c_bar_e = ;             % Mean aerodynamic chord of elevator                            [m]
+Ws = ;                  % Standard aircraft weight [N]  
+
+
+
+
+
+
+
+% Still undetermined, update later
 Cm0 = ;                 % Pitching moment coefficient at zero angle of attack           [-]
 Cm_alpha = ;            % Pitching moment coefficient slope w.r.t. angle of attack      [1/rad]
 CN_alpha = ;            % Normal force coefficient slope w.r.t. angle of attack         [1/rad]
@@ -26,29 +37,21 @@ Cm_Tc = ;               % Dimensionless thrust moment arm                       
 Tc = ;                  % Thrust coefficient                                                [-]
 Cm_lg = ;               % Pitching moment coefficient slope w.r.t landing gear deflection   [1/rad]
 delta_e_s_e = ;         % Elevator deflection angle slope w.r.t. stick deflection [rad/m]
-Se = ;                  % Elevator surface area                                         [m^2]
-c_bar_e = ;             % Mean aerodynamic chord of elevator                            [m]
 Ch_delta = ;            % Hinge moment coefficient slope w.r.t. elevator deflection angle [1/rad]
 Cm_delta = ;            % Pitching moment coefficient slope w.r.t elevator deflection angle [1/rad]
-x_cg = ;                % Center of gravity position [m]
 x_nfree = ;             % Neutral point position for stick-free fligh condition [m]
-c_bar = ;               % Mean aerodynamic chord        [m]
 Ch_delta_t = ;          % Hinge moment coefficient slope w.r.t. trim tab deflection angle [1/rad]
 delta_t_e = ;           % Trim tab deflection angle [rad]
 delta_t_e_0 = ;         % Trim tab deflection angle for velocity independent stick force [rad]
-Ws = ;                  % Standard aircraft weight [N]          
 Tc_s = ;                % Standard thrust coefficient [-]
-
-
-
-
-
-% MEASUREMENTS
+hp = ;                  % Pressure altitude                                             [m]
+Vcas = ;                % Calibrated airspeed                                           [m/s]
+Tm = ;                  % Measured temperature                                          [K]
+W = ;                   % Aircraft weight                                               [kg]
+x_cg = ;                % Center of gravity position [m]
 Ddelta_e = ;            % Change in elevator deflection [rad]
 Dx_cg = ;               % Change in c.g. position       [m]
 
 
-
-
-
+%% Plot outputs
 
