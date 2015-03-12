@@ -3,14 +3,11 @@ clc
 close all
 clear all
 
-%Import data from a flight test excel
-filename = 'Flight20303.xlsx'; %Define which excel file should be used  
-[h_p, VCAS,alpha,Mfl,Mfr,fuelUsed,T_m, rampWeight]= ImportExcelFirst(filename);
-
 % Aircraft Constants
 S = 30.00;                          % Wing surface area                     (m^2)
 b      = 15.911;	                % wing span [m]
 A      = b^2/S;                     % wing aspect ratio [ ]
+emptyWeight = 9170;                  % Aircraft Empty Weight from Mass and Balance Report [lbs]
 
 %Standard values:
 rho_0 = 1.225;                      % Density of the air at ground level    (kg/m^3)
@@ -21,10 +18,16 @@ R = 288.05;                         % Universal gas constant air            (J* 
 gamma = 1.4;                        % Ratio of specific heats               (-)
 p_0 = 10125;                        % pressure at ground level              (Pa)
 
+%Import data from a flight test excel
+filename = 'Flight20303.xlsx'; %Define which excel file should be used  
+[h_p, VCAS,alpha,Mfl,Mfr,fuelUsed,T_m, fuelStartWeight,payloadWeight]= ImportExcelFirst(filename);
+
+[h_p, Mfl, Mfr, T_m, VCAS, alpha, fuelUsed, emptyWeight, fuelStartWeight] = CreateSIUnits(h_p, Mfl, Mfr, T_m, VCAS, alpha, fuelUsed, emptyWeight, fuelStartWeight)
+%Calculate rampWeight [kg]
+rampWeight = emptyWeight + fuelStartWeight + payloadWeight;
 
 
 % Executing functions
-[h_p, Mfl, Mfr, T_m, VCAS, alpha, fuelUsed] = CreateSIUnits(h_p, Mfl, Mfr, T_m, VCAS, alpha, fuelUsed);
 [p,M,T,a,dT] = AtmosphereParameters(p_0, rho_0, lambda, h_p, T_0, T_m, g_0, R, gamma, VCAS);
 thrust = ThrustExecution(h_p,M,dT,Mfl,Mfr)';
 [V_TAS] = VTAS(a,M);

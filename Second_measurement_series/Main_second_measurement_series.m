@@ -1,6 +1,8 @@
 % function: define values of input parameters, combine the separate units and plot elevator trim curve and elavator control force curve
 % writer: Nichsan
-
+clc
+close all
+clear all
 
 %% Define inputs:
 
@@ -21,6 +23,8 @@ c_bar_e = ;             % Mean aerodynamic chord of elevator                    
 Ws = ;                  % Standard aircraft weight                                          [N]  
 
 % Measured data
+
+[h_p, VCAS,alpha,de,detr,FeMfl,Mfr,fuelUsed,T_m, fuelRampWeight]= ImportExcelSecond(filename)
 hp = ;                  % Pressure altitude                                                 [m]
 Vcas = ;                % Calibrated airspeed                                               [m/s]
 Tm = ;                  % Measured temperature                                              [K]             
