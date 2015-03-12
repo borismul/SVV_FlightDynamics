@@ -21,10 +21,25 @@ c_bar = ;               % Mean aerodynamic chord                                
 c_bar_e = ;             % Mean aerodynamic chord of elevator                                [m]
 Ws = ;                  % Standard aircraft weight                                          [N]  
 
+% Measured data
+hp = ;                  % Pressure altitude                                                 [m]
+Vcas = ;                % Calibrated airspeed                                               [m/s]
+Tm = ;                  % Measured temperature                                              [K]             
+Ddelta_e = ;            % Change in elevator deflection                                     [rad]
+                                      
+% Calculated from flight test data.
+x_cg = ;                % Center of gravity position                                        [m]
+Dx_cg = ;               % Change in c.g. position                                           [m]
 
-% Still undetermined, update later
-Cm0 = ;                 % Pitching moment coefficient at zero angle of attack               [-]
+% Determined from graphs made with flight test data; program for graph must still be made.
+delta_e_alpha;          % Elevator deflection angle slope w.r.t. angle of attack            [-]
+
+% Determined from graphs made with flight test data; follows from measurement series 1.
 CN_alpha = ;            % Normal force coefficient slope w.r.t. angle of attack             [1/rad]
+
+
+% Still undetermined; update later.
+Cm0 = ;                 % Pitching moment coefficient at zero angle of attack               [-]
 Cm_delta_f = ;          % Pitching moment coefficient slope w.r.t flap deflection angle     [1/rad]
 delta_f = ;             % Flap deflection angle                                             [rad]
 Cm_Tc = ;               % Dimensionless thrust moment arm                                   [-]
@@ -37,15 +52,11 @@ Ch_delta_t = ;          % Hinge moment coefficient slope w.r.t. trim tab deflect
 delta_t_e = ;           % Trim tab deflection angle                                         [rad]
 delta_t_e_0 = ;         % Trim tab deflection angle for velocity independent stick force    [rad]
 Tc_s = ;                % Standard thrust coefficient                                       [-]
-hp = ;                  % Pressure altitude                                                 [m]
-Vcas = ;                % Calibrated airspeed                                               [m/s]
-Tm = ;                  % Measured temperature                                              [K]
 W = ;                   % Aircraft weight                                                   [kg]
-x_cg = ;                % Center of gravity position                                        [m]
-Ddelta_e = ;            % Change in elevator deflection                                     [rad]
-Dx_cg = ;               % Change in c.g. position                                           [m]
-delta_e_alpha;          % Elevator deflection angle slope w.r.t. angle of attack            [-]
 Vh = ;                  % Tail plane free stream velocity                                   [m/s]
+
+
+
 
 %% Plot outputs
 
