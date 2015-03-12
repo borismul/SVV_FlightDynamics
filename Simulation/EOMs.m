@@ -4,8 +4,9 @@
 %
 %  by Robert
 
-function [ C1, C2, C3 ] = EOMs( CX0, CXa, CXu, CXq, CXde, Cma, Cmadot, Cmu, Cmq, Cmde, ...
-                                CZ0, CZa, CZu, CZq, CZde, KY2, muc, c, V0 )
+function [ C1, C2, C3 ] = EOMs( CX0, CXa, CXu, CXq, CXde, ...
+                                CZ0, CZa, CZu, CZq, CZde, ...
+                                Cma, Cmadot, Cmu, Cmq, Cmde, KY2, muc, c, V0 )
 %% Equations of Motion for the symmetric case
 % Input variables
 % see Cit_par.m
