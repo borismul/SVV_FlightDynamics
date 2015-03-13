@@ -1,9 +1,7 @@
 function [] = plotting(CL, CD, alpha)
     
     figure();
-    
-    alpha = rad2deg(alpha);
-    
+       
     [alpha,a] = sort(alpha); 
     CL = CL(a);
     CD = CD(a);
