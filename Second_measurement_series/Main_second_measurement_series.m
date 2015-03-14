@@ -1,34 +1,26 @@
 % function: define values of input parameters, combine the separate units and plot elevator trim curve and elavator control force curve
 % writer: Nichsan
-clc
-close all
-clear all
+% clc
+% close all
+% clear all
 
 %% Define inputs:
 
 % AIRCRAFT INDEPENDENT PARAMETERS
-p0 = 101325;            % Sea level air pressure                                            [Pa]
-lambda = -0.0065;        % Temperature gradient below Troposphere                           [K/m]
-T0 = 293;               % Sea level air temperature                                         [K]
-g0 = 9.81;              % Gravitational acceleration                                        [m/s^2]
-R = 287;                % Dry air gas constant                                              [J/kg/K)]
-gamma = 1.4;            % Heat capacity ratio                                               [-]
-rho0 = 1.225;           % Sea level air density                                             [kg/m^3]
+% p0 = 101325;            % Sea level air pressure                                            [Pa]
+% lambda = -0.0065;        % Temperature gradient below Troposphere                           [K/m]
+% T0 = 293;               % Sea level air temperature                                         [K]
+% g0 = 9.81;              % Gravitational acceleration                                        [m/s^2]
+% R = 287;                % Dry air gas constant                                              [J/kg/K)]
+% gamma = 1.4;            % Heat capacity ratio                                               [-]
+% rho0 = 1.225;           % Sea level air density                                             [kg/m^3]
 
 % AIRCRAFT DEPENDENT CONSTANTS
-S = 30.00;                   % Aircraft wing surface                                             [m^2]
-Se = ;                  % Elevator surface area                                             [m^2]
-c_bar = ;               % Mean aerodynamic chord                                            [m]
-c_bar_e = ;             % Mean aerodynamic chord of elevator                                [m]
-Ws = ;                  % Standard aircraft weight                                          [N]  
-
-
-% PARAMETERS FROM FIRST MEASUREMENT SERIES
-Vtas = ; % True airspeed [m/s]
-rho = ; % Air density [kg/m^3]
-
-p = ;               % Air pressure      [Pa]
-
+% S = 30.00;                   % Aircraft wing surface                                             [m^2]
+% Se = ;                  % Elevator surface area                                             [m^2]
+% c_bar = ;               % Mean aerodynamic chord                                            [m]
+% c_bar_e = ;             % Mean aerodynamic chord of elevator                                [m]
+% Ws = ;                  % Standard aircraft weight                                          [N]  
 
 
 % Measured data

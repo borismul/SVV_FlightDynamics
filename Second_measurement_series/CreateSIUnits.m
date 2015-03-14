@@ -1,18 +1,21 @@
-function [h_p, Mfl, Mfr, T_m, VCAS, alpha, fuelUsed, emptyWeight, fuelStartWeight] = CreateSIUnits(h_p, Mfl, Mfr, T_m, VCAS, alpha, fuelUsed, emptyWeight, fuelStartWeight)
+function[h_p, VCAS, alpha, de, detr, Mfl, Mfr, fuelUsed, T_m, fuelStartWeight, emptyWeight] = CreateSIUnits(h_p, VCAS, alpha, de, detr, Mfl, Mfr, fuelUsed, T_m, fuelStartWeight, emptyWeight)
     
     feet2meter = 0.3048;
-    lbsPerHour2KgPerSeconds = 0.000125997881;
-    celsius2kelvin = 273.15;
     kts2meterPerSeconds = 0.514444444;
+    lbsPerHour2KgPerSeconds = 0.000125997881;
     lbs2kg = 0.45359237;
-    
+    celsius2kelvin = 273.15;
+       
     h_p = feet2meter * h_p;
+    VCAS = VCAS * kts2meterPerSeconds;
+    alpha = alpha*pi/180;
+    de = de*pi/180;
+    detr = detr*pi/180;
     Mfl = Mfl * lbsPerHour2KgPerSeconds;
     Mfr = Mfr * lbsPerHour2KgPerSeconds;
-    T_m = T_m + celsius2kelvin;
-    VCAS = VCAS * kts2meterPerSeconds;
     fuelUsed = fuelUsed * lbs2kg;
-    emptyWeight = emptyWeight * lbs2kg;
+    T_m = T_m + celsius2kelvin;
     fuelStartWeight = fuelStartWeight *lbs2kg;
-
+    emptyWeight = emptyWeight * lbs2kg;
+    
 end
