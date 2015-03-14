@@ -5,7 +5,7 @@ function [p,M,T,a,dT] = AtmosphereParameters(p_0, rho_0, lambda, h_p, T_0, T_m, 
     
     M = sqrt((2./(gamma-1)).*((1+ (p_0./p).*((1+ ((gamma-1)./(2.*gamma)).*...
         (rho_0./p_0).*V_cas.^2).^((gamma)./(gamma-1))-1)).^((gamma-1)./gamma)-1))
-    T = T_m./(1+(gamma-1)./2.*M.^2);
+    T = T_m./(1+(gamma-1)./2.*M.^2)
     a = sqrt(gamma.*R.*T);
 
     T_ISA = T_0 + (lambda.*h_p);
