@@ -6,7 +6,7 @@ clear all
 
 %% Read and convert measured data
 
-filename = ; % name of the excel with the measured data
+filename = 'Flight20303'; % name of the excel with the measured data
 
 [h_p,VCAS,alpha,de,detr,Fe,Mfl,Mfr,fuelUsed,T_m,fuelStartWeight,payloadWeight]= ImportExcelSecond(filename); % read data
 [h_p,VCAS,alpha,de,detr,Mfl,Mfr,fuelUsed,T_m,fuelStartWeight,emptyWeight] = CreateSIUnits(h_p,VCAS,alpha,de,detr,Mfl,Mfr,fuelUsed,T_m,fuelStartWeight,emptyWeight); % convert data
@@ -15,12 +15,13 @@ filename = ; % name of the excel with the measured data
 
 
 %% Summon data progressing blocks
-[Cmdelta] = el_eff(del_dele,CN,del_xcg,cbar);                                                                       % calculate elevator effectiveness [-]
-[r_V_e] = red_elev_defl(Vtas, rho, rho0, Ws, W);                                                                    % calculate reduced equivalent airspeed [m/s]
-[Cm_alpha] = long_stab(delta_e_alpha,Cm_delta);                                                                     % calculate the longitudinal stability [-]
-[delta_e] = elev_defl(Cm_delta,Cm0,Cm_alpha,CN_alpha,W,rho,Vtas,S,Cm_delta_f,delta_f,Cm_Tc,Tc,Cm_lg);               % calculate the elevator deflection [rad]
-[red_eltrim] = red_eltrim(m_eltrim,Cmdelta,CmTc,Tcs,Tc);                                                            % calculate the reduced elevator deflection [rad]
-[Fstare] = red_el_cf(ddeledse,Se,Cbare,Vh,Chdelta,Cmdelta,xcg,xnfree,cbar,W,S,rho,V,Chdeltat,deltate,deltate0,Ws);	% Calculate the elevator control force component [N]
+[C_L] = CN(W,rho,VTAS,S);                                                                                           % calculate normal force coefficient                [-]
+[Cmdelta] = el_eff(del_dele,CN,del_xcg,cbar);                                                                       % calculate elevator effectiveness                  [-]
+[r_V_e] = red_elev_defl(Vtas,rho,rho0,Ws,W);                                                                        % calculate reduced equivalent airspeed             [m/s]
+[Cm_alpha] = long_stab(delta_e_alpha,Cm_delta);                                                                     % calculate the longitudinal stability              [-]
+[delta_e] = elev_defl(Cm_delta,Cm0,Cm_alpha,CN_alpha,W,rho,Vtas,S,Cm_delta_f,delta_f,Cm_Tc,Tc,Cm_lg);               % calculate the elevator deflection                 [rad]
+[red_eltrim] = red_eltrim(m_eltrim,Cmdelta,CmTc,Tcs,Tc);                                                            % calculate the reduced elevator deflection         [rad]
+[Fstare] = red_el_cf(ddeledse,Se,Cbare,Vh,Chdelta,Cmdelta,xcg,xnfree,cbar,W,S,rho,V,Chdeltat,deltate,deltate0,Ws);	% Calculate the elevator control force component	[N]
 
 
 % AIRCRAFT INDEPENDENT PARAMETERS

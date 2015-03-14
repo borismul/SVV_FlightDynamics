@@ -1,4 +1,4 @@
-function[delta_e] = elev_defl(Cm_delta, Cm0, Cm_alpha, CN_alpha, W, rho, Vtas, S, Cm_delta_f, delta_f, Cm_Tc, Tc, Cm_lg)
+function[delta_e] = elev_defl(Cm_delta,Cm0,Cm_alpha,CN_alpha,W,rho,Vtas,S,Cm_delta_f,delta_f,Cm_Tc,Tc,Cm_lg)
 
 % function: determine the elevator deflection
 % writer: Nichsan
