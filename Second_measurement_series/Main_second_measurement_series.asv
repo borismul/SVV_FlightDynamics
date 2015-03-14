@@ -24,11 +24,6 @@ Ws = ;                  % Standard aircraft weight                              
 
 
 % PARAMETERS FROM FIRST MEASUREMENT SERIES
-Vtas = ; % True airspeed [m/s]
-rho = ; % Air density [kg/m^3]
-
-p = ;               % Air pressure      [Pa]
-
 
 
 % Measured data
