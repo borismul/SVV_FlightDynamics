@@ -5,48 +5,50 @@ clc
 close all
 clear all
 
+%% Define known input data
+
+% Atmospheric parameters
+p0 = 101325;        % Air pressure at sea level                             [Pa]
+lambda = -0.0065;   % Temperature gradient below Troposphere                [K/m]
+T0 = 288;           % Air temperature at sea level                          [K]
+g0 = 9.81;          % Gravitational acceleration                            [m/s^2]
+R = 288.05;         % Dry air gas constant                                  [J/kg/K)]
+gamma = 1.4;        % Heat capacity ratio                                   [-]
+rho0 = 1.225;       % Air density at sea level                              [kg/m^3]
+
+% Aircraft parameters
+S = 30.00;          % Aircraft wing surface                                 [m^2]
+cbar = 15.911;      % Mean aerodynamic chord                                [m]
+emptyWeight = 9170;	% Aircraft's empty weight                           	[lbs]
+
 %% Read and convert measured data
 
-filename = 'Flight20303.xlsx'; % name of the excel with the measured data
+filename = 'Flight20303.xlsx'; % Name of the excel with the measured data
 
-[h_p,VCAS,alpha,de,detr,Fe,Mfl,Mfr,fuelUsed,T_m,fuelStartWeight,payloadWeight,dele_1,dele_2]= ImportExcelSecond(filename); % read data
-[h_p,VCAS,alpha,de,detr,Mfl,Mfr,fuelUsed,T_m,fuelStartWeight,emptyWeight] = CreateSIUnits(h_p,VCAS,alpha,de,detr,Mfl,Mfr,fuelUsed,T_m,fuelStartWeight,emptyWeight); % convert data
-
-%% Define extra inputs:
-S = 30.00;                   % Aircraft wing surface                                             [m^2]
-cbar = 15.911;               % Mean aerodynamic chord                                            [m]
-
-emptyWeight = 9170;                  % Aircraft Empty Weight from Mass and Balance Report [lbs]
-
-
+[h_p,VCAS,alpha,de,detr,Fe,Mfl,Mfr,fuelUsed,T_m,fuelStartWeight,payloadWeight,dele_1,dele_2] = ImportExcelSecond(filename);                                                                     % read data
+[h_p,VCAS,alpha,de,detr,Mfl,Mfr,fuelUsed,T_m,fuelStartWeight,dele_1,dele_2,emptyWeight] = CreateSIUnits(h_p,VCAS,alpha,de,detr,Mfl,Mfr,fuelUsed,T_m,fuelStartWeight,dele_1,dele_2,emptyWeight); % convert data
 
 
 %% Summon data processing blocks
-[p,M,T,a,dT] = AtmosphereParameters(p_0,rho_0,lambda,h_p,T_0,T_m,g_0,R,gamma,V_cas);                                % calculate air pressure, Mach number,	[Pa],[-]
-                                                                                                                    % air temperature, speed of sound,      [K],[m/s]
-                                                                                                                    % temperature shift                     [K]
-[W] = WeightAtTime(rampWeight,fuelUsed);                                                                            % aircraft weight                       [kg]
-[rho] = AirDensity(p,R,T);                                                                                          % air density                           [kg/m^3]
-[V_TAS] = VTAS(a,M);                                                                                                % true airspeed                         [m/s]
-[C_L] = CL(W,rho,VTAS,S);                                                                                           % lift coefficient                      [-]
-[Cmdelta] = el_eff(dele_1,dele_2,C_L,del_xcg,cbar);                                                                 % elevator effectiveness                [-]
+[p,M,T,a,dT] = AtmosphereParameters(p_0,rho_0,lambda,h_p,T_0,T_m,g_0,R,gamma,V_cas);                                % Air pressure, Mach number,                    [Pa],[-]
+                                                                                                                    % Air temperature, speed of sound,              [K],[m/s]
+                                                                                                                    % Difference of ISA w.r.t. standard temperature	[K]
+[W] = WeightAtTime(emptyWeight,fuelStartWeight,payloadWeight,fuelUsed);                                             % Aircraft weight                               [kg]
+[rho] = AirDensity(p,R,T);                                                                                          % Air density                                   [kg/m^3]
+[V_TAS] = VTAS(a,M);                                                                                                % True airspeed                                 [m/s]
+[C_L] = CL(W,rho,VTAS,S);                                                                                           % Lift coefficient                              [-]
+[Cmdelta] = el_eff(dele_1,dele_2,C_L,del_xcg,cbar);                                                                 % Elevator effectiveness                        [-]
 % Note: the del_xcg calculation program must still be made
 
-[r_V_e] = red_elev_defl(Vtas,rho,rho0,Ws,W);                                                                        % reduced equivalent airspeed           [m/s]
-[Cm_alpha] = long_stab(delta_e_alpha,Cm_delta);                                                                     % longitudinal stability                [-]
-[delta_e] = elev_defl(Cm_delta,Cm0,Cm_alpha,CN_alpha,W,rho,Vtas,S,Cm_delta_f,delta_f,Cm_Tc,Tc,Cm_lg);               % elevator deflection                   [rad]
-[red_eltrim] = red_eltrim(m_eltrim,Cmdelta,CmTc,Tcs,Tc);                                                            % reduced elevator deflection           [rad]
-[Fstare] = red_el_cf(ddeledse,Se,Cbare,Vh,Chdelta,Cmdelta,xcg,xnfree,cbar,W,S,rho,V,Chdeltat,deltate,deltate0,Ws);	% elevator control force component      [N]
+[r_V_e] = red_elev_defl(Vtas,rho,rho0,Ws,W);                                                                        % Reduced equivalent airspeed                   [m/s]
+[Cm_alpha] = long_stab(delta_e_alpha,Cm_delta);                                                                     % Longitudinal stability                        [-]
+[delta_e] = elev_defl(Cm_delta,Cm0,Cm_alpha,CN_alpha,W,rho,Vtas,S,Cm_delta_f,delta_f,Cm_Tc,Tc,Cm_lg);               % Elevator deflection                           [rad]
+[red_eltrim] = red_eltrim(m_eltrim,Cmdelta,CmTc,Tcs,Tc);                                                            % Reduced elevator deflection                   [rad]
+[Fstare] = red_el_cf(ddeledse,Se,Cbare,Vh,Chdelta,Cmdelta,xcg,xnfree,cbar,W,S,rho,V,Chdeltat,deltate,deltate0,Ws);	% Elevator control force component              [N]
 
 
 % AIRCRAFT INDEPENDENT PARAMETERS
-% p0 = 101325;            % Sea level air pressure                                            [Pa]
-% lambda = -0.0065;        % Temperature gradient below Troposphere                           [K/m]
-% T0 = 288;               % Sea level air temperature                                         [K]
-% g0 = 9.81;              % Gravitational acceleration                                        [m/s^2]
-% R = 288.05;                % Dry air gas constant                                              [J/kg/K)]
-% gamma = 1.4;            % Heat capacity ratio                                               [-]
-% rho0 = 1.225;           % Sea level air density                                             [kg/m^3]
+
 
 % AIRCRAFT DEPENDENT CONSTANTS
 % 
