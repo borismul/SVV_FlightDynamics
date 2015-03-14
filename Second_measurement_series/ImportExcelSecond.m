@@ -1,6 +1,6 @@
 %Created on 12-03 by Christel
 
-function [h_p, VCAS,alpha,de,detr,FeMfl,Mfr,fuelUsed,T_m, fuelStartWeight,payloadWeight]= ImportExcelSecond(filename)
+function[h_p,VCAS,alpha,de,detr,Fe,Mfl,Mfr,fuelUsed,T_m,fuelStartWeight,payloadWeight] = ImportExcelSecond(filename)
 
 h_p = xlsread(filename,'D43:D49');
 VCAS = xlsread(filename,'E43:E49');
