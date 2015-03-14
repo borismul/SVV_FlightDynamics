@@ -1,3 +1,0 @@
-- These files have not been verified yet in the first measurement series, updates might still be necessary.
-
-- The weight calculation file has been altered: the ramp calculation has been added and thus must be verified also in the verification of the second series.

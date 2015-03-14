@@ -19,7 +19,7 @@ rho0 = 1.225;                           % Air density at sea level              
 % Aircraft parameters
 S = 30.00;                              % Aircraft wing surface                                                 [m^2]
 cbar = 15.911;                          % Mean aerodynamic chord                                                [m]
-emptyWeight = 9170;                     % Aircraft's empty weight                                               [lbs]
+Wempty = 9170;                          % Aircraft's empty weight                                               [lbs]
 Cm0 = 0.0297;                           % Pitching moment coefficient at zero inputs                            [-]
 Ws = 60500;                             % Aircraft's standard weight                                            [N]
 Cm_Tc = -0.0064;                        % Dimensionless thrust moment arm                                       [-]
@@ -31,36 +31,27 @@ CN_alpha = ;                            % Normal force coefficient slope w.r.t. 
 
 filename = 'Flight20303.xlsx'; % Name of the excel with the measured data
 
-[h_p,VCAS,alpha,de,detr,Fe,Mfl,Mfr,fuelUsed,T_m,fuelStartWeight,payloadWeight,dele_1,dele_2] = ImportExcelSecond(filename);                                                                     % read data
-[h_p,VCAS,alpha,de,detr,Mfl,Mfr,fuelUsed,T_m,fuelStartWeight,dele_1,dele_2,emptyWeight] = CreateSIUnits(h_p,VCAS,alpha,de,detr,Mfl,Mfr,fuelUsed,T_m,fuelStartWeight,dele_1,dele_2,emptyWeight); % convert data
-
+[hp,Vc,alpha,delta_e,delta_e_t,Fe,Ffl,Ffr,Fuel_used,Tm,Fuel_start,Payload]=Import_measured_data(filename);                                                  % read data
+[hp,Vc,alpha,delta_e,delta_e_t,Ffl,Ffr,Fuel_used,Tm,Fuel_start,Wempty]=Convert_to_SI(hp,Vc,alpha,delta_e,delta_e_t,Ffl,Ffr,Fuel_used,Tm,Fuel_start,Wempty); % convert data to IS
 
 %% Summon data processing blocks
-[p,M,T,a,dT] = AtmosphereParameters(p_0,rho_0,lambda,h_p,T_0,T_m,g_0,R,gamma,V_cas);                    % Air pressure, Mach number,                    [Pa],[-]
+[p,M,T,a,dT] = Atmospheric_parameters(p0,rho0,lambda,hp,T0,Tm,g0,R,gamma,Vc);                           % Air pressure, Mach number,                    [Pa],[-]
                                                                                                         % Air temperature, speed of sound,              [K],[m/s]
                                                                                                         % Difference of ISA w.r.t. standard temperature	[K]
-[W] = WeightAtTime(emptyWeight,fuelStartWeight,payloadWeight,fuelUsed);                                 % Aircraft weight                               [kg]
-[rho] = AirDensity(p,R,T);                                                                              % Air density                                   [kg/m^3]
-[V_TAS] = VTAS(a,M);                                                                                    % True airspeed                                 [m/s]
-[C_L] = CL(W,rho,VTAS,S);                                                                               % Lift coefficient                              [-]
-[Cmdelta] = el_eff(dele_1,dele_2,C_L,del_xcg,cbar)                                                      % Elevator effectiveness                        [-]
+[W] = Aircraft_weight(Wempty,Fuel_start,Payload,Fuel_used);                                             % Aircraft weight                               [kg]
+[rho] = Air_density(p,R,T);                                                                             % Air density                                   [kg/m^3]
+[Vt] = Vt(M,a);                                                                                         % True airspeed                                 [m/s]
+[CN] = CN(W,rho,Vt,S);                                                                                  % Normal force coefficient                      [-]
+[Cmdelta] = el_eff(de(8),de(9),CN(8),del_xcg,cbar)                                                      % Elevator effectiveness                        [-]
 % Note: the 'del_xcg' calculation program must still be made
 %       'Cmdelta' is an output of this program. 
 
 [r_V_e] = red_elev_eq(Vtas,rho,rho0,Ws,W);                                                              % Reduced equivalent airspeed                   [m/s]
 
-
-
-
-
 [delta_e_alpha] = delta_e_alpha(alpha,delta_e);                                                         % Elevator deflection slope w.r.t angle of attack [-]
 [Cm_alpha] = long_stab(delta_e_alpha,Cm_delta)                                                          % Longitudinal stability                        [-]
 % Note: 'Cm_alpha' is an output of this program.        
 
-
-
-
-[CNalpha] = CNalpha(alpha,CN);                                                                       	% Normal force coefficient slope w.r.t. angle of attack [-]
 [delta_e] = elev_defl(Cm_delta,Cm0,Cm_alpha,CN_alpha,W,rho,Vtas,S,Cm_delta_f,delta_f,Cm_Tc,Tc,Cm_lg);	% Elevator deflection                           [rad]
 % Note: 'Cm_delta_f' is nowhere to be found, but can't we leave it out,
 %        since 'delta_f' is always zero during the measurements?
@@ -71,8 +62,6 @@ filename = 'Flight20303.xlsx'; % Name of the excel with the measured data
 % Note: what exactly is Tcs and how is it defined?
 
 [Fstare] = red_el_cf(Fe,Ws,W);                                                                          % Reduced levator control force                 [N]
-
-
 
 %% Plot outputs
 
