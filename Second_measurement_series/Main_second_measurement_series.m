@@ -7,7 +7,7 @@ clear all
 
 %% Define known input data
 
-% Atmospheric parameters
+% General parameters
 p0 = 101325;                            % Air pressure at sea level                                             [Pa]
 lambda = -0.0065;                       % Temperature gradient below Troposphere                                [K/m]
 T0 = 288;                               % Air temperature at sea level                                          [K]
@@ -22,7 +22,7 @@ cbar = 15.911;                          % Mean aerodynamic chord                
 emptyWeight = 9170;                     % Aircraft's empty weight                                               [lbs]
 Cm0 = 0.0297;                           % Pitching moment coefficient at zero inputs                            [-]
 Ws = 60500;                             % Aircraft's standard weight                                            [N]
-
+Cm_Tc = -0.0064;                        % Dimensionless thrust moment arm                                       [-]
 
 
 % Data from first measurement series
@@ -54,41 +54,13 @@ filename = 'Flight20303.xlsx'; % Name of the excel with the measured data
 [delta_e] = elev_defl(Cm_delta,Cm0,Cm_alpha,CN_alpha,W,rho,Vtas,S,Cm_delta_f,delta_f,Cm_Tc,Tc,Cm_lg);               % Elevator deflection                           [rad]
 % Note: 'Cm_delta_f' is nowhere to be found, but can't we leave it out,
 %        since 'delta_f' is always zero during the measurements?
-% Note: what exactly is Tc?
+% Note: what exactly is Tc and how is it defined?
 % Note: isn't Cm_lg zero, since the landing gear is retracted?
 
 [red_eltrim] = red_eltrim(m_eltrim,Cmdelta,CmTc,Tcs,Tc);                                                            % Reduced elevator deflection                   [rad]
-[Fstare] = red_el_cf(ddeledse,Se,Cbare,Vh,Chdelta,Cmdelta,xcg,xnfree,cbar,W,S,rho,V,Chdeltat,deltate,deltate0,Ws);	% Elevator control force component              [N]
+% Note: what exactly is Tcs and how is it defined?
 
-
-
-
-% AIRCRAFT DEPENDENT CONSTANTS
-% 
-% Se = ;                  % Elevator surface area                                             [m^2]
-% 
-% c_bar_e = ;             % Mean aerodynamic chord of elevator                                [m]
-     
-% Ddelta_e = ;            % Change in elevator deflection                                     [rad]
-                                      
-% Determined from graphs made with flight test data; program for graph must still be made.
-delta_e_alpha = ;          % Elevator deflection angle slope w.r.t. angle of attack            [-]
-
-% Still undetermined (only the first two are given in the tables of appendix C, but it is not clear whether we have to use these values or calculate from test
-% data; the rest must either be given in the flight test data or they have to be calculated from test data and thus the test data has to be studied first)
-
-Cm_Tc = ;               % Dimensionless thrust moment arm                                   [-]
-Tc = ;                  % Thrust coefficient                                                [-]
-
-delta_e_s_e = ;         % Elevator deflection angle slope w.r.t. stick deflection           [rad/m]
-Ch_delta = ;            % Hinge moment coefficient slope w.r.t. elevator deflection angle   [1/rad]
-x_nfree = ;             % Neutral point position for stick-free fligh condition             [m]
-Ch_delta_t = ;          % Hinge moment coefficient slope w.r.t. trim tab deflection angle   [1/rad]
-delta_t_e = ;           % Trim tab deflection angle                                         [rad]
-delta_t_e_0 = ;         % Trim tab deflection angle for velocity independent stick force    [rad]
-Tc_s = ;                % Standard thrust coefficient                                       [-]
-Vh = ;                  % Tail plane free stream velocity                                   [m/s]
-
+[Fstare] = red_el_cf(Fe,Ws,W);                                                                                      % Reduced levator control force                 [N]
 
 
 
