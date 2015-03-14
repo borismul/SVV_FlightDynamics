@@ -1,6 +1,6 @@
 %Created on 12-03 by Christel
 
-function[h_p,VCAS,alpha,de,detr,Fe,Mfl,Mfr,fuelUsed,T_m,fuelStartWeight,payloadWeight] = ImportExcelSecond(filename)
+function[h_p,VCAS,alpha,de,detr,Fe,Mfl,Mfr,fuelUsed,T_m,fuelStartWeight,payloadWeight,dele_1,dele_2] = ImportExcelSecond(filename)
 
 h_p = xlsread(filename,'D43:D49');
 VCAS = xlsread(filename,'E43:E49');
@@ -14,5 +14,7 @@ fuelUsed = xlsread(filename,'L43:L49');
 T_m = xlsread(filename,'M43:M49');
 fuelStartWeight = xlsread(filename,'D18:D18');
 payloadWeight = sum(xlsread(filename,'H8:H16'));
+dele_1 = xlsread(filename,'G59:G59');
+dele_2 = xlsread(filename,'G60:G60');
 
 end
