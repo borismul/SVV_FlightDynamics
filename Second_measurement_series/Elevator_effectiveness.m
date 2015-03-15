@@ -1,4 +1,4 @@
-function[Cmdelta] = el_eff(dele_1,dele_2,CN,del_xcg,cbar)
+function[Cm_delta] = Elevator_effectiveness(delta_e_1,delta_e_2,CN,Dxcg,cbar)
 % Calculates elevator effectiveness based on normal force coefficient, change of required elevator deflection, change of the c.g. and the mean aerodynamic chord.
 
 %Use:
@@ -9,8 +9,8 @@ function[Cmdelta] = el_eff(dele_1,dele_2,CN,del_xcg,cbar)
 %Author: Karl
 
 
-del_dele = dele_2-dele_1;
+Ddelta_e = delta_e_2-delta_e_1;
 
-Cmdelta = -1/del_dele*CN*del_xcg/cbar;
+Cm_delta = -1/Ddelta_e*CN*Dxcg/cbar;
 
 end
