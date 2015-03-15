@@ -1,6 +1,6 @@
 %Created on 12-03 by Christel
 
-function[hp,Vc,alpha,delta_e,delta_e_t,Fe,Ffl,Ffr,Fuel_used,Tm,Fuel_start,Payload] = Import_measured_data(filename)
+function[hp,Vc,alpha,delta_e,delta_e_t,Fe,Ffl,Ffr,Fuel_used,Tm,Fuel_start,Payload] = Import_of_measured_data(filename)
 
 hp = cat(1,xlsread(filename,'D43:D49'),xlsread(filename,'D59:D60'));
 Vc = cat(1,xlsread(filename,'E43:E49'),xlsread(filename,'E59:E60'));
