@@ -4,14 +4,32 @@ clc
 close all
 clear all
 
-
-
-
-
-
-
 %Verification of the ThrustExecution function
+disp('------ ThrustExecution Function------')
 
+%Wrong input format test
+hp = [1000,2000,-3000]; %Since h<0 this should produce an error due to wrong input
+M = [0.5,0.4,0.3];
+dT = [-8,5,-3];
+Mfl = [0.08,0.07,0.06];
+Mfr = [0.06,0.07,0.08];
+
+try 
+    [thrust] = ThrustExecution(hp,M,dT,Mfl,Mfr);
+    disp('------ ThrustExecution Function------')
+    disp('did not pass Wrong input format test')
+catch 
+    disp('------ ThrustExecution Function------')
+    disp('passed Wrong input format test')
+end
+
+
+
+
+
+
+%Verification of the LinearRegression function
+disp('------ LinearRegression Function------')
 
 % %Verification of the VTAS funtion
 disp('------ VTAS Function------')
@@ -87,23 +105,12 @@ catch
     disp('passed fuelUsed>fuelStartWeight test')
 end
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+%rampWeight <=0 test
+rampWeight = -1000;
+fuelUsed = [50,150,300,500,600];
+try
+    [W] = WeightAtTime(rampWeight,fuelUsed, fuelStartWeight);
+    disp('did not pass rampWeight <=0 test')
+catch
+    disp('passed rampWeight <=0 test')
+end
