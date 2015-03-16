@@ -14,3 +14,5 @@
 
 # Simulink Code Generation
 slprj/
+*.dat
+First Measurement Series/thrust.dat

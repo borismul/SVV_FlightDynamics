@@ -23,10 +23,45 @@ catch
     disp('passed Wrong input format test')
 end
 
+%Verification of the AirDensity function
+R = 287.05;                 %(J* K^-1 * mol^-1)
+T = 288.15;                 %(K)
+p = 90000;                  %(Pa)
 
+disp('------AirDensity------')
 
+% realistic value test
+rho = AirDensity(p,R,T);
 
+if rho < 1.0881 && rho> 1.088
+    disp('passed density realistic value test')
+else
+    disp('failed density realistic value test')
+end
 
+% Easy values test
+R = [200,100];
+T = [200,50];
+p = [40000,20000];
+
+rho = AirDensity(p,R,T);
+
+if rho == [1,4]
+    disp('passed density easy value test')
+else
+    disp('failed density easy value test')
+end
+
+% R*T<0 test
+T=-1;
+
+try
+    rho = AirDensity(p,R,T);
+    disp('failed density R*T<0 test');
+catch
+    disp('passed density R*T<0 test');
+
+end
 
 %Verification of the LinearRegression function
 disp('------ LinearRegression Function------')

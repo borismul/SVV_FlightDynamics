@@ -14,7 +14,7 @@ rho_0 = 1.225;                      % Density of the air at ground level        
 lambda = -0.0065;                   % Temperature change                                    (deg K/m)
 T_0 = 288;                          % Temperature at ground level                           (deg K)
 g_0 = 9.81;                         % Gravity at ground level                               (m/s^2)
-R = 288.05;                         % Universal gas constant air                            (J* K^-1 * mol^-1)
+R = 287.05;                         % Universal gas constant air                            (J* K^-1 * mol^-1)
 gamma = 1.4;                        % Ratio of specific heats                               (-)
 p_0 = 101325;                       % pressure at ground level                              (Pa)
 
@@ -31,11 +31,11 @@ rampWeight = (emptyWeight + fuelStartWeight + payloadWeight) * g_0;
 thrust = ThrustExecution(h_p,M,dT,Mfl,Mfr)';
 [V_TAS] = VTAS(a,M);
 rho = AirDensity(p,R,T);
-W = WeightAtTime(rampWeight,fuelUsed, fuelStartWeight);
+W = WeightAtTime(rampWeight,fuelUsed,fuelStartWeight);
 C_D = CD(thrust, rho, V_TAS, S);
 C_L = CL(W,rho, V_TAS, S);
 [e,C_D0, CLalpha,linearFunction,linearCLalpha] = LinearRegression(C_L, C_D, A, alpha);
 plotting(C_L,C_D,alpha,linearFunction,linearCLalpha);
-SendToSimulation( e, C_D0, CLalpha )
+SendToSimulation(e, C_D0, CLalpha)
 
 
