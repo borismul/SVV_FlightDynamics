@@ -20,6 +20,20 @@ else
     disp('failed density realistic value test')
 end
 
+% Easy values test
+R = [200,100];
+T = [200,50];
+p = [40000,20000];
+
+rho = AirDensity(p,R,T);
+
+if rho == [1,4]
+    disp('passed density easy value test')
+else
+    disp('failed density easy value test')
+end
+
+
 % R*T<0 test
 T=-1;
 
