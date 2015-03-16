@@ -11,4 +11,6 @@ C_D0 = linearFunction(2);
 linearCLalpha = polyfit(alpha,C_L,1);
 CLalpha = linearCLalpha(1);
 
+
+
 end

@@ -30,7 +30,7 @@ rampWeight = (emptyWeight + fuelStartWeight + payloadWeight) * g_0;
 % Executing functions
 [p,M,T,a,dT] = AtmosphereParameters(p_0, rho_0, lambda, h_p, T_0, T_m, g_0, R, gamma, VCAS);
 thrust = ThrustExecution(h_p,M,dT,Mfl,Mfr)';
- [V_TAS] = VTAS(a,M);
+[V_TAS] = VTAS(a,M);
 rho = AirDensity(p,R,T);
 W = WeightAtTime(rampWeight,fuelUsed);
 C_D = CD(thrust, rho, V_TAS, S);
