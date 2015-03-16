@@ -43,7 +43,7 @@ filename = 'Flight20303.xlsx'; % Name of the excel with the measured data
 [CN] = Normal_force_coefficient(W,rho,Vt,S);                                                                    % Normal force coefficient                          [-]
 
 
-[Cm_delta] = Elevator_effectiveness(delta_e(8),delta_e(9),CN,Dxcg,cbar)                                         % Elevator effectiveness                            [-]
+[Cm_delta] = Elevator_effectiveness(delta_e_1,delta_e_2,CN,Dxcg,cbar)                                           % Elevator effectiveness                            [-]
 % Notes: the 'Dxcg' calculation program must still be made; 'Cmdelta' is an output of this program.
 
 [Ve_r] = Reduced_equivalent_airspeed(Vt,rho,rho0,Ws,W);                                                         % Reduced equivalent airspeed                       [m/s]
