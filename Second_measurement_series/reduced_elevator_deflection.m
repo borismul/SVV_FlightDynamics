@@ -1,4 +1,4 @@
-function[delta_e_r] = reduced_elevator_deflection(delta_e,Cm_delta,Cm_Tc,Tc_s,Tc)
+function[delta_e_r] = Reduced_elevator_deflection(delta_e,Cm_delta,Cm_Tc,Tc_s,Tc)
 %Calculates reduced elevator deflection based on measured elevator trim
 %angle in radians 'delta_e', elevator effectiveness
 %'Cm_delta', dimensionless thrust moment arm 'Cm_Tc' given in tables C.1-C.3,
