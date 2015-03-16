@@ -23,17 +23,35 @@ Wempty = 9170;                          % Aircraft's empty weight               
 Ws = 60500;                             % Aircraft's standard weight                                            [N]
 Cm_Tc = -0.0064;                        % Dimensionless thrust moment arm                                       [-]
 
-%% Read and convert measured data to IS units
+% Seat locations [inch]
+x_p1 = 131;
+x_p2 = 131;
+x_ta = 170;
+x_1L = 214;
+x_1R = 214;
+x_2L = 251;
+x_2R = 251;
+x_3L = 288;
+x_3R = 288;
+
+
+%% Read and convert measured data to SI units
 
 filename = 'Flight20303.xlsx'; % Name of the excel with the measured data
 
 % read data
-[hp,Vc,alpha,delta_e,delta_e_t,Fe,Ffl,Ffr,Fuel_used,Tm,Fuel_start,Payload]=Import_of_measured_data(filename);
+[hp,Vc,alpha,delta_e,delta_e_t,Fe,Ffl,Ffr,Fuel_used,Tm,Fuel_start,Payload,Wp1,Wp2,Wta,W1L,W1R,W2L,W2R,W3L,W3R]=Import_of_measured_data(filename);
 
 % convert data
-[hp,Vc,alpha,delta_e,delta_e_t,Ffl,Ffr,Fuel_used,Tm,Fuel_start,Wempty]=Conversion_to_SI(hp,Vc,alpha,delta_e,delta_e_t,Ffl,Ffr,Fuel_used,Tm,Fuel_start,Wempty);
+[hp,Vc,alpha,delta_e,delta_e_t,Ffl,Ffr,Fuel_used,Tm,Fuel_start,Wempty,x_p1,x_p2,x_ta,x_1L,x_1R,x_2L,x_2R,x_3L,x_3R]=Conversion_to_SI(hp,Vc,alpha,delta_e,delta_e_t,Ffl,Ffr,Fuel_used,Tm,Fuel_start,Wempty,x_p1,x_p2,x_ta,x_1L,x_1R,x_2L,x_2R,x_3L,x_3R);
 
 %% Summon data processing blocks
+
+% Center of gravity [m]
+[x_cg] = Center_of_gravity(Wp1,x_p1,Wp2,x_p2,Wta,x_ta,W1L,x_1L,W1R,x_1R,W2L,x_2L,W2R,x_2R,W3L,x_3L,W3R,x_3R,Fuel_start,Fuel_used,M_fuel_W_fuel,M_fuel_0,M_empty,W_empty,Payload);
+
+
+
 [p,M,T,a,dT] = Atmospheric_parameters(p0,rho0,lambda,hp,T0,Tm,g0,R,gamma,Vc);                                   % Air pressure, Mach number,                        [Pa],[-]
                                                                                                                 % Air temperature, speed of sound,                  [K],[m/s]
                                                                                                                 % Difference of ISA w.r.t. standard temperature     [K]
@@ -42,9 +60,8 @@ filename = 'Flight20303.xlsx'; % Name of the excel with the measured data
 [Vt] = True_airspeed(M,a);                                                                                      % True airspeed                                     [m/s]
 [CN] = Normal_force_coefficient(W,rho,Vt,S);                                                                    % Normal force coefficient                          [-]
 
-
-[Cm_delta] = Elevator_effectiveness(delta_e(8),delta_e(9),CN,Dxcg,cbar)                                         % Elevator effectiveness                            [-]
-% Notes: the 'Dxcg' calculation program must still be made; 'Cmdelta' is an output of this program.
+[Cm_delta] = Elevator_effectiveness(delta_e(8),delta_e(9),x_cg(8),x_cg(9),CN,cbar)                              % Elevator effectiveness                            [-]
+% Notes: the 'x_cg' calculation program must still be made; 'Cmdelta' is an output of this program.
 
 [Ve_r] = Reduced_equivalent_airspeed(Vt,rho,rho0,Ws,W);                                                         % Reduced equivalent airspeed                       [m/s]
 

@@ -1,6 +1,6 @@
 %Created on 12-03 by Christel
 
-function[hp,Vc,alpha,delta_e,delta_e_t,Fe,Ffl,Ffr,Fuel_used,Tm,Fuel_start,Payload] = Import_of_measured_data(filename)
+function[hp,Vc,alpha,delta_e,delta_e_t,Fe,Ffl,Ffr,Fuel_used,Tm,Fuel_start,Payload,Wp1,Wp2,Wta,W1L,W1R,W2L,W2R,W3L,W3R] = Import_of_measured_data(filename)
 
 hp = cat(1,xlsread(filename,'D43:D49'),xlsread(filename,'D59:D60'));
 Vc = cat(1,xlsread(filename,'E43:E49'),xlsread(filename,'E59:E60'));
@@ -14,5 +14,15 @@ Fuel_used = cat(1,xlsread(filename,'L43:L49'),xlsread(filename,'L59:L60'));
 Tm = cat(1,xlsread(filename,'M43:M49'),xlsread(filename,'M59:M60'));
 Fuel_start = xlsread(filename,'D18:D18');
 Payload = sum(xlsread(filename,'H8:H16'));
+Wp1 = xlsread(filename,'H8:H8');
+Wp2 = xlsread(filename,'H9:H9');
+Wta = xlsread(filename,'H10:H10');
+W1L = xlsread(filename,'H11:H11');
+W1R = xlsread(filename,'H12:H12');
+W2L = xlsread(filename,'H13:H13');
+W2R = xlsread(filename,'H14:H14');
+W3L = xlsread(filename,'H15:H15');
+W3R = xlsread(filename,'H16:H16');
+
 
 end
