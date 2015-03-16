@@ -17,8 +17,12 @@ sys = ss( A, B, C, D ); % Define the state-space system
 
 if strcmp( symmetry, 'symmetric' )
     
+    % Label output
+    sys.OutputName = {'u';'\alpha';'\Theta';'q'};
+    sys.OutputUnit = {'m/s';'deg';'deg';'rad/s'};
+    
     % Time vector from assignment
-    t = [0:0.01:200];
+    t = [0:0.01:200] ;
     
     % Disturbance (step) function from assignment
     udeg = -ones( size(t) ) ; % [deg] minus one degree on the elevator
@@ -28,6 +32,10 @@ if strcmp( symmetry, 'symmetric' )
     x0 = zeros(4,1) ;
         
 elseif strcmp( symmetry, 'asymmetric' )
+
+    % Label output
+    sys.OutputName = {'\beta';'\theta';'p';'r'};
+    sys.OutputUnit = {'deg';'deg';'rad/s';'rad/s'};
     
     % Time vector from assignment
     t = [0:0.01:30];

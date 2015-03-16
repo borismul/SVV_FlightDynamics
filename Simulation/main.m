@@ -25,6 +25,12 @@ load('FMS_aeroprop.mat');
 [ Aa, Ba, Ca, Da ] = EOMtoSS( C1a, C2a, C3a, 'asymmetric' );
 [ As, Bs, Cs, Ds ] = EOMtoSS( C1s, C2s, C3s, 'symmetric' );
 
+% Give eigenvalues for verification purposes
+disp('Eigenvalue of asymmetric system matrix A');
+eigAa = EigenvalueCheck( Aa, Ca )
+disp('Eigenvalue of symmetric system matrix A');
+eigAs = EigenvalueCheck( As, Cs )
+
 % Calculate and plot response for both the asymmetric and symmetric cases
 close all % close all figures
 
