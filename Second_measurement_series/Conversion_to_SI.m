@@ -1,4 +1,4 @@
-function[hp,Vc,alpha,delta_e,delta_e_t,Ffl,Ffr,Fuel_used,Tm,Fuel_start,Wempty,x_p1,x_p2,x_ta,x_1L,x_1R,x_2L,x_2R,x_3L,x_3R,M_fuel_W_fuel,M_fuel_0,M_empty] = Conversion_to_SI(hp,Vc,alpha,delta_e,delta_e_t,Ffl,Ffr,Fuel_used,Tm,Fuel_start,Wempty,x_p1,x_p2,x_ta,x_1L,x_1R,x_2L,x_2R,x_3L,x_3R,M_fuel_W_fuel,M_fuel_0,M_empty)
+function[hp,Vc,alpha,delta_e,delta_e_t,Mfl,Mfr,Fuel_used,Tm,Fuel_start,Wempty,x_p1,x_p2,x_ta,x_1L,x_1R,x_2L,x_2R,x_3L,x_3R,M_fuel_W_fuel,M_fuel_0,M_empty] = Conversion_to_SI(hp,Vc,alpha,delta_e,delta_e_t,Mfl,Mfr,Fuel_used,Tm,Fuel_start,Wempty,x_p1,x_p2,x_ta,x_1L,x_1R,x_2L,x_2R,x_3L,x_3R,M_fuel_W_fuel,M_fuel_0,M_empty)
     
     feet_to_meter = 0.3048;
     kts_to_meter_per_seconds = 0.514444444;
@@ -12,8 +12,8 @@ function[hp,Vc,alpha,delta_e,delta_e_t,Ffl,Ffr,Fuel_used,Tm,Fuel_start,Wempty,x_
     alpha = alpha*pi/180;
     delta_e = delta_e*pi/180;
     delta_e_t = delta_e_t*pi/180;
-    Ffl = Ffl * lbs_per_hour_to_kg_per_seconds;
-    Ffr = Ffr * lbs_per_hour_to_kg_per_seconds;
+    Mfl = Mfl * lbs_per_hour_to_kg_per_seconds;
+    Mfr = Mfr * lbs_per_hour_to_kg_per_seconds;
     Fuel_used = Fuel_used * lbs_to_kg;
     Tm = Tm + celsius_to_kelvin;
     Fuel_start = Fuel_start *lbs_to_kg;

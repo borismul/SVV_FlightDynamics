@@ -5,6 +5,7 @@ clc
 close all
 clear all
 
+
 %% Define known input data
 
 % General parameters
@@ -25,8 +26,10 @@ Cm_Tc = -0.0064;                        % Dimensionless thrust moment arm       
 M_fuel_W_fuel = 285.26;                 % Fuel mass moment slope w.r.t. total fuel mass                         [inch]
 M_fuel_0 = 989.57;                      % Fuel mass moment constant                                             [lbs-inch]
 M_empty = 2678240;                      % Empty weight mass moment                                              [lbs-inch]
+Mfs = 0.048;                            % Standard fuel flow per engine                                         [kg/s]
+D = 0.69342;                            % Engine diameter                                                       [m]
 
-% Seat locations [inch]
+% Seat locations w.r.t. nose [inch]
 x_p1 = 131;
 x_p2 = 131;
 x_ta = 170;
@@ -44,10 +47,11 @@ x_3R = 288;
 filename = 'Flight20303.xlsx'; 
 
 % read data
-[hp,Vc,alpha,delta_e,delta_e_t,Fe,Ffl,Ffr,Fuel_used,Tm,Fuel_start,Payload]=Import_of_measured_data(filename);
+[hp,Vc,alpha,delta_e,delta_e_t,Fe,Mfl,Mfr,Fuel_used,Tm,Fuel_start,Payload]=Import_of_measured_data(filename);
 
 % convert data
-[hp,Vc,alpha,delta_e,delta_e_t,Ffl,Ffr,Fuel_used,Tm,Fuel_start,Wempty,x_p1,x_p2,x_ta,x_1L,x_1R,x_2L,x_2R,x_3L,x_3R,M_fuel_W_fuel,M_fuel_0,M_empty]=Conversion_to_SI(hp,Vc,alpha,delta_e,delta_e_t,Ffl,Ffr,Fuel_used,Tm,Fuel_start,Wempty,x_p1,x_p2,x_ta,x_1L,x_1R,x_2L,x_2R,x_3L,x_3R,M_fuel_W_fuel,M_fuel_0,M_empty);
+[hp,Vc,alpha,delta_e,delta_e_t,Mfl,Mfr,Fuel_used,Tm,Fuel_start,Wempty,x_p1,x_p2,x_ta,x_1L,x_1R,x_2L,x_2R,x_3L,x_3R,M_fuel_W_fuel,M_fuel_0,M_empty]=Conversion_to_SI(hp,Vc,alpha,delta_e,delta_e_t,Mfl,Mfr,Fuel_used,Tm,Fuel_start,Wempty,x_p1,x_p2,x_ta,x_1L,x_1R,x_2L,x_2R,x_3L,x_3R,M_fuel_W_fuel,M_fuel_0,M_empty);
+
 
 %% Summon data processing blocks
 
@@ -77,10 +81,18 @@ filename = 'Flight20303.xlsx';
 [Cm_alpha] = Longitudinal_stability(delta_e_alpha,Cm_delta)                                                     % Longitudinal stability                            [-]
 % Note: 'Cm_alpha' is an output of this program.
 
+[thrust] = Execution_of_thrust(hp,M,dT,Mfl,Mfr);                                                                % Actual thrust                                     [N]
+
+[Tc] = Thrust_coefficient(thrust(1),rho(1),Vt(1),D);                                                            % Actual thrust coefficient                         [-]
+
+[thrust_s] = Execution_of_thrust(hp,M,dT,ones(1,length(Mfl))*Mfs,ones(1,length(Mfl))*Mfs);                      % Standard thrust                                   [N]
+
+[Tc_s] = Thrust_coefficient(thrust_s(1),rho(1),Vt(1),D);                                                        % Standard thrust coefficient                       [-]
+
 [delta_e_r] = Reduced_elevator_deflection(delta_e,Cm_delta,Cm_Tc,Tc_s,Tc);                                      % Reduced elevator deflection                       [rad]
-% Note: the function for Tc and Tc_s still has to be made.
 
 [Fe_r] = Reduced_elevator_control_force(Fe,Ws,W);                                                               % Reduced levator control force                     [N]
+
 
 %% Plot outputs
 
