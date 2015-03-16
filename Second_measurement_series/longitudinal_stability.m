@@ -1,4 +1,4 @@
-function[Cm_alpha] = longitudinal_stability(delta_e_alpha,Cm_delta)
+function[Cm_alpha] = Longitudinal_stability(delta_e_alpha,Cm_delta)
 
 % function: determine the moment coefficient slope w.r.t. angle of attack
 % writer: Nichsan

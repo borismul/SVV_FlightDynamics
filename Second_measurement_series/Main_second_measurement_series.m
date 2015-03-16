@@ -20,19 +20,18 @@ rho0 = 1.225;                           % Air density at sea level              
 S = 30.00;                              % Aircraft wing surface                                                 [m^2]
 cbar = 15.911;                          % Mean aerodynamic chord                                                [m]
 Wempty = 9170;                          % Aircraft's empty weight                                               [lbs]
-Cm0 = 0.0297;                           % Pitching moment coefficient at zero inputs                            [-]
 Ws = 60500;                             % Aircraft's standard weight                                            [N]
 Cm_Tc = -0.0064;                        % Dimensionless thrust moment arm                                       [-]
 
-% Data from first measurement series
-CN_alpha = ;                            % Normal force coefficient slope w.r.t. angle of attack                 [1/rad]
-
-%% Read and convert measured data
+%% Read and convert measured data to IS units
 
 filename = 'Flight20303.xlsx'; % Name of the excel with the measured data
 
-[hp,Vc,alpha,delta_e,delta_e_t,Fe,Ffl,Ffr,Fuel_used,Tm,Fuel_start,Payload]=Import_of_measured_data(filename);                                                  % read data
-[hp,Vc,alpha,delta_e,delta_e_t,Ffl,Ffr,Fuel_used,Tm,Fuel_start,Wempty]=Conversion_to_SI(hp,Vc,alpha,delta_e,delta_e_t,Ffl,Ffr,Fuel_used,Tm,Fuel_start,Wempty); % convert data to IS
+% read data
+[hp,Vc,alpha,delta_e,delta_e_t,Fe,Ffl,Ffr,Fuel_used,Tm,Fuel_start,Payload]=Import_of_measured_data(filename);
+
+% convert data
+[hp,Vc,alpha,delta_e,delta_e_t,Ffl,Ffr,Fuel_used,Tm,Fuel_start,Wempty]=Conversion_to_SI(hp,Vc,alpha,delta_e,delta_e_t,Ffl,Ffr,Fuel_used,Tm,Fuel_start,Wempty);
 
 %% Summon data processing blocks
 [p,M,T,a,dT] = Atmospheric_parameters(p0,rho0,lambda,hp,T0,Tm,g0,R,gamma,Vc);                                   % Air pressure, Mach number,                        [Pa],[-]
@@ -48,17 +47,11 @@ filename = 'Flight20303.xlsx'; % Name of the excel with the measured data
 [Ve_r] = Reduced_equivalent_airspeed(Vt,rho,rho0,Ws,W);                                                         % Reduced equivalent airspeed                       [m/s]
 
 [delta_e_alpha] = Elevator_deflection_wrt_angle_of_attack_slope(alpha,delta_e);                                 % Elevator deflection slope w.r.t angle of attack	[-]
-[Cm_alpha] = longitudinal_stability(delta_e_alpha,Cm_delta)                                                     % Longitudinal stability                            [-]
+[Cm_alpha] = Longitudinal_stability(delta_e_alpha,Cm_delta)                                                     % Longitudinal stability                            [-]
 % Note: 'Cm_alpha' is an output of this program.        
 
-[delta_e] = elevator_deflection(Cm_delta,Cm0,Cm_alpha,CN_alpha,W,rho,Vt,S,Cm_delta_f,delta_f,Cm_Tc,Tc,Cm_lg);	% Elevator deflection                               [rad]
-% Note: 'Cm_delta_f' is nowhere to be found, but can't we leave it out,
-%        since 'delta_f' is always zero during the measurements?
-% Note: what exactly is Tc and how is it defined?
-% Note: isn't Cm_lg zero, since the landing gear is retracted?
-
-[delta_e_r] = reduced_elevator_deflection(delta_e,Cm_delta,Cm_Tc,Tc_s,Tc);                                      % Reduced elevator deflection                       [rad]
-% Note: what exactly is Tc_s and how is it defined?
+[delta_e_r] = Reduced_elevator_deflection(delta_e,Cm_delta,Cm_Tc,Tc_s,Tc);                                      % Reduced elevator deflection                       [rad]
+% Note: the function for Tc and Tc_s still has to be made.
 
 [Fe_r] = Reduced_elevator_control_force(Fe,Ws,W);                                                               % Reduced levator control force                     [N]
 
