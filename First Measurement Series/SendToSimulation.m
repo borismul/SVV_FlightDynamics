@@ -14,10 +14,7 @@ e   = e       ;
 CD0 = C_D0    ;
 CLa = CLalpha ;
 
-%  Include datetime as timestamp to check for the last update
-timestamp = datetime('now') ;
-
 %  Save as matlab data file with name convention that is used in the
 %  Simulation
-save('../Simulation/FMS_aeroprop.mat','e','CD0','CLa','timestamp');
+save('../Simulation/FMS_aeroprop.mat','e','CD0','CLa');
 end
