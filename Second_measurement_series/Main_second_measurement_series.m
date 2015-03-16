@@ -40,7 +40,8 @@ x_3R = 288;
 
 %% Read and convert measured data to SI units
 
-filename = 'Flight20303.xlsx'; % Name of the excel with the measured data
+% Excel file with the measured data
+filename = 'Flight20303.xlsx'; 
 
 % read data
 [hp,Vc,alpha,delta_e,delta_e_t,Fe,Ffl,Ffr,Fuel_used,Tm,Fuel_start,Payload]=Import_of_measured_data(filename);
@@ -53,22 +54,28 @@ filename = 'Flight20303.xlsx'; % Name of the excel with the measured data
 % Center of gravity [m]
 [x_cg] = Center_of_gravity(Wp1,x_p1,Wp2,x_p2,Wta,x_ta,W1L,x_1L,W1R,x_1R,W2L,x_2L,W2R,x_2R,W3L,x_3L,W3R,x_3R,Fuel_start,Fuel_used,M_fuel_W_fuel,M_fuel_0,M_empty,Wempty,Payload);
 
+
 [p,M,T,a,dT] = Atmospheric_parameters(p0,rho0,lambda,hp,T0,Tm,g0,R,gamma,Vc);                                   % Air pressure, Mach number,                        [Pa],[-]
                                                                                                                 % Air temperature, speed of sound,                  [K],[m/s]
                                                                                                                 % Difference of ISA w.r.t. standard temperature     [K]
+                                                                                                                
 [W] = Aircraft_weight(Wempty,Fuel_start,Payload,Fuel_used);                                                     % Aircraft weight                                   [kg]
+
 [rho] = Air_density(p,R,T);                                                                                     % Air density                                       [kg/m^3]
+
 [Vt] = True_airspeed(M,a);                                                                                      % True airspeed                                     [m/s]
+
 [CN] = Normal_force_coefficient(W,rho,Vt,S);                                                                    % Normal force coefficient                          [-]
 
 [Cm_delta] = Elevator_effectiveness(delta_e(8),delta_e(9),x_cg(8),x_cg(9),CN,cbar)                              % Elevator effectiveness                            [-]
-% Notes: the 'x_cg' calculation program must still be made; 'Cmdelta' is an output of this program.
+% Note: 'Cmdelta' is an output of this program.
 
 [Ve_r] = Reduced_equivalent_airspeed(Vt,rho,rho0,Ws,W);                                                         % Reduced equivalent airspeed                       [m/s]
 
 [delta_e_alpha] = Elevator_deflection_wrt_angle_of_attack_slope(alpha,delta_e);                                 % Elevator deflection slope w.r.t angle of attack	[-]
+
 [Cm_alpha] = Longitudinal_stability(delta_e_alpha,Cm_delta)                                                     % Longitudinal stability                            [-]
-% Note: 'Cm_alpha' is an output of this program.        
+% Note: 'Cm_alpha' is an output of this program.
 
 [delta_e_r] = Reduced_elevator_deflection(delta_e,Cm_delta,Cm_Tc,Tc_s,Tc);                                      % Reduced elevator deflection                       [rad]
 % Note: the function for Tc and Tc_s still has to be made.
@@ -80,7 +87,7 @@ filename = 'Flight20303.xlsx'; % Name of the excel with the measured data
 % Plot of the elevator trim curve
 figure(1);
 plot(Ve_r,delta_e_r,'--ko')
-title('Elevator trim curve') 
+title('Elevator trim curve')
 xlabel('Equivalent airspeed [m/s]')
 ylabel('Elevator deflection [rad]')
 
