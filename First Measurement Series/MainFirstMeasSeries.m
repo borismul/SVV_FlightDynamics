@@ -26,7 +26,6 @@ filename = 'Flight20303.xlsx'; %Define which excel file should be used
 %Calculate rampWeight [kg]
 rampWeight = (emptyWeight + fuelStartWeight + payloadWeight) * g_0;
 
-
 % Executing functions
 [p,M,T,a,dT] = AtmosphereParameters(p_0, rho_0, lambda, h_p, T_0, T_m, g_0, R, gamma, VCAS);
 thrust = ThrustExecution(h_p,M,dT,Mfl,Mfr)';

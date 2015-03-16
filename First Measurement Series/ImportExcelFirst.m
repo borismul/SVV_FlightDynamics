@@ -1,5 +1,4 @@
 
-
 function [h_p, VCAS,alpha,Mfl,Mfr,fuelUsed,T_m, fuelStartWeight,payloadWeight]= ImportExcelFirst(filename)
 
     h_p = xlsread(filename,'D28:D34');
