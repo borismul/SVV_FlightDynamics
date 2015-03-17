@@ -1,8 +1,8 @@
 % function: calculate the thrust coefficient
 % writer: Nichsan
 
-function[Tc] = Thrust_coefficient(thrust,rho,Vt,S)
+function[Tc] = Thrust_coefficient(Thrust,rho,Vt,S)
 
-    Tc = 2*/(S^2)*thrust./rho./(Vt.^2);
+    Tc = 2./(S^2).*Thrust./rho./(Vt.^2);
     
 end
