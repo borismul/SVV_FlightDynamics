@@ -27,7 +27,6 @@ M_fuel_W_fuel = 285.26;                 % Fuel mass moment slope w.r.t. total fu
 M_fuel_0 = 989.57;                      % Fuel mass moment constant                                             [lbs-inch]
 M_empty = 2678240;                      % Empty weight mass moment                                              [lbs-inch]
 Mfs = 0.048;                            % Standard fuel flow per engine                                         [kg/s]
-D = 0.69342;                            % Characteristic engine diameter                                        [m]
 
 % Seat locations w.r.t. nose [inch]
 x_p1 = 131;
@@ -83,11 +82,11 @@ filename = 'Flight20303.xlsx';
 
 [thrust] = Execution_of_thrust(hp,M,dT,Mfl,Mfr);                                                                % Actual thrust                                     [N]
 
-[Tc] = Thrust_coefficient(thrust(1),rho(1),Vt(1),D);                                                            % Actual thrust coefficient                         [-]
+[Tc] = Thrust_coefficient(thrust,rho,Vt,S);                                                                     % Actual thrust coefficient                         [-]
 
 [thrust_s] = Execution_of_thrust(hp,M,dT,ones(1,length(Mfl))*Mfs,ones(1,length(Mfl))*Mfs);                      % Standard thrust                                   [N]
 
-[Tc_s] = Thrust_coefficient(thrust_s(1),rho(1),Vt(1),D);                                                        % Standard thrust coefficient                       [-]
+[Tc_s] = Thrust_coefficient(thrust_s,rho,Vt,S);                                                                 % Standard thrust coefficient                       [-]
 
 [delta_e_r] = Reduced_elevator_deflection(delta_e,Cm_delta,Cm_Tc,Tc_s,Tc);                                      % Reduced elevator deflection                       [rad]
 
