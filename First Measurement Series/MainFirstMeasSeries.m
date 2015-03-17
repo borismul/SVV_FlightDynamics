@@ -20,7 +20,8 @@ gamma = 1.4;                        % Ratio of specific heats                   
 p_0 = 101325;                       % pressure at ground level                              (Pa)
 
 %Import data from a flight test excel
-filename = 'Flight20303.xlsx'; %Define which excel file should be used  
+
+filename = 'FlightChristel.xlsx'; %Define which excel file should be used  
 [h_p, VCAS,alpha,Mfl,Mfr,fuelUsed,T_m, fuelStartWeight,payloadWeight]= ImportExcelFirst(filename);
 
 [h_p, Mfl, Mfr, T_m, VCAS, alpha, fuelUsed, emptyWeight, fuelStartWeight] = CreateSIUnits(h_p, Mfl, Mfr, T_m, VCAS, alpha, fuelUsed, emptyWeight, fuelStartWeight);
