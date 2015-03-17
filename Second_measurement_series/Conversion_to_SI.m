@@ -1,4 +1,4 @@
-function[hp,Vc,alpha,delta_e,delta_e_t,Mfl,Mfr,Fuel_used,Tm,Fuel_start,Wempty,x_p1,x_p2,x_ta,x_1L,x_1R,x_2L,x_2R,x_3L,x_3R,M_fuel_W_fuel,M_fuel_0,M_empty] = Conversion_to_SI(hp,Vc,alpha,delta_e,delta_e_t,Mfl,Mfr,Fuel_used,Tm,Fuel_start,Wempty,x_p1,x_p2,x_ta,x_1L,x_1R,x_2L,x_2R,x_3L,x_3R,M_fuel_W_fuel,M_fuel_0,M_empty)
+function[hp,Vc,alpha,delta_e,delta_e_t,Mfl,Mfr,Fuel_used,Tm,Fuel_start,Wempty,x,M_fuel_W_fuel,M_fuel_0,M_empty] = Conversion_to_SI(hp,Vc,alpha,delta_e,delta_e_t,Mfl,Mfr,Fuel_used,Tm,Fuel_start,Wempty,x,M_fuel_W_fuel,M_fuel_0,M_empty)
     
     feet_to_meter = 0.3048;
     kts_to_meter_per_seconds = 0.514444444;
@@ -18,15 +18,7 @@ function[hp,Vc,alpha,delta_e,delta_e_t,Mfl,Mfr,Fuel_used,Tm,Fuel_start,Wempty,x_
     Tm = Tm + celsius_to_kelvin;
     Fuel_start = Fuel_start *lbs_to_kg;
     Wempty = Wempty * lbs_to_kg;
-    x_p1 = x_p1*inch_to_meter;
-    x_p2 = x_p2*inch_to_meter;
-    x_ta = x_ta*inch_to_meter;
-    x_1L = x_1L*inch_to_meter;
-    x_1R = x_1R*inch_to_meter;
-    x_2L = x_2L*inch_to_meter;
-    x_2R = x_2R*inch_to_meter;
-    x_3L = x_3L*inch_to_meter;
-    x_3R = x_3R*inch_to_meter;
+    x = x*inch_to_meter;
     M_fuel_W_fuel = M_fuel_W_fuel*inch_to_meter;
     M_fuel_0 = M_fuel_0*lbs_to_kg*inch_to_meter;
     M_empty = M_empty*lbs_to_kg*inch_to_meter;
