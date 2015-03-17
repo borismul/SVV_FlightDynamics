@@ -35,9 +35,11 @@ eigAs = EigenvalueCheck( As, Cs )
 close all % close all figures
 
 figure('Name','Asymmetric System Simulation Response') % create new figure for the asymmetric response
-responsemodel( Aa, Ba, Ca, Da, 'asymmetric' );
+x0a = [0;15;0;0];
+responsemodel( Aa, Ba, Ca, Da, x0a, 'asymmetric' );
 title('Asymmetric System Simulation Response');
 
 figure('Name','Symmetric System Simulation Response') % create new figure for the symmetric response
-responsemodel( As, Bs, Cs, Ds, 'symmetric' );
+x0s = StabCorrect( alpha0, th0 );
+responsemodel( As, Bs, Cs, Ds, x0s, 'symmetric' );
 title('Symmetric System Simulation Response');
