@@ -27,7 +27,7 @@ M_fuel_W_fuel = 285.26;                 % Fuel mass moment slope w.r.t. total fu
 M_fuel_0 = 989.57;                      % Fuel mass moment constant                                             [lbs-inch]
 M_empty = 2678240;                      % Empty weight mass moment                                              [lbs-inch]
 Mfs = 0.048;                            % Standard fuel flow per engine                                         [kg/s]
-D = 0.69342;                            % Engine diameter                                                       [m]
+D = 0.69342;                            % Characteristic engine diameter                                        [m]
 
 % Seat locations w.r.t. nose [inch]
 x_p1 = 131;
@@ -56,7 +56,7 @@ filename = 'Flight20303.xlsx';
 %% Summon data processing blocks
 
 % Center of gravity [m]
-[x_cg] = Center_of_gravity(Wp1,x_p1,Wp2,x_p2,Wta,x_ta,W1L,x_1L,W1R,x_1R,W2L,x_2L,W2R,x_2R,W3L,x_3L,W3R,x_3R,Fuel_start,Fuel_used,M_fuel_W_fuel,M_fuel_0,M_empty,Wempty,Payload);
+[x_cg] = Center_of_gravity(x_p1,x_p2,x_ta,x_1L,x_1R,x_2L,x_2R,x_3L,x_3R,Fuel_start,Fuel_used,M_fuel_W_fuel,M_fuel_0,M_empty,Wempty,Payload);
 
 
 [p,M,T,a,dT] = Atmospheric_parameters(p0,rho0,lambda,hp,T0,Tm,g0,R,gamma,Vc);                                   % Air pressure, Mach number,                        [Pa],[-]
