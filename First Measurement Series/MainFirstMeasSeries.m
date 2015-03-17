@@ -8,6 +8,7 @@ S = 30.00;                          % Wing surface area                         
 b = 15.911;                         % wing span [m]
 A = b^2/S;                          % wing aspect ratio                                     (-)
 emptyWeight = 9170;                 % Aircraft Empty Weight from Mass and Balance Report    (lbs)
+c = 2.0569;	                        % mean aerodynamic cord [m]
 
 %Standard values:
 rho_0 = 1.225;                      % Density of the air at ground level                    (kg/m^3)
@@ -19,8 +20,8 @@ gamma = 1.4;                        % Ratio of specific heats                   
 p_0 = 101325;                       % pressure at ground level                              (Pa)
 
 %Import data from a flight test excel
-filename = 'Flight20303.xlsx'; %Define which excel file should be used  
 
+filename = 'FlightChristel.xlsx'; %Define which excel file should be used  
 [h_p, VCAS,alpha,Mfl,Mfr,fuelUsed,T_m, fuelStartWeight,payloadWeight]= ImportExcelFirst(filename);
 
 [h_p, Mfl, Mfr, T_m, VCAS, alpha, fuelUsed, emptyWeight, fuelStartWeight] = CreateSIUnits(h_p, Mfl, Mfr, T_m, VCAS, alpha, fuelUsed, emptyWeight, fuelStartWeight);

@@ -14,6 +14,10 @@ function [W] = WeightAtTime(rampWeight,fuelUsed, fuelStartWeight)
     if sum(fuelUsed>fuelStartWeight) ~= 0
         error('Ammount of fuel used is more than fuel at start, check inputdata');
     end
+    
+    if rampWeight <= 0
+        error('rampWeight <= 0, check inputdata');
+    end
 
     W = rampWeight - fuelUsed;
 end
