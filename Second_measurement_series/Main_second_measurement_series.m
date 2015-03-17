@@ -103,8 +103,8 @@ hold on;
 plot(Ve_r,x);
 hold off;
 title('Elevator trim curve')
-xlabel('Equivalent airspeed [m/s]')
-ylabel('Elevator deflection [rad]')
+xlabel('Reduced equivalent airspeed [m/s]')
+ylabel('Reduced elevator deflection [rad]')
 set(gca,'YDir','reverse');
 
 % Plot of the elevator control force curve
@@ -116,6 +116,6 @@ hold on;
 plot(Ve_r,y);
 hold off;
 title('Elevator control force curve') 
-xlabel('Equivalent airspeed [m/s]')
-ylabel('Control force [N]')
+xlabel('Reduced equivalent airspeed [m/s]')
+ylabel('Reduced control force [N]')
 set(gca,'YDir','reverse');
