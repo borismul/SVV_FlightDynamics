@@ -23,6 +23,22 @@ catch
     disp('passed Wrong input format test')
 end
 
+%Verification of the CD function
+thrust = [5000 6000 4500 6500];
+rho = [1 0.5 0.1 0.4];
+VTAS = [200 100 150 200];
+S = [25 30 40 20];
+
+%Realistic value test
+C_D = CD(thrust,rho,VTAS,S);
+handCalc = [0.01 0.8 0.1 0.040625];
+
+if sum(C_D == handCalc) == 0
+    disp('passed CD realistic value test')
+else
+    disp('failed CD realistic value test')
+end
+
 %Verification of the AirDensity function
 R = 287.05;                 %(J* K^-1 * mol^-1)
 T = 288.15;                 %(K)
