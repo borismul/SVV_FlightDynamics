@@ -19,7 +19,7 @@ rho0 = 1.225;                           % Air density at sea level              
 
 % Aircraft parameters
 S = 30.00;                              % Aircraft wing surface                                                 [m^2]
-cbar = 15.911;                          % Mean aerodynamic chord                                                [m]
+cbar = 2.0569;                          % Mean aerodynamic chord                                                [m]
 Wempty = 9170;                          % Aircraft's empty weight                                               [lbs]
 Ws = 60500;                             % Aircraft's standard weight                                            [N]
 Cm_Tc = -0.0064;                        % Dimensionless thrust moment arm                                       [-]
@@ -68,7 +68,7 @@ filename = 'Flight20303.xlsx';
 
 [Vt] = True_airspeed(M,a);                                                                                      % True airspeed                                     [m/s]
 
-[CN] = Normal_force_coefficient(W,rho,Vt,S);                                                                    % Normal force coefficient                          [-]
+[CN] = Normal_force_coefficient(W,rho,Vt,S,g0);                                                                    % Normal force coefficient                          [-]
 
 [Cm_delta] = Elevator_effectiveness(delta_e(8),delta_e(9),x_cg(8),x_cg(9),CN,cbar)                              % Elevator effectiveness                            [-]
 % Note: 'Cmdelta' is an output of this program.
