@@ -31,6 +31,8 @@ Mfs = 0.048;                            % Standard fuel flow per engine         
 % Seat locations from nose to tail w.r.t. nose [inch]
 x = [131 131 170 214 214 251 251 288 288];
 
+% The index of the heaviest person of the 6 people closest to the tail.
+n = 8;
 
 %% Read and convert measured data to SI units
 
@@ -47,7 +49,7 @@ filename = 'Flight20303.xlsx';
 %% Summon data processing blocks
 
 % The center of gravity location before and after it's shift [m]
-[x_cg_1,x_cg_2] = Center_of_gravity(x,Fuel_start,Fuel_used(8:9),M_fuel_W_fuel,M_fuel_0,M_empty,Wempty,Payload);
+[x_cg_1,x_cg_2] = Center_of_gravity(x,Fuel_start,Fuel_used(8:9),M_fuel_W_fuel,M_fuel_0,M_empty,Wempty,Payload,n);
 
 [p,M,T,a,dT] = Atmospheric_parameters(p0,rho0,lambda,hp,T0,Tm,g0,R,gamma,Vc);                                   % Air pressure, Mach number,                        [Pa],[-]
                                                                                                                 % Air temperature, speed of sound,                  [K],[m/s]
@@ -59,16 +61,16 @@ filename = 'Flight20303.xlsx';
 
 [Vt] = True_airspeed(M,a);                                                                                      % True airspeed                                     [m/s]
 
-[CN] = Normal_force_coefficient(W,rho,Vt,S,g0);                                                                    % Normal force coefficient                          [-]
+[CN] = Normal_force_coefficient(W,rho,Vt,S,g0);                                                                 % Normal force coefficient                          [-]
 
-[Cm_delta] = Elevator_effectiveness(delta_e(8),delta_e(9),x_cg_1,x_cg_2,CN(8),cbar)                              % Elevator effectiveness                            [-]
+[Cm_delta] = Elevator_effectiveness(delta_e(8),delta_e(9),x_cg_1,x_cg_2,CN(8),cbar);                            % Elevator effectiveness                            [-]
 % Note: 'Cmdelta' is an output of this program.
 
 [Ve_r] = Reduced_equivalent_airspeed(Vt,rho,rho0,Ws,W);                                                         % Reduced equivalent airspeed                       [m/s]
 
 [delta_e_alpha] = Elevator_deflection_wrt_angle_of_attack_slope(alpha,delta_e);                                 % Elevator deflection slope w.r.t angle of attack	[-]
 
-[Cm_alpha] = Longitudinal_stability(delta_e_alpha,Cm_delta)                                                     % Longitudinal stability                            [-]
+[Cm_alpha] = Longitudinal_stability(delta_e_alpha,Cm_delta);                                                    % Longitudinal stability                            [-]
 % Note: 'Cm_alpha' is an output of this program.
 
 [thrust] = Execution_of_thrust(hp,M,dT,Mfl,Mfr);                                                                % Actual thrust                                     [N]
@@ -85,6 +87,13 @@ filename = 'Flight20303.xlsx';
 
 
 %% Plot outputs
+
+% Display the elevator effectiveness and longitudinal stability.
+disp('Elevator effectiveness')
+Cm_delta
+
+disp('Longitudinal stability')
+Cm_alpha
 
 % Plot of the elevator trim curve
 figure(1);
