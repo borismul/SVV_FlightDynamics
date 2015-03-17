@@ -36,6 +36,7 @@ rho = AirDensity(p,R,T);
 W = WeightAtTime(rampWeight,fuelUsed,fuelStartWeight);
 C_D = CD(thrust, rho, V_TAS, S);
 C_L = CL(W,rho, V_TAS, S);
+glide_ratio = C_L./C_D;
 [e,C_D0, CLalpha,linearFunction,linearCLalpha] = LinearRegression(C_L, C_D, A, alpha);
 plotting(C_L,C_D,alpha,linearFunction,linearCLalpha);
 SendToSimulation(e, C_D0, CLalpha)

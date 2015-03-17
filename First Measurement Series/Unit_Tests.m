@@ -63,10 +63,11 @@ catch
 
 end
 
-%Verification of the LinearRegression function
-disp('------ LinearRegression Function------')
+%Verification of the AtmosphereParameters funtion
+disp('------ AtmosphereParameters Function------')
 
-% %Verification of the VTAS funtion
+
+%Verification of the VTAS funtion
 disp('------ VTAS Function------')
 
 %Realistic value test
