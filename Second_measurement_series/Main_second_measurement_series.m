@@ -19,7 +19,7 @@ rho0 = 1.225;                           % Air density at sea level              
 
 % Aircraft parameters
 S = 30.00;                              % Aircraft wing surface                                                 [m^2]
-cbar = 15.911;                          % Mean aerodynamic chord                                                [m]
+cbar = 2.0569;                          % Mean aerodynamic chord                                                [m]
 Wempty = 9170;                          % Aircraft's empty weight                                               [lbs]
 Ws = 60500;                             % Aircraft's standard weight                                            [N]
 Cm_Tc = -0.0064;                        % Dimensionless thrust moment arm                                       [-]
@@ -27,7 +27,6 @@ M_fuel_W_fuel = 285.26;                 % Fuel mass moment slope w.r.t. total fu
 M_fuel_0 = 989.57;                      % Fuel mass moment constant                                             [lbs-inch]
 M_empty = 2678240;                      % Empty weight mass moment                                              [lbs-inch]
 Mfs = 0.048;                            % Standard fuel flow per engine                                         [kg/s]
-D = 0.69342;                            % Engine diameter                                                       [m]
 
 % Seat locations w.r.t. nose [inch]
 x_p1 = 131;
@@ -56,7 +55,7 @@ filename = 'Flight20303.xlsx';
 %% Summon data processing blocks
 
 % Center of gravity [m]
-[x_cg] = Center_of_gravity(Wp1,x_p1,Wp2,x_p2,Wta,x_ta,W1L,x_1L,W1R,x_1R,W2L,x_2L,W2R,x_2R,W3L,x_3L,W3R,x_3R,Fuel_start,Fuel_used,M_fuel_W_fuel,M_fuel_0,M_empty,Wempty,Payload);
+[x_cg] = Center_of_gravity(x_p1,x_p2,x_ta,x_1L,x_1R,x_2L,x_2R,x_3L,x_3R,Fuel_start,Fuel_used,M_fuel_W_fuel,M_fuel_0,M_empty,Wempty,Payload);
 
 
 [p,M,T,a,dT] = Atmospheric_parameters(p0,rho0,lambda,hp,T0,Tm,g0,R,gamma,Vc);                                   % Air pressure, Mach number,                        [Pa],[-]
@@ -69,7 +68,7 @@ filename = 'Flight20303.xlsx';
 
 [Vt] = True_airspeed(M,a);                                                                                      % True airspeed                                     [m/s]
 
-[CN] = Normal_force_coefficient(W,rho,Vt,S);                                                                    % Normal force coefficient                          [-]
+[CN] = Normal_force_coefficient(W,rho,Vt,S,g0);                                                                    % Normal force coefficient                          [-]
 
 [Cm_delta] = Elevator_effectiveness(delta_e(8),delta_e(9),x_cg(8),x_cg(9),CN,cbar)                              % Elevator effectiveness                            [-]
 % Note: 'Cmdelta' is an output of this program.
@@ -83,11 +82,11 @@ filename = 'Flight20303.xlsx';
 
 [thrust] = Execution_of_thrust(hp,M,dT,Mfl,Mfr);                                                                % Actual thrust                                     [N]
 
-[Tc] = Thrust_coefficient(thrust(1),rho(1),Vt(1),D);                                                            % Actual thrust coefficient                         [-]
+[Tc] = Thrust_coefficient(thrust,rho,Vt,S);                                                                     % Actual thrust coefficient                         [-]
 
 [thrust_s] = Execution_of_thrust(hp,M,dT,ones(1,length(Mfl))*Mfs,ones(1,length(Mfl))*Mfs);                      % Standard thrust                                   [N]
 
-[Tc_s] = Thrust_coefficient(thrust_s(1),rho(1),Vt(1),D);                                                        % Standard thrust coefficient                       [-]
+[Tc_s] = Thrust_coefficient(thrust_s,rho,Vt,S);                                                                 % Standard thrust coefficient                       [-]
 
 [delta_e_r] = Reduced_elevator_deflection(delta_e,Cm_delta,Cm_Tc,Tc_s,Tc);                                      % Reduced elevator deflection                       [rad]
 

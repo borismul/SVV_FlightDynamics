@@ -39,6 +39,7 @@ C_L = CL(W,rho, V_TAS, S);
 [e,C_D0, CLalpha,linearFunction,linearCLalpha,ClCdFit,CDAlphaFit] = LinearRegression(C_L, C_D, A, alpha);
 Re = Reynolds(T,c,rho,V_TAS);
 plotting(C_L,C_D,alpha,Re,M,linearFunction,linearCLalpha,ClCdFit,CDAlphaFit);
+glide_ratio = C_L./C_D;
 SendToSimulation(e, C_D0, CLalpha)
 
 
