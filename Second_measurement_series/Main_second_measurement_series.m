@@ -28,16 +28,8 @@ M_fuel_0 = 989.57;                      % Fuel mass moment constant             
 M_empty = 2678240;                      % Empty weight mass moment                                              [lbs-inch]
 Mfs = 0.048;                            % Standard fuel flow per engine                                         [kg/s]
 
-% Seat locations w.r.t. nose [inch]
-x_p1 = 131;
-x_p2 = 131;
-x_ta = 170;
-x_1L = 214;
-x_1R = 214;
-x_2L = 251;
-x_2R = 251;
-x_3L = 288;
-x_3R = 288;
+% Seat locations from nose to tail w.r.t. nose [inch]
+x = [131 131 170 214 214 251 251 288 288];
 
 
 %% Read and convert measured data to SI units
@@ -49,14 +41,13 @@ filename = 'Flight20303.xlsx';
 [hp,Vc,alpha,delta_e,delta_e_t,Fe,Mfl,Mfr,Fuel_used,Tm,Fuel_start,Payload]=Import_of_measured_data(filename);
 
 % convert data
-[hp,Vc,alpha,delta_e,delta_e_t,Mfl,Mfr,Fuel_used,Tm,Fuel_start,Wempty,x_p1,x_p2,x_ta,x_1L,x_1R,x_2L,x_2R,x_3L,x_3R,M_fuel_W_fuel,M_fuel_0,M_empty]=Conversion_to_SI(hp,Vc,alpha,delta_e,delta_e_t,Mfl,Mfr,Fuel_used,Tm,Fuel_start,Wempty,x_p1,x_p2,x_ta,x_1L,x_1R,x_2L,x_2R,x_3L,x_3R,M_fuel_W_fuel,M_fuel_0,M_empty);
+[hp,Vc,alpha,delta_e,delta_e_t,Mfl,Mfr,Fuel_used,Tm,Fuel_start,Wempty,x,M_fuel_W_fuel,M_fuel_0,M_empty]=Conversion_to_SI(hp,Vc,alpha,delta_e,delta_e_t,Mfl,Mfr,Fuel_used,Tm,Fuel_start,Wempty,x,M_fuel_W_fuel,M_fuel_0,M_empty);
 
 
 %% Summon data processing blocks
 
-% Center of gravity [m]
-[x_cg] = Center_of_gravity(x_p1,x_p2,x_ta,x_1L,x_1R,x_2L,x_2R,x_3L,x_3R,Fuel_start,Fuel_used,M_fuel_W_fuel,M_fuel_0,M_empty,Wempty,Payload);
-
+% The center of gravity location before and after it's shift [m]
+[x_cg_1,x_cg_2] = Center_of_gravity(x,Fuel_start,Fuel_used(8:9),M_fuel_W_fuel,M_fuel_0,M_empty,Wempty,Payload);
 
 [p,M,T,a,dT] = Atmospheric_parameters(p0,rho0,lambda,hp,T0,Tm,g0,R,gamma,Vc);                                   % Air pressure, Mach number,                        [Pa],[-]
                                                                                                                 % Air temperature, speed of sound,                  [K],[m/s]
@@ -70,7 +61,7 @@ filename = 'Flight20303.xlsx';
 
 [CN] = Normal_force_coefficient(W,rho,Vt,S,g0);                                                                    % Normal force coefficient                          [-]
 
-[Cm_delta] = Elevator_effectiveness(delta_e(8),delta_e(9),x_cg(8),x_cg(9),CN,cbar)                              % Elevator effectiveness                            [-]
+[Cm_delta] = Elevator_effectiveness(delta_e(8),delta_e(9),x_cg_1,x_cg_2,CN(8),cbar)                              % Elevator effectiveness                            [-]
 % Note: 'Cmdelta' is an output of this program.
 
 [Ve_r] = Reduced_equivalent_airspeed(Vt,rho,rho0,Ws,W);                                                         % Reduced equivalent airspeed                       [m/s]
