@@ -21,10 +21,10 @@ p_0 = 101325;                       % pressure at ground level                  
 
 %Import data from a flight test excel
 
-filename = 'FlightChristel.xlsx'; %Define which excel file should be used  
+filename = 'FlightBoris.xlsx'; %Define which excel file should be used  
 [h_p, VCAS,alpha,Mfl,Mfr,fuelUsed,T_m, fuelStartWeight,payloadWeight]= ImportExcelFirst(filename);
-
 [h_p, Mfl, Mfr, T_m, VCAS, alpha, fuelUsed, emptyWeight, fuelStartWeight] = CreateSIUnits(h_p, Mfl, Mfr, T_m, VCAS, alpha, fuelUsed, emptyWeight, fuelStartWeight);
+
 %Calculate rampWeight [kg]
 rampWeight = (emptyWeight + fuelStartWeight + payloadWeight) * g_0;
 
@@ -36,8 +36,9 @@ rho = AirDensity(p,R,T);
 W = WeightAtTime(rampWeight,fuelUsed,fuelStartWeight);
 C_D = CD(thrust, rho, V_TAS, S);
 C_L = CL(W,rho, V_TAS, S);
-[e,C_D0, CLalpha,linearFunction,linearCLalpha] = LinearRegression(C_L, C_D, A, alpha);
-plotting(C_L,C_D,alpha,linearFunction,linearCLalpha);
+[e,C_D0, CLalpha,linearFunction,linearCLalpha,ClCdFit,CDAlphaFit] = LinearRegression(C_L, C_D, A, alpha);
+Re = Reynolds(T,c,rho,V_TAS);
+plotting(C_L,C_D,alpha,Re,M,linearFunction,linearCLalpha,ClCdFit,CDAlphaFit);
 SendToSimulation(e, C_D0, CLalpha)
 
 
