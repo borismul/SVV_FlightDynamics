@@ -26,17 +26,37 @@ end
 %Verification of the CD function
 thrust = [5000 6000 4500 6500];
 rho = [1 0.5 0.1 0.4];
-VTAS = [200 100 150 200];
+V_TAS = [200 100 150 200];
 S = [25 30 40 20];
 
 %Realistic value test
-C_D = CD(thrust,rho,VTAS,S);
-handCalc = [0.01 0.8 0.1 0.040625];
+disp('------ CD Function ------');
+C_D = CD(thrust,rho,V_TAS,S);
+handCalc = [0.01 0.08 0.1 0.040625];
 
-if sum(C_D == handCalc) == 0
+if sum(round(C_D*10000) == round(handCalc*10000)) ~= 0
     disp('passed CD realistic value test')
 else
     disp('failed CD realistic value test')
+end
+
+%Singularity tests
+thrust = [-5000 6000 4500 6500];
+
+try
+    C_D = CD(thrust,rho,V_TAS,S);
+    disp('Failed CD singularity  smaller than 0 test')
+catch
+    disp('Passed singularity  smaller than 0 test')
+end
+
+V_TAS = [0 100 150 200];
+
+try
+    C_D = CD(thrust,rho,V_TAS,S);
+    disp('Failed CD singularity test devide by 0')
+catch
+    disp('Passed singularity test devide by 0')
 end
 
 %Verification of the AirDensity function
