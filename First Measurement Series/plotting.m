@@ -9,13 +9,12 @@ function [] = plotting(CL, CD, alpha, Re, M, linearFunction, linearCLalpha,ClCdF
     CL = CL(a);
     CD = CD(a);
     subplot(2,2,1);
-    line1 = plot(CD,CL.^2,'*');
+    line1 = plot(CL.^2,CD,'*');
     hold on
-    line2 = plot(CD,polyval(linearFunction,CD),'r');
-    title('C_D against C_L^2');
+    line2 = plot(CL.^2,polyval(linearFunction,CL.^2),'r');
+    title('C_L^2 against C_D');
     xlabel('C_D -->');
     ylabel('C_L^2 -->');
-    
     
     % plotting CL - CD graph
     subplot(2,2,2);
