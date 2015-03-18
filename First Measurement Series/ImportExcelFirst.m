@@ -1,3 +1,5 @@
+% Function that reads out the excel sheet. It outputs all necessary values
+% that are in the sheet.
 
 function [h_p, VCAS,alpha,Mfl,Mfr,fuelUsed,T_m, fuelStartWeight,payloadWeight]= ImportExcelFirst(filename)
 

@@ -1,3 +1,5 @@
+% Function that fits the measured data.
+
 function [e,C_D0, CLalpha,linearFunction,linearCLalpha,ClCdFit,CDAlphaFit] = LinearRegression(C_L, C_D, A, alpha)
 
 %First degree polynomial fit for CL^2 vs CD)

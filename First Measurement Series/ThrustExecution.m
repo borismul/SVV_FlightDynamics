@@ -7,7 +7,6 @@
 % associated with the file identifier fid.
 % 'fclose' closes the file associated with the file identifier fid.
 
-%Created on 10-3 by Christel
 function [thrust] = ThrustExecution(hp,M,dT,Mfl,Mfr)
 
     fid = fopen('matlab.dat','w');

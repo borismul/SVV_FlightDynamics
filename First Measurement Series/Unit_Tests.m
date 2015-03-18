@@ -54,9 +54,45 @@ V_TAS = [0 100 150 200];
 
 try
     C_D = CD(thrust,rho,V_TAS,S);
-    disp('Failed CD singularity test devide by 0')
+    disp('Failed CD singularity devide by 0 test')
 catch
-    disp('Passed singularity test devide by 0')
+    disp('Passed singularity devide by 0 test')
+end
+
+%Verification of the CL function
+W = [5000 6000 4500 6500];
+rho = [1 0.5 0.1 0.4];
+V_TAS = [200 100 150 200];
+S = [25 30 40 20];
+
+C_L = CL(W, rho, V_TAS, S);
+handCalc = [0.01 0.08 0.1 0.040625];
+
+%realistic value test
+disp('------ CL Function ------');
+if sum(round(C_L*10000) == round(handCalc*10000)) ~= 0
+    disp('passed CL realistic value test')
+else
+    disp('failed CL realistic value test')
+end
+
+%Singularity tests
+W = [-5000 6000 4500 6500];
+
+try
+    C_D = CD(thrust,rho,V_TAS,S);
+    disp('Failed CL singularity  smaller than 0 test')
+catch
+    disp('Passed CL singularity  smaller than 0 test')
+end
+
+V_TAS = [0 100 150 200];
+
+try
+    C_D = CD(thrust,rho,V_TAS,S);
+    disp('Failed CL singularity test devide by 0')
+catch
+    disp('Passed CL singularity test devide by 0')
 end
 
 %Verification of the AirDensity function
@@ -122,87 +158,87 @@ else
 end
 
 
-% 
-% %Verification of the VTAS funtion
-% disp('------ VTAS Function------')
-% 
-% %Realistic value test
-% a = [300,310,350];        %[m/s] 
-% M = [0.5,0.4,0.3];        %[-]   
-% [V_TAS] = VTAS(a,M);
-% handcalc = [150,124,105];
-% if V_TAS ~= handcalc
-%     disp('did not pass realistic value test')
-% else
-%     disp('passed realistic value test')
-% end
-% 
-% % a<0 test
-% a = [-300,310,350]; 
-% try 
-%     [V_TAS] = VTAS(a,M);
-%     disp('did not pass a<0 test')
-% catch 
-%     disp('passed a<0 test')
-% end
-% 
-% % a=0 test
-% a = [0,310,350]; 
-% try 
-%     [V_TAS] = VTAS(a,M);
-%     disp('did not pass a=0 test')
-% catch 
-%     disp('passed a=0 test')
-% end
-% 
-% % M<0 test
-% M = [-0.5,0.4,0.3];
-% try 
-%     [V_TAS] = VTAS(a,M);
-%     disp('did not pass M<0 test')
-% catch 
-%     disp('passed M<0 test')
-% end
-% 
-% %Verification of the WeigthAtTime function
-% disp('------ WeightAtTime Function------')
-% rampWeight = 5000;                   %[kg]
-% fuelStartWeight = 2000;
-% 
-% %Unit test with realistic values
-% fuelUsed = [50,150,300,500,600];
-% [W] = WeightAtTime(rampWeight,fuelUsed, fuelStartWeight);
-% handcalc = [4950,4850,4700,4500,4400];
-% if W ~= handcalc
-%     disp('did not pass realistic value test')
-% else
-%     disp('passed realistic value test')
-% end
-% 
-% %Fuel < 0 test
-% fuelUsed = [-50,0,50,100,120,200];  %[kg] %Checked, displays input error as fuelused < 0
-% try 
-%     [W] = WeightAtTime(rampWeight,fuelUsed, fuelStartWeight);
-%     disp('did not pass fuel<0 test')
-% catch 
-%     disp('passed fuel<0 test')
-% end
-% 
-% %fuelUsed > fuelStartWeight test
-% fuelUsed = [0,20,50,100,125,3000]; %Checked, displays error if fuelUsed > fuelStartWeight
-% try
-%     [W] = WeightAtTime(rampWeight,fuelUsed, fuelStartWeight);
-%     disp('did not pass fuelUsed>fuelStartWeight test')
-% catch
-%     disp('passed fuelUsed>fuelStartWeight test')
-% end
-% 
-% %rampWeight <=0 test
-% rampWeight = -1000;
-% fuelUsed = [50,150,300,500,600];
-% try
-%     [W] = WeightAtTime(rampWeight,fuelUsed, fuelStartWeight);
-%     disp('did not pass rampWeight <=0 test')
-% catch
-%     disp('passed rampWeight <=0 test')
-% end
+
+%Verification of the VTAS funtion
+disp('------ VTAS Function------')
+
+%Realistic value test
+a = [300,310,350];        %[m/s] 
+M = [0.5,0.4,0.3];        %[-]   
+[V_TAS] = VTAS(a,M);
+handcalc = [150,124,105];
+if V_TAS ~= handcalc
+    disp('did not pass realistic value test')
+else
+    disp('passed realistic value test')
+end
+
+% a<0 test
+a = [-300,310,350]; 
+try 
+    [V_TAS] = VTAS(a,M);
+    disp('did not pass a<0 test')
+catch 
+    disp('passed a<0 test')
+end
+
+% a=0 test
+a = [0,310,350]; 
+try 
+    [V_TAS] = VTAS(a,M);
+    disp('did not pass a=0 test')
+catch 
+    disp('passed a=0 test')
+end
+
+% M<0 test
+M = [-0.5,0.4,0.3];
+try 
+    [V_TAS] = VTAS(a,M);
+    disp('did not pass M<0 test')
+catch 
+    disp('passed M<0 test')
+end
+
+%Verification of the WeigthAtTime function
+disp('------ WeightAtTime Function------')
+rampWeight = 5000;                   %[kg]
+fuelStartWeight = 2000;
+
+%Unit test with realistic values
+fuelUsed = [50,150,300,500,600];
+[W] = WeightAtTime(rampWeight,fuelUsed, fuelStartWeight);
+handcalc = [4950,4850,4700,4500,4400];
+if W ~= handcalc
+    disp('did not pass realistic value test')
+else
+    disp('passed realistic value test')
+end
+
+%Fuel < 0 test
+fuelUsed = [-50,0,50,100,120,200];  %[kg] %Checked, displays input error as fuelused < 0
+try 
+    [W] = WeightAtTime(rampWeight,fuelUsed, fuelStartWeight);
+    disp('did not pass fuel<0 test')
+catch 
+    disp('passed fuel<0 test')
+end
+
+%fuelUsed > fuelStartWeight test
+fuelUsed = [0,20,50,100,125,3000]; %Checked, displays error if fuelUsed > fuelStartWeight
+try
+    [W] = WeightAtTime(rampWeight,fuelUsed, fuelStartWeight);
+    disp('did not pass fuelUsed>fuelStartWeight test')
+catch
+    disp('passed fuelUsed>fuelStartWeight test')
+end
+
+%rampWeight <=0 test
+rampWeight = -1000;
+fuelUsed = [50,150,300,500,600];
+try
+    [W] = WeightAtTime(rampWeight,fuelUsed, fuelStartWeight);
+    disp('did not pass rampWeight <=0 test')
+catch
+    disp('passed rampWeight <=0 test')
+end

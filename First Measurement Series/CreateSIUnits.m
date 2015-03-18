@@ -1,3 +1,6 @@
+% Function that transforms all necessary variables from imperial to metric
+% style.
+
 function [h_p, Mfl, Mfr, T_m, VCAS, alpha, fuelUsed, emptyWeight, fuelStartWeight] = CreateSIUnits(h_p, Mfl, Mfr, T_m, VCAS, alpha, fuelUsed, emptyWeight, fuelStartWeight)
     
     feet2meter = 0.3048;

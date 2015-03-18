@@ -1,6 +1,10 @@
+% Function that plots all necessary graphs.
+
 function [] = plotting(CL, CD, alpha, Re, M, linearFunction, linearCLalpha,ClCdFit,CDAlphaFit)
     
     figure();
+    
+    % plotting CL^2 - CD graph
     [alpha,a] = sort(alpha); 
     CL = CL(a);
     CD = CD(a);
@@ -11,7 +15,9 @@ function [] = plotting(CL, CD, alpha, Re, M, linearFunction, linearCLalpha,ClCdF
     title('C_D against C_L^2');
     xlabel('C_D -->');
     ylabel('C_L^2 -->');
-
+    
+    
+    % plotting CL - CD graph
     subplot(2,2,2);
     plot(CD,CL,'*');
     hold on
@@ -20,6 +26,7 @@ function [] = plotting(CL, CD, alpha, Re, M, linearFunction, linearCLalpha,ClCdF
     xlabel('C_D -->');
     ylabel('C_L -->');
     
+    % plotting CL - alpha graph
     subplot(2,2,3);
     plot(alpha,CL,'*');
     hold on
@@ -28,6 +35,7 @@ function [] = plotting(CL, CD, alpha, Re, M, linearFunction, linearCLalpha,ClCdF
     xlabel('alpha -->');
     ylabel('C_L -->');
     
+    % plotting CD - alpha graph
     subplot(2,2,4);
     plot(alpha,CD,'*');
     hold on
