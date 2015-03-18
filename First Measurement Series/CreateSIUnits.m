@@ -14,7 +14,7 @@ function [h_p, Mfl, Mfr, T_m, VCAS, alpha, fuelUsed, emptyWeight, fuelStartWeigh
     Mfr = Mfr * lbsPerHour2KgPerSeconds;
     T_m = T_m + celsius2kelvin;
     VCAS = VCAS * kts2meterPerSeconds;
-    fuelUsed = fuelUsed * lbs2kg;
+    fuelUsed = fuelUsed * lbs2kg ;
     emptyWeight = emptyWeight * lbs2kg;
     fuelStartWeight = fuelStartWeight *lbs2kg;
 

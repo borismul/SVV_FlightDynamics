@@ -7,7 +7,6 @@ linearFunction = polyfit(C_L.^2,C_D,1);
 
 %Determine C_D0 and e
 slope = linearFunction(1);
-disp(slope)
 e = 1./(pi*A*slope);
 C_D0 = linearFunction(2);
 
