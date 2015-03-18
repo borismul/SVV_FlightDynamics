@@ -8,7 +8,7 @@ function[x_cg_1,x_cg_2]=Center_of_gravity(x,Fuel_start,Fuel_used,M_fuel_W_fuel,M
     M_payload_2 = M_payload_1 - Payload(n)*x(n) + Payload(n)*x(1);
         
     W_fuel = Fuel_start - Fuel_used;
-    
+
     M_fuel = M_fuel_W_fuel*W_fuel + M_fuel_0;
     
     M_total_1 = M_empty + M_payload_1 + M_fuel(1);
