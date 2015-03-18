@@ -11,7 +11,7 @@ function [W] = WeightAtTime(rampWeight,fuelUsed, fuelStartWeight)
         error('Ammount of fuel increases, check the inputdata');
     end
     
-    if sum(fuelUsed>fuelStartWeight) ~= 0
+    if sum(fuelUsed>fuelStartWeight*9.81) ~= 0
         error('Ammount of fuel used is more than fuel at start, check inputdata');
     end
     

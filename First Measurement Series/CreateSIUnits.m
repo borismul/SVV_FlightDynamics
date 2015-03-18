@@ -8,13 +8,14 @@ function [h_p, Mfl, Mfr, T_m, VCAS, alpha, fuelUsed, emptyWeight, fuelStartWeigh
     celsius2kelvin = 273.15;
     kts2meterPerSeconds = 0.514444444;
     lbs2kg = 0.45359237;
+    kg2N = 9.81
     
     h_p = feet2meter * h_p;
     Mfl = Mfl * lbsPerHour2KgPerSeconds;
     Mfr = Mfr * lbsPerHour2KgPerSeconds;
     T_m = T_m + celsius2kelvin;
     VCAS = VCAS * kts2meterPerSeconds;
-    fuelUsed = fuelUsed * lbs2kg ;
+    fuelUsed = fuelUsed * lbs2kg *kg2N;
     emptyWeight = emptyWeight * lbs2kg;
     fuelStartWeight = fuelStartWeight *lbs2kg;
 
