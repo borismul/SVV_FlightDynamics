@@ -43,3 +43,7 @@ figure('Name','Symmetric System Simulation Response') % create new figure for th
 x0s = StabCorrect( alpha0, th0 );
 responsemodel( As, Bs, Cs, Ds, x0s, 'symmetric' );
 title('Symmetric System Simulation Response');
+
+% Spiral and Dutch roll mode, the lateral stability
+SpiralStab( Clb, Clr, Cnb, Cnr );
+
