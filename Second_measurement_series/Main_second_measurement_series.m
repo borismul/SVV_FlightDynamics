@@ -13,7 +13,7 @@ p0 = 101325;                            % Air pressure at sea level             
 lambda = -0.0065;                       % Temperature gradient below Troposphere                                [K/m]
 T0 = 288;                               % Air temperature at sea level                                          [K]
 g0 = 9.81;                              % Gravitational acceleration                                            [m/s^2]
-R = 288.05;                             % Dry air gas constant                                                  [J/kg/K)]
+R = 287.05;                             % Dry air gas constant                                                  [J/kg/K)]
 gamma = 1.4;                            % Heat capacity ratio                                                   [-]
 rho0 = 1.225;                           % Air density at sea level                                              [kg/m^3]
 
@@ -55,13 +55,13 @@ filename = 'FlightBoris.xlsx';
                                                                                                                     % Air temperature, speed of sound,                  [K],[m/s]
                                                                                                                     % Difference of ISA w.r.t. standard temperature     [K]
                                                                                                                 
-[W] = Aircraft_weight(Wempty,Fuel_start,Payload,Fuel_used);                                                         % Aircraft weight                                   [kg]
+[W] = Aircraft_weight(Wempty,Fuel_start,Payload,Fuel_used,g0);                                                      % Aircraft weight                                   [N]
 
 [rho] = Air_density(p,R,T);                                                                                         % Air density                                       [kg/m^3]
 
 [Vt] = True_airspeed(M,a);                                                                                          % True airspeed                                     [m/s]
 
-[CN] = Normal_force_coefficient(W,rho,Vt,S,g0);                                                                     % Normal force coefficient                          [-]
+[CN] = Normal_force_coefficient(W,rho,Vt,S);                                                                        % Normal force coefficient                          [-]
 
 [Cm_delta] = Elevator_effectiveness(delta_e(8),delta_e(9),x_cg_1,x_cg_2,CN(8),cbar);                                % Elevator effectiveness                            [-]
 % Note: 'Cmdelta' is an output of this program.
@@ -96,8 +96,8 @@ Cm_alpha
 
 % Plot of the elevator trim curve
 figure(1);
-p = polyfit(Ve_r(1:7),delta_e_r(1:7),1);
-x = polyval(p,Ve_r(1:7));
+pf = polyfit(Ve_r(1:7),delta_e_r(1:7),1);
+x = polyval(pf,Ve_r(1:7));
 plot(Ve_r(1:7),delta_e_r(1:7),'o');
 hold on;
 plot(Ve_r(1:7),x);
