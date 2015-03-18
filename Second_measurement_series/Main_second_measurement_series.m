@@ -37,7 +37,7 @@ n = 8;
 %% Read and convert measured data to SI units
 
 % Excel file with the measured data
-filename = 'Flight20303.xlsx'; 
+filename = 'FlightBoris.xlsx'; 
 
 % read data
 [hp,Vc,alpha,delta_e,delta_e_t,Fe,Mfl,Mfr,Fuel_used,Tm,Fuel_start,Payload]=Import_of_measured_data(filename);
