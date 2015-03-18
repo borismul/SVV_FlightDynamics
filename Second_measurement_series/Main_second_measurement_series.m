@@ -96,11 +96,11 @@ Cm_alpha
 
 % Plot of the elevator trim curve
 figure(1);
-p = polyfit(Ve_r,delta_e_r,1);
-x = polyval(p,Ve_r);
-plot(Ve_r,delta_e_r,'o');
+p = polyfit(Ve_r(1:7),delta_e_r(1:7),1);
+x = polyval(p,Ve_r(1:7));
+plot(Ve_r(1:7),delta_e_r(1:7),'o');
 hold on;
-plot(Ve_r,x);
+plot(Ve_r(1:7),x);
 hold off;
 title('Elevator trim curve')
 xlabel('Reduced equivalent airspeed [m/s]')
@@ -109,11 +109,11 @@ set(gca,'YDir','reverse');
 
 % Plot of the elevator control force curve
 figure(2);
-q = polyfit(Ve_r,Fe_r,1);
-y = polyval(q,Ve_r);
-plot(Ve_r,Fe_r,'o')
+q = polyfit(Ve_r(1:7),Fe_r(1:7),1);
+y = polyval(q,Ve_r(1:7));
+plot(Ve_r(1:7),Fe_r(1:7),'o')
 hold on;
-plot(Ve_r,y);
+plot(Ve_r(1:7),y);
 hold off;
 title('Elevator control force curve') 
 xlabel('Reduced equivalent airspeed [m/s]')
