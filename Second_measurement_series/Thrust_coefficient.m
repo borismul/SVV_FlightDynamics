@@ -3,6 +3,6 @@
 
 function[Tc] = Thrust_coefficient(Thrust,rho,Vt,S)
 
-    Tc = 2./(S^2).*Thrust./rho./(Vt.^2);
+    Tc = 2./S.*Thrust./rho./(Vt.^2);
     
 end
