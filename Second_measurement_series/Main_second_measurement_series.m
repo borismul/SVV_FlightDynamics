@@ -37,7 +37,7 @@ n = 8;
 %% Read and convert measured data to SI units
 
 % Excel file with the measured data
-filename = 'Flight20303.xlsx'; 
+filename = 'FlightBoris.xlsx'; 
 
 % read data
 [hp,Vc,alpha,delta_e,delta_e_t,Fe,Mfl,Mfr,Fuel_used,Tm,Fuel_start,Payload]=Import_of_measured_data(filename);
@@ -51,39 +51,39 @@ filename = 'Flight20303.xlsx';
 % The center of gravity location before and after it's shift [m]
 [x_cg_1,x_cg_2] = Center_of_gravity(x,Fuel_start,Fuel_used(8:9),M_fuel_W_fuel,M_fuel_0,M_empty,Wempty,Payload,n);
 
-[p,M,T,a,dT] = Atmospheric_parameters(p0,rho0,lambda,hp,T0,Tm,g0,R,gamma,Vc);                                   % Air pressure, Mach number,                        [Pa],[-]
-                                                                                                                % Air temperature, speed of sound,                  [K],[m/s]
-                                                                                                                % Difference of ISA w.r.t. standard temperature     [K]
+[p,M,T,a,dT] = Atmospheric_parameters(p0,rho0,lambda,hp,T0,Tm,g0,R,gamma,Vc);                                       % Air pressure, Mach number,                        [Pa],[-]
+                                                                                                                    % Air temperature, speed of sound,                  [K],[m/s]
+                                                                                                                    % Difference of ISA w.r.t. standard temperature     [K]
                                                                                                                 
-[W] = Aircraft_weight(Wempty,Fuel_start,Payload,Fuel_used);                                                     % Aircraft weight                                   [kg]
+[W] = Aircraft_weight(Wempty,Fuel_start,Payload,Fuel_used);                                                         % Aircraft weight                                   [kg]
 
-[rho] = Air_density(p,R,T);                                                                                     % Air density                                       [kg/m^3]
+[rho] = Air_density(p,R,T);                                                                                         % Air density                                       [kg/m^3]
 
-[Vt] = True_airspeed(M,a);                                                                                      % True airspeed                                     [m/s]
+[Vt] = True_airspeed(M,a);                                                                                          % True airspeed                                     [m/s]
 
-[CN] = Normal_force_coefficient(W,rho,Vt,S,g0);                                                                 % Normal force coefficient                          [-]
+[CN] = Normal_force_coefficient(W,rho,Vt,S,g0);                                                                     % Normal force coefficient                          [-]
 
-[Cm_delta] = Elevator_effectiveness(delta_e(8),delta_e(9),x_cg_1,x_cg_2,CN(8),cbar);                            % Elevator effectiveness                            [-]
+[Cm_delta] = Elevator_effectiveness(delta_e(8),delta_e(9),x_cg_1,x_cg_2,CN(8),cbar);                                % Elevator effectiveness                            [-]
 % Note: 'Cmdelta' is an output of this program.
 
-[Ve_r] = Reduced_equivalent_airspeed(Vt,rho,rho0,Ws,W);                                                         % Reduced equivalent airspeed                       [m/s]
+[Ve_r] = Reduced_equivalent_airspeed(Vt,rho,rho0,Ws,W);                                                             % Reduced equivalent airspeed                       [m/s]
 
-[delta_e_alpha] = Elevator_deflection_wrt_angle_of_attack_slope(alpha,delta_e);                                 % Elevator deflection slope w.r.t angle of attack	[-]
+[delta_e_alpha] = Elevator_deflection_wrt_angle_of_attack_slope(alpha,delta_e);                                     % Elevator deflection slope w.r.t angle of attack	[-]
 
-[Cm_alpha] = Longitudinal_stability(delta_e_alpha,Cm_delta);                                                    % Longitudinal stability                            [-]
+[Cm_alpha] = Longitudinal_stability(delta_e_alpha,Cm_delta);                                                        % Longitudinal stability                            [-]
 % Note: 'Cm_alpha' is an output of this program.
 
-[thrust] = Execution_of_thrust(hp,M,dT,Mfl,Mfr);                                                                % Actual thrust                                     [N]
+[Thrust] = Execution_of_thrust(hp,M,dT,Mfl,Mfr);                                                                    % Actual thrust                                     [N]
 
-[Tc] = Thrust_coefficient(thrust,rho,Vt,S);                                                                     % Actual thrust coefficient                         [-]
+[Tc] = Thrust_coefficient(Thrust,rho,Vt,S);                                                                         % Actual thrust coefficient                         [-]
 
-[thrust_s] = Execution_of_thrust(hp,M,dT,ones(1,length(Mfl))*Mfs,ones(1,length(Mfl))*Mfs);                      % Standard thrust                                   [N]
+[thrust_s] = Execution_of_thrust(hp,M,dT,ones(1,length(Mfl))*Mfs,ones(1,length(Mfl))*Mfs);                          % Standard thrust                                   [N]
 
-[Tc_s] = Thrust_coefficient(thrust_s,rho,Vt,S);                                                                 % Standard thrust coefficient                       [-]
+[Tc_s] = Thrust_coefficient(thrust_s,rho,Vt,S);                                                                     % Standard thrust coefficient                       [-]
 
-[delta_e_r] = Reduced_elevator_deflection(delta_e,Cm_delta,Cm_Tc,Tc_s,Tc);                                      % Reduced elevator deflection                       [rad]
+[delta_e_r] = Reduced_elevator_deflection(delta_e,Cm_delta,Cm_Tc,Tc_s,Tc);                                          % Reduced elevator deflection                       [rad]
 
-[Fe_r] = Reduced_elevator_control_force(Fe,Ws,W);                                                               % Reduced levator control force                     [N]
+[Fe_r] = Reduced_elevator_control_force(Fe,Ws,W);                                                                   % Reduced levator control force                     [N]
 
 
 %% Plot outputs
@@ -91,20 +91,31 @@ filename = 'Flight20303.xlsx';
 % Display the elevator effectiveness and longitudinal stability.
 disp('Elevator effectiveness')
 Cm_delta
-
 disp('Longitudinal stability')
 Cm_alpha
 
 % Plot of the elevator trim curve
 figure(1);
-plot(Ve_r,delta_e_r,'--ko')
+p = polyfit(Ve_r,delta_e_r,1);
+x = polyval(p,Ve_r);
+plot(Ve_r,delta_e_r,'o');
+hold on;
+plot(Ve_r,x);
+hold off;
 title('Elevator trim curve')
-xlabel('Equivalent airspeed [m/s]')
-ylabel('Elevator deflection [rad]')
+xlabel('Reduced equivalent airspeed [m/s]')
+ylabel('Reduced elevator deflection [rad]')
+set(gca,'YDir','reverse');
 
 % Plot of the elevator control force curve
 figure(2);
-plot(Ve_r,Fe_r,'--ko')
+q = polyfit(Ve_r,Fe_r,1);
+y = polyval(q,Ve_r);
+plot(Ve_r,Fe_r,'o')
+hold on;
+plot(Ve_r,y);
+hold off;
 title('Elevator control force curve') 
-xlabel('Equivalent airspeed [m/s]')
-ylabel('Control force [N]')
+xlabel('Reduced equivalent airspeed [m/s]')
+ylabel('Reduced control force [N]')
+set(gca,'YDir','reverse');
