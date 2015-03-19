@@ -30,10 +30,13 @@ function [ ] = SendToSimulation(Timevector, disturbance, hp0, vo,alpha0, theta0,
     
     structure.DeflectionVector = DeflectionVector;
     structure.InitialVariables = InitialVariables;
+
+    disp([testcase '= structure;']);
+    eval([testcase '= structure;']);
     
     %  Create file path + name
-    file = ['../Simulation/' testcase '.mat'];
+    file = ['../Simulation/Validation/' testcase '.mat'];
 
     %  Save variables Y, T and X as matlab data file
-    save(file,'structure');
+    save(file,testcase);
 end

@@ -65,7 +65,7 @@ alpha0 = alpha(range(1));
 theta0 = theta(range(1));
 m0 = Mstart - Fused(range(1));
 
-SendToSimulation(t_sp(range),d_e(range),hp0,V0,alpha0,theta0,m0,'Short Period');
+SendToSimulation(t_sp(range),d_e(range),hp0,V0,alpha0,theta0,m0,'ShortPeriod');
 
 %% Phugoid
 
@@ -150,7 +150,7 @@ alpha0 = alpha(range(1));
 theta0 = theta(range(1));
 m0 = Mstart - Fused(range(1));
 
-SendToSimulation(t_sp(range),d_r(range),hp0,V0,alpha0,theta0,m0,'Dutch Roll');
+SendToSimulation(t_sp(range),d_r(range),hp0,V0,alpha0,theta0,m0,'DutchRoll');
 
 %% Aperiodic roll
 
@@ -193,7 +193,7 @@ alpha0 = alpha(range(1));
 theta0 = theta(range(1));
 m0 = Mstart - Fused(range(1));
 
-SendToSimulation(t_sp(range),d_a(range),hp0,V0,alpha0,theta0,m0,'Aperiodic Roll');
+SendToSimulation(t_sp(range),d_a(range),hp0,V0,alpha0,theta0,m0,'AperiodicRoll');
 
 
 %% Spiral roll
@@ -237,4 +237,4 @@ alpha0 = alpha(range(1));
 theta0 = theta(range(1));
 m0 = Mstart - Fused(range(1));
 
-SendToSimulation(t_sp(range),d_a(range),hp0,V0,alpha0,theta0,m0,'Spiral Roll');
+SendToSimulation(t_sp(range),d_a(range),hp0,V0,alpha0,theta0,m0,'SpiralRoll');
