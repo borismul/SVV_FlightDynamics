@@ -3,14 +3,18 @@
 %
 %  by Robert
 
-%% Include: ALPHA = ALPHA_measurement - ALPHA_0
-
+%% Load data
 % Load dummy input variables from Matlab file
 run('Cit_par_dummy');
 % Load input variables calculated from First Measurement Series
 load('FMS_aeroprop.mat');
+% Load input variables calculated from Second Measurement Series
+load('SMS_longstab.mat');
+    Cma = Cm_alpha; % Overwrite variable with value from SMS
+    Cmde = Cm_delta; % Overwrite variable with value from SMS
 
-% Calculate C1, C2 and C3 for the asymmetric case
+
+%% Calculate C1, C2 and C3 for the asymmetric case
 [ C1a, C2a, C3a ] = EOMa( CYb, CYbdot, CYp, CYr, CYda, CYdr, ...
                                 Clb, Clp, Clr, Clda, Cldr, ...
                                 Cnb, Cnbdot, Cnp, Cnr, Cnda, Cndr, ...
@@ -34,16 +38,14 @@ eigAs = EigenvalueCheck( As, Cs )
 % Calculate and plot response for both the asymmetric and symmetric cases
 close all % close all figures
 
-figure('Name','Symmetric System Simulation Response') % create new figure for the symmetric response
 x0s = StabCorrect( alpha0, th0 );
-[Ys,Ts,Xs] = responsemodel( As, Bs, Cs, Ds, x0s, V0, 'symmetric' );
-title('Symmetric System Simulation Response');
-SendToValidation( Ys, Ts, Xs, 'test_shortperiod' );
+ts = [0:.01:200];
+CaseStudy( As, Bs, Cs, Ds, x0s, ts, 'test_shortperiod', '[TEST] Symmetric System Simulation Response', 'symmetric', V0 )
 
-figure('Name','Asymmetric System Simulation Response') % create new figure for the asymmetric response
 x0a = [0;15;0;0];
-[Ya,Ta,Xa] = responsemodel( Aa, Ba, Ca, Da, x0a, V0, 'asymmetric' );
-title('Asymmetric System Simulation Response');
+ta = [0:0.01:30];
+CaseStudy( Aa, Ba, Ca, Da, x0a, ta, 'test_spiral', '[TEST] Aymmetric System Simulation Response', 'asymmetric', V0 )
+
 
 % Spiral and Dutch roll mode, the lateral stability
 SpiralStab( Clb, Clr, Cnb, Cnr );

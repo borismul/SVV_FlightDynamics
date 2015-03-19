@@ -9,4 +9,9 @@ function[delta_e_r] = Reduced_elevator_deflection(delta_e,Cm_delta,Cm_Tc,Tc_s,Tc
 
 delta_e_r = delta_e - 1/Cm_delta*Cm_Tc*(Tc_s-Tc);
 
+    % checking for singularities
+    if sum(Cm_delta == 0) ~= 0
+        disp('Divide by 0 error!')
+    end
+
 end
