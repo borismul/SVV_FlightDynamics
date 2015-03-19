@@ -38,6 +38,7 @@ figure('Name','Symmetric System Simulation Response') % create new figure for th
 x0s = StabCorrect( alpha0, th0 );
 [Ys,Ts,Xs] = responsemodel( As, Bs, Cs, Ds, x0s, V0, 'symmetric' );
 title('Symmetric System Simulation Response');
+SendToValidation( Ys, Ts, Xs, 'test_shortperiod' );
 
 figure('Name','Asymmetric System Simulation Response') % create new figure for the asymmetric response
 x0a = [0;15;0;0];

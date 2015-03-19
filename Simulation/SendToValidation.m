@@ -1,20 +1,15 @@
-%% Create data file for simulation program
-%  Send data to the simulation folder, to be able to read the data in the
-%  simulation file
+%% Create data file for validation
+%  Use the results of the flight test to validate these numbers
 %
 %  by Robert
 
-function [ ] = SendToValidation( e, C_D0, CLalpha )
-%% Send aerodynamic properties to the Simulation folder
-%  Use the results from the first measurement series to calculate the
-%  aerodynamic properties.
+function [ ] = SendToValidation( Y, T, X, testcase )
+%% Send system response to validation folder
+%  Use the results of the flight test to validate these numbers
 
-%  Send with name convention that is used in the Simulation folder
-e   = e       ;
-CD0 = C_D0    ;
-CLa = CLalpha ;
+%  Create file path + name
+file = ['../Validation/' testcase '.mat'];
 
-%  Save as matlab data file with name convention that is used in the
-%  Simulation
-save('../Simulation/FMS_aeroprop.mat','e','CD0','CLa');
+%  Save variables Y, T and X as matlab data file
+save(file,'Y','T','X');
 end
