@@ -1,5 +1,4 @@
 clear all
-close all
 clc
 % Main validation file
 
@@ -88,14 +87,14 @@ xlabel('Time (s) -->')
 ylabel('Angle of attack (deg) -->')
 subplot(5,1,3)
 plot(t_sp(range),theta(range)-theta(range(1)))
-title('pitch angle vs time')
+title('Pitch angle vs time')
 xlabel('Time (s) -->')
-ylabel('Roll angle (deg) -->')
+ylabel('Pitch angle (deg) -->')
 subplot(5,1,4)
 plot(t_sp(range),q(range))
-title('pitch rate vs time')
+title('Pitch rate vs time')
 xlabel('Time (s) -->')
-ylabel('Roll rate (deg/s) -->')
+ylabel('Pitch rate (deg/s) -->')
 subplot(5,1,5)
 plot(t_sp(range),d_e(range),'r')
 title('Elevator deflection vs time')
