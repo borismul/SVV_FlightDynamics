@@ -49,20 +49,24 @@ for i = 1:length(ValiDir)
         
         disp(['Eigenvalue of ' CaseName '''s system matrix A']);
         eigAs = EigenvalueCheck( As, Cs );
-        [eigAs,T_5s,Ps] = PeriDamp4Eig( eigAs, c, V0 )
+        [eigAs,T_5s,Ps] = PeriDamp4Eig( eigAs, c, V0 );
         
         % Calculate and plot response for both the symmetric case
-        x0s = StabCorrect( alpha0, th0 );
+        %x0s = StabCorrect( alpha0, th0 );
+        x0s = zeros(4,1);
+        
         CaseStudy( As, Bs, Cs, Ds, x0s, u, t, CaseName, ['[TEST] Symmetric System Simulation Response for ' CaseName], 'symmetric', V0 )
         
     elseif strcmp( CaseSym, 'asymmetric')
         
         disp(['Eigenvalue of ' CaseName '''s system matrix A']);
         eigAa = EigenvalueCheck( Aa, Ca );
-        [eigAa,T_5a,Pa] = PeriDamp4Eig( eigAa, c, V0 )
+        [eigAa,T_5a,Pa] = PeriDamp4Eig( eigAa, c, V0 );
         
         % Calculate and plot response for both the asymmetric case
-        x0a = [0;15;0;0];
+        %x0a = [0;15;0;0];
+        x0a = zeros(4,1);
+        
         CaseStudy( Aa, Ba, Ca, Da, x0a, u, t, CaseName, ['[TEST] Asymmetric System Simulation Response for ' CaseName], 'asymmetric', V0 )
 
     else
