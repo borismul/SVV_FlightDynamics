@@ -18,7 +18,7 @@ function[Cm_delta] = Elevator_effectiveness(delta_e_1,delta_e_2,x_cg_1,x_cg_2,CN
     % checking for singularities
     if sum(Ddelta_e == 0) ~= 0
         disp('Devide by 0 error!')
-    elseif sum(cbar <= 0)
+    elseif sum(cbar <= 0) ~= 0
         disp('MAC is zero or negative')
     end
 
