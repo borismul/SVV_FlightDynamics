@@ -70,7 +70,7 @@ filename = 'FlightBoris.xlsx';
 
 [delta_e_alpha] = Elevator_deflection_wrt_angle_of_attack_slope(alpha,delta_e);                                     % Elevator deflection slope w.r.t angle of attack	[-]
 
-[Cm_alpha] = Longitudinal_stability(delta_e_alpha,Cm_delta);                                                        % Longitudinal stability                            [-]
+[Cm_alpha] = longitudinal_stability(delta_e_alpha,Cm_delta);                                                        % Longitudinal stability                            [-]
 % Note: 'Cm_alpha' is an output of this program.
 
 [Thrust] = Execution_of_thrust(hp,M,dT,Mfl,Mfr);                                                                    % Actual thrust                                     [N]
