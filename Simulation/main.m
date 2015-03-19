@@ -34,16 +34,14 @@ eigAs = EigenvalueCheck( As, Cs )
 % Calculate and plot response for both the asymmetric and symmetric cases
 close all % close all figures
 
-figure('Name','Symmetric System Simulation Response') % create new figure for the symmetric response
 x0s = StabCorrect( alpha0, th0 );
-[Ys,Ts,Xs] = responsemodel( As, Bs, Cs, Ds, x0s, V0, 'symmetric' );
-title('Symmetric System Simulation Response');
-SendToValidation( Ys, Ts, Xs, 'test_shortperiod' );
+ts = [0:.01:200];
+CaseStudy( As, Bs, Cs, Ds, x0s, ts, 'test_shortperiod', '[TEST] Symmetric System Simulation Response', 'symmetric', V0 )
 
-figure('Name','Asymmetric System Simulation Response') % create new figure for the asymmetric response
 x0a = [0;15;0;0];
-[Ya,Ta,Xa] = responsemodel( Aa, Ba, Ca, Da, x0a, V0, 'asymmetric' );
-title('Asymmetric System Simulation Response');
+ta = [0:0.01:30];
+CaseStudy( Aa, Ba, Ca, Da, x0a, ta, 'test_spiral', '[TEST] Aymmetric System Simulation Response', 'asymmetric', V0 )
+
 
 % Spiral and Dutch roll mode, the lateral stability
 SpiralStab( Clb, Clr, Cnb, Cnr );

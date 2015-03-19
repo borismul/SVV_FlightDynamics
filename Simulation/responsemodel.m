@@ -4,7 +4,7 @@
 %
 %  by Robert
 
-function [ Y, T, X ] = responsemodel( A, B, C, D, x0, V0, symmetry )
+function [ Y, T, X ] = responsemodel( A, B, C, D, x0, t, V0, symmetry )
 % [ V, Theta, alpha, q, t ] = responsemodel( A, B, C, D, U, T )
 
 %% Aircraft response model
@@ -20,10 +20,7 @@ if strcmp( symmetry, 'symmetric' )
     % Label output
     sys.OutputName = {'u';'\alpha';'\Theta';'q'};
     sys.OutputUnit = {'m/s';'deg';'deg';'rad/s'};
-    
-    % Time vector from assignment
-    t = [0:0.01:200] ;
-    
+
     % Disturbance (step) function from assignment
     udeg = -ones( size(t) ) ; % [deg] minus one degree on the elevator
     u    = deg2rad( udeg ) ; % [rad]
@@ -33,9 +30,6 @@ elseif strcmp( symmetry, 'asymmetric' )
     % Label output
     sys.OutputName = {'\beta';'\theta';'p';'r'};
     sys.OutputUnit = {'deg';'deg';'rad/s';'rad/s'};
-    
-    % Time vector from assignment
-    t = [0:0.01:30];
     
     % Disturbance function from assignment
     SizeTimeVector = size(t) ;
@@ -49,16 +43,10 @@ lsimplot(sys,u,t,x0) ;
 % Return the response matrices
 [Y,T,X] = lsim(sys,u,t,x0) ;
 
-
-%[Y] = lsim(sys,U,T); % Simulate time response of the aircraft
-% step( sys, 200 ); % Simulate step response of the aircraft
-
-%     u = Y(:,1); % Get the deviation of the velocity from the response
-% V     = V0 + u; % Add the initial airspeed to the deviation of the velocity
-% alpha = Y(:,2);
-% Theta = Y(:,3);
-% q     = Y(:,4);
-% t     = T;
+if strcmp( symmetry, 'symmetric' )
+    % Convert to body reference
+    Y(:,1) = Y(:,1) + V0 ;     % True airspeed added to the velocity deviation
+end
 
 % Output variables
 % V    : True airspeed      [m/s]
