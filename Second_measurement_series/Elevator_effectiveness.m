@@ -9,10 +9,17 @@ function[Cm_delta] = Elevator_effectiveness(delta_e_1,delta_e_2,x_cg_1,x_cg_2,CN
 %Author: Karl
 
 
-Ddelta_e = delta_e_2-delta_e_1;
+    Ddelta_e = delta_e_2-delta_e_1;
 
-Dx_cg = x_cg_2-x_cg_1;
+    Dx_cg = x_cg_2-x_cg_1;
 
-Cm_delta = -1/Ddelta_e*CN*Dx_cg/cbar;
+    Cm_delta = -1/Ddelta_e*CN*Dx_cg/cbar;
+
+    % checking for singularities
+    if sum(Ddelta_e == 0) ~= 0
+        disp('Devide by 0 error!')
+    elseif sum(cbar <= 0)
+        disp('MAC is zero or negative')
+    end
 
 end
