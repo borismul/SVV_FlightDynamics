@@ -34,7 +34,7 @@ for i = 1:length(ValiDir)
     % Load input variables calculated from Second Measurement Series
     load('SMS_longstab.mat');
         % Overwrite variable with value from SMS
-        Cma = Cm_alpha; 
+        Cma  = Cm_alpha;
         Cmde = Cm_delta;
         
     % Run script to calculate aircraft properties

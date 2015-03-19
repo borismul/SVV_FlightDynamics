@@ -10,5 +10,5 @@
                                 KY2, muc, c, V0 );
 
 % Calculate A, B, C and D for both the asymmetric and symmetric cases
-[ Aa, Ba, Ca, Da ] = EOMtoSS( C1a, C2a, C3a, 'asymmetric' );
+[ Aa, Ba, Ca, Da ] = EOMtoSS( C1a, C2a, C3a, 'asymmetric' )
 [ As, Bs, Cs, Ds ] = EOMtoSS( C1s, C2s, C3s, 'symmetric' );
