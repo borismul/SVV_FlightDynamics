@@ -21,8 +21,8 @@ for i = 1:length(ValiDir)
         % Overwrite variable with value from tesflight
         eval(['hp0 = ' CaseName '.InitialVariables.hp_0;']);       % [m]
         eval(['V0 = ' CaseName '.InitialVariables.V_0;']);         % [m/sec]
-        eval(['alpha0 = ' CaseName '.InitialVariables.alpha_0;']); % [deg]
-        eval(['th0 = ' CaseName '.InitialVariables.theta_0;']);    % [deg]
+        eval(['alpha0 = ' CaseName '.InitialVariables.alpha_0/180*pi();']); % [rad]
+        eval(['th0 = ' CaseName '.InitialVariables.theta_0/180*pi();']);    % [rad]
         eval(['m = ' CaseName '.InitialVariables.mass;']);         % [kg]
         % Simulation specific data from testflight
         eval(['t = ' CaseName '.DeflectionVector.t;']);
@@ -52,7 +52,9 @@ for i = 1:length(ValiDir)
         [eigAs,T_5s,Ps] = PeriDamp4Eig( eigAs, c, V0 )
         
         % Calculate and plot response for both the symmetric case
-        x0s = StabCorrect( alpha0, th0 );
+        %x0s = StabCorrect( alpha0, th0 );
+        x0s = zeros(4,1);
+        
         CaseStudy( As, Bs, Cs, Ds, x0s, u, t, CaseName, ['[TEST] Symmetric System Simulation Response for ' CaseName], 'symmetric', V0 )
         
     elseif strcmp( CaseSym, 'asymmetric')
@@ -62,7 +64,9 @@ for i = 1:length(ValiDir)
         [eigAa,T_5a,Pa] = PeriDamp4Eig( eigAa, c, V0 )
         
         % Calculate and plot response for both the asymmetric case
-        x0a = [0;15;0;0];
+        %x0a = [0;15;0;0];
+        x0a = zeros(4,1);
+        
         CaseStudy( Aa, Ba, Ca, Da, x0a, u, t, CaseName, ['[TEST] Asymmetric System Simulation Response for ' CaseName], 'asymmetric', V0 )
 
     else

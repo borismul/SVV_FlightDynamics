@@ -19,13 +19,13 @@ if strcmp( symmetry, 'symmetric' )
     
     % Label output
     sys.OutputName = {'u';'\alpha';'\Theta';'q'};
-    sys.OutputUnit = {'m/s';'deg';'deg';'rad/s'};
+    sys.OutputUnit = {'m/s';'rad';'rad';'rad/s'};
 
 elseif strcmp( symmetry, 'asymmetric' )
 
     % Label output
     sys.OutputName = {'\beta';'\theta';'p';'r'};
-    sys.OutputUnit = {'deg';'deg';'rad/s';'rad/s'};
+    sys.OutputUnit = {'rad';'rad';'rad/s';'rad/s'};
     
 end
 
