@@ -25,7 +25,7 @@ filename = 'FlightBoris.xlsx'; %Define which excel file should be used
 [h_p, VCAS,alpha,Mfl,Mfr,fuelUsed,T_m, fuelStartWeight,payloadWeight]= ImportExcelFirst(filename);
 [h_p, Mfl, Mfr, T_m, VCAS, alpha, fuelUsed, emptyWeight, fuelStartWeight] = CreateSIUnits(h_p, Mfl, Mfr, T_m, VCAS, alpha, fuelUsed, emptyWeight, fuelStartWeight);
 
-%Calculate rampWeight [kg]
+%Calculate rampWeight [N]
 rampWeight = (emptyWeight + fuelStartWeight + payloadWeight) * g_0;
 
 % Executing functions
