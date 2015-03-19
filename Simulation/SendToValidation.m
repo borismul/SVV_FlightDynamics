@@ -8,7 +8,7 @@ function [ ] = SendToValidation( Y, T, X, testcase )
 %  Use the results of the flight test to validate these numbers
 
 %  Create file path + name
-file = ['../Validation/' testcase '.mat'];
+file = ['../Validation/Simulation/' testcase '.mat'];
 
 %  Save variables Y, T and X as matlab data file
 save(file,'Y','T','X');

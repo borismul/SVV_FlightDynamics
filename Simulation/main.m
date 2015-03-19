@@ -5,52 +5,68 @@
 
 %% Load data
 % Load dummy input variables from Matlab file
-run('Cit_par_dummy');
-% Load input variables calculated from First Measurement Series
-load('FMS_aeroprop.mat');
-% Load input variables calculated from Second Measurement Series
-load('SMS_longstab.mat');
-    Cma = Cm_alpha; % Overwrite variable with value from SMS
-    Cmde = Cm_delta; % Overwrite variable with value from SMS
+% run('Cit_par_dummy');
 
+% close all figures
+close all
 
-%% Calculate C1, C2 and C3 for the asymmetric case
-[ C1a, C2a, C3a ] = EOMa( CYb, CYbdot, CYp, CYr, CYda, CYdr, ...
-                                Clb, Clp, Clr, Clda, Cldr, ...
-                                Cnb, Cnbdot, Cnp, Cnr, Cnda, Cndr, ...
-                                KX2, KZ2, KXZ, CL, mub, b, V0 );
-% Calculate C1, C2 and C3 for the symmetric case
-[ C1s, C2s, C3s ] = EOMs( CX0, CXa, CXu, CXq, CXde, ...
-                                CZ0, CZa, CZu, CZq, CZde, ...
-                                Cma, Cmadot, Cmu, Cmq, Cmde, ...
-                                KY2, muc, c, V0 );
+ValiDir = dir('Validation/*.mat') ;
+for i = 1:length(ValiDir)
+    % for each Validation data file
+    file = ValiDir(i).name ;
+    CaseName = file(1:end-4) ;
+    
+    % Load input variables from testflight
+    load(['Validation/' file]);
+        % Overwrite variable with value from tesflight
+        eval(['hp0 = ' CaseName '.InitialVariables.hp_0;']);       % [m]
+        eval(['V0 = ' CaseName '.InitialVariables.V_0;']);         % [m/sec]
+        eval(['alpha0 = ' CaseName '.InitialVariables.alpha_0;']); % [deg]
+        eval(['th0 = ' CaseName '.InitialVariables.theta_0;']);    % [deg]
+        eval(['m = ' CaseName '.InitialVariables.mass;']);         % [kg]
+        % Simulation specific data from testflight
+        eval(['t = ' CaseName '.DeflectionVector.t;']);
+        eval(['defl = ' CaseName '.DeflectionVector.defl;']);
 
-% Calculate A, B, C and D for both the asymmetric and symmetric cases
-[ Aa, Ba, Ca, Da ] = EOMtoSS( C1a, C2a, C3a, 'asymmetric' );
-[ As, Bs, Cs, Ds ] = EOMtoSS( C1s, C2s, C3s, 'symmetric' );
+    % Load input variables calculated from First Measurement Series
+    load('FMS_aeroprop.mat');
+    
+    % Load input variables calculated from Second Measurement Series
+    load('SMS_longstab.mat');
+        % Overwrite variable with value from SMS
+        Cma = Cm_alpha; 
+        Cmde = Cm_delta;
+        
+    % Run script to calculate aircraft properties
+    run('Cit_par');
 
-% Give eigenvalues for verification purposes
-disp('Eigenvalue of symmetric system matrix A');
-eigAs = EigenvalueCheck( As, Cs );
-[eigAs,T_5s,Ps] = PeriDamp4Eig( eigAs, c, V0 )
+    % Run script to calculate the state space matrices
+    run('StateSpaceMatrices');
+    
+    % Calculate eigenvalues for verification purposes
+    run('SymmetryCase');
+    if strcmp( CaseSym, 'symmetric')
+        
+        disp(['Eigenvalue of ' CaseName '''s system matrix A']);
+        eigAs = EigenvalueCheck( As, Cs );
+        [eigAs,T_5s,Ps] = PeriDamp4Eig( eigAs, c, V0 )
+        
+        % Calculate and plot response for both the symmetric case
+        x0s = StabCorrect( alpha0, th0 );
+        CaseStudy( As, Bs, Cs, Ds, x0s, u, t, CaseName, ['[TEST] Symmetric System Simulation Response for ' CaseName], 'symmetric', V0 )
+        
+    elseif strcmp( CaseSym, 'asymmetric')
+        
+        disp(['Eigenvalue of ' CaseName '''s system matrix A']);
+        eigAa = EigenvalueCheck( Aa, Ca );
+        [eigAa,T_5a,Pa] = PeriDamp4Eig( eigAa, c, V0 )
+        
+        % Calculate and plot response for both the asymmetric case
+        x0a = [0;15;0;0];
+        CaseStudy( Aa, Ba, Ca, Da, x0a, u, t, CaseName, ['[TEST] Asymmetric System Simulation Response for ' CaseName], 'asymmetric', V0 )
 
-disp('Eigenvalue of asymmetric system matrix A');
-eigAa = EigenvalueCheck( Aa, Ca );
-[eigAa,T_5a,Pa] = PeriDamp4Eig( eigAa, c, V0 )
-
-
-% Calculate and plot response for both the asymmetric and symmetric cases
-close all % close all figures
-
-x0s = StabCorrect( alpha0, th0 );
-ts = [0:.01:200];
-CaseStudy( As, Bs, Cs, Ds, x0s, ts, 'test_shortperiod', '[TEST] Symmetric System Simulation Response', 'symmetric', V0 )
-
-x0a = [0;15;0;0];
-ta = [0:0.01:30];
-CaseStudy( Aa, Ba, Ca, Da, x0a, ta, 'test_spiral', '[TEST] Aymmetric System Simulation Response', 'asymmetric', V0 )
-
-
-% Spiral and Dutch roll mode, the lateral stability
-SpiralStab( Clb, Clr, Cnb, Cnr );
-
+    else
+        error('no symmetry for this case');
+    end
+    
+end

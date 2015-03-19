@@ -4,7 +4,7 @@
 %
 %  by Robert
 
-function [ Y, T, X ] = responsemodel( A, B, C, D, x0, t, V0, symmetry )
+function [ Y, T, X ] = responsemodel( A, B, C, D, x0, u, t, V0, symmetry )
 % [ V, Theta, alpha, q, t ] = responsemodel( A, B, C, D, U, T )
 
 %% Aircraft response model
@@ -21,20 +21,12 @@ if strcmp( symmetry, 'symmetric' )
     sys.OutputName = {'u';'\alpha';'\Theta';'q'};
     sys.OutputUnit = {'m/s';'deg';'deg';'rad/s'};
 
-    % Disturbance (step) function from assignment
-    udeg = -ones( size(t) ) ; % [deg] minus one degree on the elevator
-    u    = deg2rad( udeg ) ; % [rad]
-        
 elseif strcmp( symmetry, 'asymmetric' )
 
     % Label output
     sys.OutputName = {'\beta';'\theta';'p';'r'};
     sys.OutputUnit = {'deg';'deg';'rad/s';'rad/s'};
     
-    % Disturbance function from assignment
-    SizeTimeVector = size(t) ;
-    u = zeros( 2, SizeTimeVector(2) ) ; % Zero control deflections
-        
 end
 
 % Plot the response
