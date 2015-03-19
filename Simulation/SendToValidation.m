@@ -10,6 +10,10 @@ function [ ] = SendToValidation( Y, T, X, testcase )
 %  Create file path + name
 file = ['../Validation/Simulation/' testcase '.mat'];
 
+eval(['Y_' testcase ' = Y;']);
+eval(['T_' testcase ' = T;']);
+eval(['X_' testcase ' = X;']);
+
 %  Save variables Y, T and X as matlab data file
-save(file,'Y','T','X');
+eval(['save(file,''Y_' testcase ''',''T_' testcase ''',''X_' testcase ''');']);
 end
