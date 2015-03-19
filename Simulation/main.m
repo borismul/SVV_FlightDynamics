@@ -30,10 +30,14 @@ load('SMS_longstab.mat');
 [ As, Bs, Cs, Ds ] = EOMtoSS( C1s, C2s, C3s, 'symmetric' );
 
 % Give eigenvalues for verification purposes
-disp('Eigenvalue of asymmetric system matrix A');
-eigAa = EigenvalueCheck( Aa, Ca )
 disp('Eigenvalue of symmetric system matrix A');
-eigAs = EigenvalueCheck( As, Cs )
+eigAs = EigenvalueCheck( As, Cs );
+[eigAs,T_5s,Ps] = PeriDamp4Eig( eigAs, c, V0 )
+
+disp('Eigenvalue of asymmetric system matrix A');
+eigAa = EigenvalueCheck( Aa, Ca );
+[eigAa,T_5a,Pa] = PeriDamp4Eig( eigAa, c, V0 )
+
 
 % Calculate and plot response for both the asymmetric and symmetric cases
 close all % close all figures
