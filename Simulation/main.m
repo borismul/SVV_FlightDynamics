@@ -36,12 +36,12 @@ close all % close all figures
 
 figure('Name','Symmetric System Simulation Response') % create new figure for the symmetric response
 x0s = StabCorrect( alpha0, th0 );
-responsemodel( As, Bs, Cs, Ds, x0s, 'symmetric' );
+[Ys,Ts,Xs] = responsemodel( As, Bs, Cs, Ds, x0s, V0, 'symmetric' );
 title('Symmetric System Simulation Response');
 
 figure('Name','Asymmetric System Simulation Response') % create new figure for the asymmetric response
 x0a = [0;15;0;0];
-responsemodel( Aa, Ba, Ca, Da, x0a, 'asymmetric' );
+[Ya,Ta,Xa] = responsemodel( Aa, Ba, Ca, Da, x0a, V0, 'asymmetric' );
 title('Asymmetric System Simulation Response');
 
 % Spiral and Dutch roll mode, the lateral stability

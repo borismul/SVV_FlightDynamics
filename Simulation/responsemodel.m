@@ -4,7 +4,7 @@
 %
 %  by Robert
 
-function [ ] = responsemodel( A, B, C, D, x0, symmetry )
+function [ Y, T, X ] = responsemodel( A, B, C, D, x0, V0, symmetry )
 % [ V, Theta, alpha, q, t ] = responsemodel( A, B, C, D, U, T )
 
 %% Aircraft response model
@@ -43,8 +43,11 @@ elseif strcmp( symmetry, 'asymmetric' )
         
 end
 
+% Plot the response
 lsimplot(sys,u,t,x0) ;
 
+% Return the response matrices
+[Y,T,X] = lsim(sys,u,t,x0) ;
 
 
 %[Y] = lsim(sys,U,T); % Simulate time response of the aircraft
