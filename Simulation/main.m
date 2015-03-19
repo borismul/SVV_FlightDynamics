@@ -3,14 +3,18 @@
 %
 %  by Robert
 
-%% Include: ALPHA = ALPHA_measurement - ALPHA_0
-
+%% Load data
 % Load dummy input variables from Matlab file
 run('Cit_par_dummy');
 % Load input variables calculated from First Measurement Series
 load('FMS_aeroprop.mat');
+% Load input variables calculated from Second Measurement Series
+load('SMS_longstab.mat');
+    Cma = Cm_alpha; % Overwrite variable with value from SMS
+    Cmde = Cm_delta; % Overwrite variable with value from SMS
 
-% Calculate C1, C2 and C3 for the asymmetric case
+
+%% Calculate C1, C2 and C3 for the asymmetric case
 [ C1a, C2a, C3a ] = EOMa( CYb, CYbdot, CYp, CYr, CYda, CYdr, ...
                                 Clb, Clp, Clr, Clda, Cldr, ...
                                 Cnb, Cnbdot, Cnp, Cnr, Cnda, Cndr, ...
