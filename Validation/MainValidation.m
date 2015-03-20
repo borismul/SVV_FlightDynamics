@@ -9,26 +9,14 @@ load('flightdata.mat')
 theta = flightdata.Ahrs1_Pitch.data;
 t = flightdata.Gps_utcSec.data;
 Fused = (flightdata.lh_engine_FU.data + flightdata.rh_engine_FU.data)*0.45359237;
-hp = flightdata.Dadc1_alt.data;
-Mstart =812.5 + 2800*0.45359237 + 9170*0.45359237;
+hp = flightdata.Dadc1_alt.data*0.3048;
+Mstart = 812.5 + 2800*0.45359237 + 9170*0.45359237;
 
 %Symmetric variables
 q = flightdata.Ahrs1_bPitchRate.data;
-u = flightdata.Dadc1_tas.data;
+u = flightdata.Dadc1_tas.data*0.51444;
 alpha = flightdata.vane_AOA.data;
 d_e = flightdata.delta_e.data;
-
-%Nominal state variables for symmetric corrections
-u0 = u(1);
-alpha0 = alpha(1);
-theta0 = theta(1);
-q0 = q(1);
-
-%Symmetric corrections and non-dimensionalization
-u = (u-u0)/u0;
-alpha = alpha - alpha0;
-theta = theta - theta0;
-q = (q-q0)/q0;
 
 %Asymmetric variables
 beta = flightdata.Ahrs1_Roll.data;
@@ -43,16 +31,6 @@ load('Simulation/Phugoid')
 load('Simulation/AperiodicRoll')
 load('Simulation/ShortPeriod')
 load('Simulation/SpiralRoll')
-
-%Nominal state variables for asymmetric corrections
-beta0 = beta(1);
-p0 = p(1);
-r0 = r(1);
-
-%Asymmetric corrections and non-dimensionalization
-beta = beta - beta0;
-p0 = (p-p0)/p0;
-r0 = (r-r0)/r0;
 
 %% Short Peroid
 
@@ -117,7 +95,7 @@ figure('Name','Phugoid')
 hold on
 subplot(5,1,1)
 hold on
-plot(t_sp(range),u(range)-u(range(1)))
+plot(t_sp(range),(u(range)-u(range(1)))/u(range(1)))
 plot(T_Phugoid,Y_Phugoid(:,1),'g')
 title('Difference in airspeed vs time')
 xlabel('Time (s) -->')
@@ -272,11 +250,19 @@ SendToSimulation(t_sp(range),d_a(range),hp0,V0,alpha0,theta0,m0,'AperiodicRoll')
 t_sp = t-t(37107);
 range = 37107:38021;
 
+pnew = zeros(38021,1);
+rnew = zeros(38021,1);
+
+for i = range
+    rnew(i) = r(i)*u(i)/u(range(1));
+    pnew(i) = p(i)*u(i)/u(range(1));
+end
+
 figure('Name','Spiral Roll')
 hold on
 subplot(5,1,1)
 hold on
-plot(t_sp(range),beta(range))
+plot(t_sp(range),beta(range)-beta(range(1)))
 plot(T_SpiralRoll,Y_SpiralRoll(:,1),'g')
 title('Roll angle vs time')
 xlabel('Time (s) -->')
@@ -291,14 +277,14 @@ xlabel('Time (s) -->')
 ylabel('Pitch angle (deg) -->')
 subplot(5,1,3)
 hold on
-plot(t_sp(range),p(range))
+plot(t_sp(range),pnew(range))
 plot(T_SpiralRoll,Y_SpiralRoll(:,3),'g')
 title('Roll rate vs time')
 xlabel('Time (s) -->')
 ylabel('Roll rate (deg) -->')
 subplot(5,1,4)
 hold on
-plot(t_sp(range),r(range))
+plot(t_sp(range),rnew(range))
 plot(T_SpiralRoll,Y_SpiralRoll(:,4),'g')
 title('Yaw rate vs time')
 xlabel('Time (s) -->')
