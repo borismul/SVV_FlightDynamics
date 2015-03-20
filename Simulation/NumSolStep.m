@@ -31,7 +31,7 @@ run('Cit_par');
 % Run script to calculate the state space matrices
 run('StateSpaceMatrices');
 
-disp(['Eigenvalue of ' CaseName '''s system matrix A']);
+disp(['Eigenvalue of system matrix A']);
 eigAs = EigenvalueCheck( As, Cs );
 [eigAs,T_5s,Ps] = PeriDamp4Eig( eigAs, c, V0 );
 
@@ -40,8 +40,3 @@ eigAs = EigenvalueCheck( As, Cs );
 x0 = zeros(4,1);
 
 CaseStudy( As, Bs, Cs, Ds, x0, u, t, 'Step', 'Numerical Solution: Response for Step Input', 'symmetric', V0 )
-
-disp(['Eigenvalue of ' CaseName '''s system matrix A']);
-eigAa = EigenvalueCheck( Aa, Ca );
-[eigAa,T_5a,Pa] = PeriDamp4Eig( eigAa, c, V0 )
-
