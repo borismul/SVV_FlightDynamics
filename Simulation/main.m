@@ -20,7 +20,7 @@ for i = 1:length(ValiDir)
     load(['Validation/' file]);
         % Overwrite variable with value from tesflight
         eval(['hp0 = ' CaseName '.InitialVariables.hp_0;']);       % [m]
-        eval(['V0 = ' CaseName '.InitialVariables.V_0;']);         % [m/sec]
+        eval(['V0 = ' CaseName '.InitialVariables.V_0*0.51444444444;']);         % [m/sec]
         eval(['alpha0 = ' CaseName '.InitialVariables.alpha_0/180*pi();']); % [rad]
         eval(['th0 = ' CaseName '.InitialVariables.theta_0/180*pi();']);    % [rad]
         eval(['m = ' CaseName '.InitialVariables.mass;']);         % [kg]
