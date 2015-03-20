@@ -13,8 +13,8 @@ close all
     
 run('Cit_par_dummy');
     
-t = [0:0.01:200];
-u = deg2rad(-ones(size(t)));
+t = [0:0.01:30];
+u = zeros(length(t),2);
 
 % Load input variables calculated from First Measurement Series
 load('FMS_aeroprop.mat');
@@ -31,18 +31,13 @@ run('Cit_par');
 % Run script to calculate the state space matrices
 run('StateSpaceMatrices');
 
-disp(['Eigenvalue of ' CaseName '''s system matrix A']);
-eigAs = EigenvalueCheck( As, Cs );
-[eigAs,T_5s,Ps] = PeriDamp4Eig( eigAs, c, V0 );
+disp(['Eigenvalue of system matrix A']);
+eigAa = EigenvalueCheck( Aa, Ca );
+[eigAa,T_5a,Pa] = PeriDamp4Eig( eigAa, c, V0 );
 
 % Calculate and plot response for both the symmetric case
 %x0s = StabCorrect( alpha0, th0 );
 x0 = zeros(4,1);
 x0(2) = deg2rad(15);
 
-CaseStudy( As, Bs, Cs, Ds, x0, u, t, 'Step', 'Numerical Solution: Response for Step Input', 'symmetric', V0 )
-
-disp(['Eigenvalue of ' CaseName '''s system matrix A']);
-eigAa = EigenvalueCheck( Aa, Ca );
-[eigAa,T_5a,Pa] = PeriDamp4Eig( eigAa, c, V0 )
-
+CaseStudy( Aa, Ba, Ca, Da, x0, u, t, 'State', 'Numerical Solution: Response for initial Roll angle', 'asymmetric', V0 )
