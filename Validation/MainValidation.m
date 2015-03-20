@@ -14,10 +14,32 @@ q = flightdata.Ahrs1_bPitchRate.data;
 u = flightdata.Dadc1_tas.data;
 alpha = flightdata.vane_AOA.data;
 
+%Nominal state variables for symmetric corrections
+u0 = u(1);
+alpha0 = alpha(1);
+theta0 = theta(1);
+q0 = q(1);
+
+%Symmetric corrections and non-dimensionalization
+u = (u-u0)/u0;
+alpha = alpha - alpha0;
+theta = theta - theta0;
+q = (q-q0)/q0;
+
 %Asymmetric variables
 beta = flightdata.Ahrs1_Roll.data;
 p = flightdata.Ahrs1_bRollRate.data;
 r = flightdata.Ahrs1_bYawRate.data;
+
+%Nominal state variables for asymmetric corrections
+beta0 = beta(1);
+p0 = p(1);
+r0 = r(1);
+
+%Asymmetric corrections and non-dimensionalization
+beta = beta - beta0;
+p0 = (p-p0)/p0;
+r0 = (r-r0)/r0;
 
 %% Short Peroid
 
