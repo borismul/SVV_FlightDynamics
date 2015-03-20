@@ -22,7 +22,7 @@ B = -mub*(4*CYb*KZ2 + 2*Cnr);
 C = CYb*Cnr + 4*mub*Cnb;
 
 x = [A, B, C];
-eig_dutchroll = roots(x);
+eig_dutchroll = roots(x)
 
 %%%% APRIODIC ROLL %%%%
 
