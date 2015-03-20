@@ -4,11 +4,11 @@
 %
 %  by Robert
 
-function [  ] = CaseStudy( A, B, C, D, x0, t, CaseName, CaseTitle, CaseSymmetry, V0 )
+function [  ] = CaseStudy( A, B, C, D, x0, u, t, CaseName, CaseTitle, CaseSymmetry, V0 )
 %% Case study
 
 figure( 'Name', CaseTitle ) % create new figure for the symmetric response
-[Ys,Ts,Xs] = responsemodel( A, B, C, D, x0, t, V0, CaseSymmetry );
+[Ys,Ts,Xs] = responsemodel( A, B, C, D, x0, u, t, V0, CaseSymmetry );
 title( CaseTitle );
 SendToValidation( Ys, Ts, Xs, CaseName );
 
