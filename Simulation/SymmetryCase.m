@@ -17,7 +17,7 @@ elseif strcmp( CaseName, 'DutchRoll' )
     CaseSym = 'asymmetric' ;
     CaseDefl = 'rudder' ;
     u = zeros(length(t),2) ;
-    u(:,2) = defl ;
+    u(:,2) = -defl ;
     
 elseif strcmp( CaseName, 'Phugoid' )
     
