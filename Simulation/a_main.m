@@ -6,6 +6,7 @@
 
 clc
 clear
+close all
 
 %% Loop to gather cases and save them as [casename].mat
 
@@ -32,6 +33,9 @@ clear
 % 
 % % Run script to calculate aircraft properties
 % run('Cit_par');
+
+% % Save case as dataset with all workspace variables
+% save(['cases/' CaseName '.mat']);
 
 %% Loop to load cases and calculate the state-space systems
 
@@ -80,9 +84,12 @@ clear
 % Load all SystemFiles
 SystemFiles = dir('systems/*.mat') ;
 for j = 1:length(SystemFiles)
-        
+    
+    % Clear workspace except those needed for the loop
+    clearvars -except SystemFiles j
+    
     % Collect CaseName and SystemFile from SystemFiles
-    SystemFile = SystemFiles(i).name ;
+    SystemFile = SystemFiles(j).name ;
     CaseName = SystemFile(1:end-4) ;
     
     % Load input variables from testflight
@@ -104,10 +111,14 @@ for j = 1:length(SystemFiles)
     print(['responses/' CaseName '.png'],'-dpng')
     
     % Return the response matrices
-    [Y,T,X] = lsim(sys,u,t,x0) ;
+    [Y,T,X] = lsim(sys,U,T,X0);
     
     % Modify the end results, to be able to use it in validation
     if strcmp( symmetry, 'symmetric' )
+        
+        % Load intitial true airspeed, angle of attack and pitch angle from
+        % stationary flight condition
+        load(['cases/' CaseName '.mat'],'V0','alpha0','th0') ;
         
         % Convert airspeed deviation to true airspeed [m/s]
         V = Y(:,1) + V0 ;
@@ -123,10 +134,13 @@ for j = 1:length(SystemFiles)
         
     elseif strcmp( symmetry, 'asymmetric' )
         
-        % Convert to degrees
+        % eta to to degrees
         beta = rad2deg( Y(:,1) ) ;
+        
         theta = rad2deg( Y(:,2) ) ;
+        
         p = Y(:,3) ;
+        
         r = Y(:,4) ;
         
         % Create dataset with the responses
@@ -139,17 +153,20 @@ end
 
 %% (Loop to) load systems and calculate the eigenvalues
 
-clear
-
-% Load all SystemFiles
-SystemFiles = dir('systems/*.mat') ;
-for j = 1:length(SystemFiles)
-        
-    % Collect CaseName and CaseFile from CaseFiles
-    SystemFile = SystemFiles(i).name ;
-    CaseName = SystemFile(1:end-4) ;
-    
-    % Load input variables from testflight
-    load(['systems/' SystemFile]);
-
-end
+% clear
+% 
+% % Load all SystemFiles
+% SystemFiles = dir('systems/*.mat') ;
+% for k = 1:length(SystemFiles)
+%     
+%     % Clear workspace except those needed for the loop
+%     clearvars -except SystemFiles k
+%     
+%     % Collect CaseName and CaseFile from CaseFiles
+%     SystemFile = SystemFiles(k).name ;
+%     CaseName = SystemFile(1:end-4) ;
+%     
+%     % Load input variables from testflight
+%     load(['systems/' SystemFile]);
+% 
+% end
