@@ -10,32 +10,11 @@ close all
 
 %% Loop to gather cases and save them as [casename].mat
 
-% % Load input variables from testflight
-% load(['Validation/' CaseFile]);
-% % Overwrite variable with value from tesflight
-% eval(['hp0 = ' CaseName '.InitialVariables.hp_0;']);       % [m]
-% eval(['V0 = ' CaseName '.InitialVariables.V_0*0.51444444444;']);         % [m/sec]
-% eval(['alpha0 = ' CaseName '.InitialVariables.alpha_0/180*pi();']); % [rad]
-% eval(['th0 = ' CaseName '.InitialVariables.theta_0/180*pi();']);    % [rad]
-% eval(['m = ' CaseName '.InitialVariables.mass;']);         % [kg]
-% % Simulation specific data from testflight
-% eval(['t = ' CaseName '.DeflectionVector.t;']);
-% eval(['defl = ' CaseName '.DeflectionVector.defl;']);
-% 
-% % Load input variables calculated from First Measurement Series
-% load('FMS_aeroprop.mat');
-% 
-% % Load input variables calculated from Second Measurement Series
-% load('SMS_longstab.mat');
-% % Overwrite variable with value from SMS
-% Cma  = Cm_alpha;
-% Cmde = Cm_delta;
-% 
-% % Run script to calculate aircraft properties
-% run('Cit_par');
+% % for dummy data use
+% run a_create_dummy
 
-% % Save case as dataset with all workspace variables
-% save(['cases/' CaseName '.mat']);
+% % for validation data use
+% run a_create_data
 
 %% Loop to load cases and calculate the state-space systems
 
@@ -104,9 +83,13 @@ for j = 1:length(SystemFiles)
         sys.OutputName = {'\beta';'\theta';'p';'r'};
         sys.OutputUnit = {'rad';'rad';'rad/s';'rad/s'};
     end
-
+    
+    % create new figure for the symmetric response
+    figure( 'Name', CaseName ) 
     % Plot the response
     lsimplot(sys,U,T,X0) ;
+    title([CaseName ' system response']);
+    
     % Save as .png-image
     print(['responses/' CaseName '.png'],'-dpng')
     % %%%%
@@ -148,7 +131,7 @@ for j = 1:length(SystemFiles)
         r = Y(:,4) ;
         
         % Create dataset with the responses
-        save(['responses/' CaseName '.mat'],'V','alpha','th','q','T','X');
+        save(['responses/' CaseName '.mat'],'beta','phi','p','r','T','X');
     else
         % Symmetry is defined but value is not 'symmetric' or 'asymmetric'
         error 'The symmetry variable should be ''symmetric'' or ''asymmetric''';
