@@ -1,4 +1,4 @@
-%% a_create_data.m
+%% a_create_dummy.m
 
 clear
 

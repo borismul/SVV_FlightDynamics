@@ -109,6 +109,10 @@ for j = 1:length(SystemFiles)
     lsimplot(sys,U,T,X0) ;
     % Save as .png-image
     print(['responses/' CaseName '.png'],'-dpng')
+    % %%%%
+    % %%%% Add matlab2tikz for scalable figures with readable labels
+    % http://www.howtotex.com/packages/beautiful-matlab-figures-in-latex/
+    % %%%%
     
     % Return the response matrices
     [Y,T,X] = lsim(sys,U,T,X0);
@@ -134,20 +138,21 @@ for j = 1:length(SystemFiles)
         
     elseif strcmp( symmetry, 'asymmetric' )
         
-        % eta to to degrees
+        % Convert yaw angle to degrees [deg]
         beta = rad2deg( Y(:,1) ) ;
-        
-        theta = rad2deg( Y(:,2) ) ;
-        
+        % Convert roll angle to degrees [deg]
+        phi = rad2deg( Y(:,2) ) ;
+        % roll rate [rad/s]
         p = Y(:,3) ;
-        
+        % yaw rate [rad/s]
         r = Y(:,4) ;
         
         % Create dataset with the responses
         save(['responses/' CaseName '.mat'],'V','alpha','th','q','T','X');
+    else
+        % Symmetry is defined but value is not 'symmetric' or 'asymmetric'
+        error 'The symmetry variable should be ''symmetric'' or ''asymmetric''';
     end
-    
-    
     
 end
 
