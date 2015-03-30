@@ -113,8 +113,10 @@ for j = 1:length(SystemFiles)
         alpha = rad2deg( Y(:,2) + alpha0 ) ;
         % Convert theta stability to body reference theta [deg]
         th = rad2deg( Y(:,3) + th0 ) ;
-        % Pitch rate [rad/s]
-        q = Y(:,4) ;
+        % Pitch rate [deg/s]
+        q = rad2deg( Y(:,4) ) ;
+        
+        OUT = [V, alpha, th, q];
         
         % Create dataset with the responses
         save(['responses/' CaseName '.mat'],'V','alpha','th','q','T','X');
@@ -125,10 +127,12 @@ for j = 1:length(SystemFiles)
         beta = rad2deg( Y(:,1) ) ;
         % Convert roll angle to degrees [deg]
         phi = rad2deg( Y(:,2) ) ;
-        % roll rate [rad/s]
-        p = Y(:,3) ;
-        % yaw rate [rad/s]
-        r = Y(:,4) ;
+        % roll rate [deg/s]
+        p = rad2deg( Y(:,3) ) ;
+        % yaw rate [deg/s]
+        r = rad2deg( Y(:,4) ) ;
+        
+        OUT = [beta, phi, p, r];
         
         % Create dataset with the responses
         save(['responses/' CaseName '.mat'],'beta','phi','p','r','T','X');
@@ -137,7 +141,13 @@ for j = 1:length(SystemFiles)
         error 'The symmetry variable should be ''symmetric'' or ''asymmetric''';
     end
     
+    SendToValidation( OUT, T, X, CaseName );
+    
 end
+
+% % Fuck all figures and clean the workspace
+close all
+clear
 
 %% (Loop to) load systems and calculate the eigenvalues
 
