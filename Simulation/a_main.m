@@ -146,7 +146,6 @@ for j = 1:length(SystemFiles)
 end
 
 % % Fuck all figures and clean the workspace
-close all
 clear
 
 %% (Loop to) load systems and calculate the eigenvalues

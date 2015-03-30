@@ -22,7 +22,7 @@ for i = 1:length(ValiDir)
         eval(['m = ' CaseName '.InitialVariables.mass;']);         % [kg]
         % Simulation specific data from testflight
         eval(['T = ' CaseName '.DeflectionVector.t;']);
-        eval(['defl = deg2rad(' CaseName '.DeflectionVector.defl);']);
+        eval(['defl = deg2rad(' CaseName '.DeflectionVector.defl);']);     
 
     % Load input variables calculated from First Measurement Series
     load('FMS_aeroprop.mat');
@@ -42,6 +42,9 @@ for i = 1:length(ValiDir)
     
     %% Define Response Variables
     
+    % define initial state vector
+    X0 = [0;0;0;0] ;
+    
     % define symmetry
     switch CaseName
     case {'Phugoid','ShortPeriod'}
@@ -54,8 +57,12 @@ for i = 1:length(ValiDir)
         error(['Symmetry not defined for ' CaseName]);
     end
     
-    % define initial state vector
-    X0 = [0;0;0;0] ;
+    switch CaseName
+    case 'AperiodicRoll'
+        % first points from validation data
+        X0(2) = deg2rad( 42.3304 ) ;
+        X0(4) = deg2rad( 3.9140 ) ;
+    end
     
     % define input disturbance vector [rad]
     %U = deg2rad(-1) * ones(size(T));

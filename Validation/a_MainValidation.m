@@ -127,6 +127,11 @@ for i = 1:length(SimulationFiles)
             theta0 = theta(range(1));
             m0 = Mstart - Fused(range(1));
             SendToSimulation(t_sp(range),d_e(range),hp0,V0,alpha0,theta0,m0,CaseName);
+            
+            % Save as .png-image
+            print(['results/' CaseName '.png'],'-dpng')
+            close
+            
         case 'asymmetric'
             figure('Name', CaseName);
             for j = 1:5
@@ -134,7 +139,7 @@ for i = 1:length(SimulationFiles)
                 hold on
                 switch j
                     case 1
-                        plot(t_sp(range),beta(range))
+                        plot(t_sp(range),beta(range)-beta(range(1)))
                         eval(['plot(T_' CaseName ',Y_' CaseName '(:,1),''g'')']);
                         title('Yaw angle vs time')
                         xlabel('Time (s) -->')
@@ -176,8 +181,17 @@ for i = 1:length(SimulationFiles)
             alpha0 = alpha(range(1));
             theta0 = theta(range(1));
             m0 = Mstart - Fused(range(1));
-            SendToSimulation(t_sp(range),d_e(range),hp0,V0,alpha0,theta0,m0,CaseName);
-    end
+            if strcmp(CaseName,'DutchRoll')
+                SendToSimulation(t_sp(range),d_r(range),hp0,V0,alpha0,theta0,m0,CaseName);
+            else
+                SendToSimulation(t_sp(range),d_a(range),hp0,V0,alpha0,theta0,m0,CaseName);
+            end
+            
+            % Save as .png-image
+            print(['results/' CaseName '.png'],'-dpng')
+            close
+            
+            end
     
     clearvars symmetry
 end
