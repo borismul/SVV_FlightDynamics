@@ -31,7 +31,7 @@ function [] = plotting(CL, CD, alpha, Re, M, linearFunction, linearCLalpha,ClCdF
     hold on
     plot(alpha,polyval(linearCLalpha,alpha),'r')    
     title('C_L against alpha');
-    xlabel('alpha -->');
+    xlabel('alpha [deg] -->');
     ylabel('C_L -->');
     
     % plotting CD - alpha graph
@@ -40,7 +40,7 @@ function [] = plotting(CL, CD, alpha, Re, M, linearFunction, linearCLalpha,ClCdF
     hold on
     plot(linspace(alpha(1),alpha(end),100),polyval(CDAlphaFit,linspace(alpha(1),alpha(end),100)),'r')
     title('C_D against alpha');
-    xlabel('alpha -->');
+    xlabel('alpha [deg] -->');
     ylabel('C_D -->');
    
     leg = legend([line1,line2],{'Raw Data','CurveFit'});
