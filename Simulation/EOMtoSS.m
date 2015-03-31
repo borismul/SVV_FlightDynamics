@@ -9,19 +9,14 @@ function [ A, B, C, D ] = EOMtoSS( C1, C2, C3, symmetry )
 % Input variables
 
 A = - inv(C1) * C2;
-
 B = - inv(C1) * C3;
-
 C = eye(4);
 
-if strcmp( symmetry, 'symmetric' )
-    
-    D = zeros(4,1);
-
-elseif strcmp( symmetry, 'asymmetric' )
-    
-    D = zeros(4,2);
-
+switch symmetry
+    case 'symmetric'
+        D = zeros(4,1);
+    case 'asymmetric'
+        D = zeros(4,2);
 end
 
 % Output variables

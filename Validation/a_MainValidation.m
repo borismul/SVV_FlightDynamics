@@ -77,8 +77,8 @@ for i = 1:length(SimulationFiles)
         case 'SpiralRoll'
             % Start 37107
             % End 38021
-            t_sp = t-t(37107);
-            range = 37107:38021;
+            t_sp = t-t(36707);
+            range = 36707:38021;
             symmetry = 'asymmetric' ;
     end
     
@@ -92,33 +92,34 @@ for i = 1:length(SimulationFiles)
                     case 1
                         plot(t_sp(range),u(range))
                         eval(['plot(T_' CaseName ',Y_' CaseName '(:,1),''g'')']);
-                        title('Difference in airspeed vs time')
-                        xlabel('Time (s) -->')
-                        ylabel('True airspeed m/s -->')
+                        title('True airspeed vs time')
+                        ylabel('V_t [m/s]')
                         legend('Validation Data', 'Numerical Model')
                     case 2
                         plot(t_sp(range),alpha(range))
                         eval(['plot(T_' CaseName ',Y_' CaseName '(:,2),''g'')']);
                         title('Angle of attack vs time')
-                        xlabel('Time (s) -->')
-                        ylabel('Angle of attack (deg) -->')
+                        UNIT = sprintf('[%c]', char(176));
+                        ylabel(['\alpha ' UNIT])
                     case 3
                         plot(t_sp(range),theta(range))
                         eval(['plot(T_' CaseName ',Y_' CaseName '(:,3),''g'')']);
                         title('Pitch angle vs time')
-                        xlabel('Time (s) -->')
-                        ylabel('Pitch angle (deg) -->')
+                        UNIT = sprintf('[%c]', char(176));
+                        ylabel(['\Theta ' UNIT])
                     case 4
                         plot(t_sp(range),q(range))
                         eval(['plot(T_' CaseName ',Y_' CaseName '(:,4),''g'')']);
                         title('Pitch rate vs time')
-                        xlabel('Time (s) -->')
-                        ylabel('Pitch rate (deg/s) -->')
+                        UNIT = sprintf('[%c/s]', char(176));
+                        ylabel(['q ' UNIT])
                     case 5
                         plot(t_sp(range),d_e(range),'r')
                         title('Elevator deflection vs time')
-                        xlabel('Time (s) -->')
-                        ylabel('Elevator deflection (deg) -->')
+                        UNIT = sprintf('[%c]', char(176));
+                        ylabel(['\delta_e ' UNIT])
+                        % only the lower plot needs an xlabel
+                        xlabel('t [s]')
                 end
             end
             hp0 = hp(range(1));
@@ -142,38 +143,39 @@ for i = 1:length(SimulationFiles)
                         plot(t_sp(range),beta(range)-beta(range(1)))
                         eval(['plot(T_' CaseName ',Y_' CaseName '(:,1),''g'')']);
                         title('Yaw angle vs time')
-                        xlabel('Time (s) -->')
-                        ylabel('Yaw angle (deg) -->')
+                        UNIT = sprintf('[%c]', char(176));
+                        ylabel(['\beta ' UNIT ])
                         legend('Validation Data', 'Numerical Model')
                     case 2
                         plot(t_sp(range),phi(range))
                         eval(['plot(T_' CaseName ',Y_' CaseName '(:,2),''g'')']);
                         title('Roll angle vs time')
-                        xlabel('Time (s) -->')
-                        ylabel('Roll angle (deg) -->')
+                        UNIT = sprintf('[%c]', char(176));
+                        ylabel(['\phi ' UNIT])
                     case 3
                         plot(t_sp(range),p(range))
                         eval(['plot(T_' CaseName ',Y_' CaseName '(:,3),''g'')']);
                         title('Roll rate vs time')
-                        xlabel('Time (s) -->')
-                        ylabel('Roll rate (deg/s) -->')
+                        UNIT = sprintf('[%c/s]', char(176));
+                        ylabel(['p ' UNIT])
                     case 4
                         plot(t_sp(range),r(range))
                         eval(['plot(T_' CaseName ',Y_' CaseName '(:,4),''g'')']);
                         title('Yaw rate vs time')
-                        xlabel('Time (s) -->')
-                        ylabel('Yaw rate (deg/s) -->')
+                        UNIT = sprintf('[%c/s]', char(176));
+                        ylabel(['r ' UNIT])
                     case 5
+                        UNIT = sprintf('[%c]', char(176));
                         if strcmp(CaseName, 'DutchRoll')
                             plot(t_sp(range),d_r(range),'r')
                             title('Rudder deflection vs time')
-                            ylabel('Rudder deflection (deg) -->')
+                            ylabel(['\delta_r ' UNIT])
                         else
                             plot(t_sp(range),d_a(range),'r')
                             title('Aileron deflection vs time')
-                            ylabel('Rudder deflection (deg) -->')
+                            ylabel(['\delta_a ' UNIT])
                         end
-                        xlabel('Time (s) -->')
+                        xlabel('t [s]')
                 end
             end
             hp0 = hp(range(1));

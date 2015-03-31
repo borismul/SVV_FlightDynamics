@@ -22,7 +22,13 @@ for i = 1:length(ValiDir)
         eval(['m = ' CaseName '.InitialVariables.mass;']);         % [kg]
         % Simulation specific data from testflight
         eval(['T = ' CaseName '.DeflectionVector.t;']);
-        eval(['defl = deg2rad(' CaseName '.DeflectionVector.defl);']);     
+        eval(['defl = deg2rad(' CaseName '.DeflectionVector.defl);']);
+        
+        % experimental fixes by manipulating input data
+        switch CaseName
+            case 'DutchRoll'
+                eval(['defl = -deg2rad(' CaseName '.DeflectionVector.defl);']);
+        end
 
     % Load input variables calculated from First Measurement Series
     load('FMS_aeroprop.mat');
@@ -58,10 +64,10 @@ for i = 1:length(ValiDir)
     end
     
     switch CaseName
-    case 'AperiodicRoll'
-        % first points from validation data
-        X0(2) = deg2rad( 42.3304 ) ;
-        X0(4) = deg2rad( 3.9140 ) ;
+        case 'AperiodicRoll'
+            % first points from validation data
+            X0(2) = deg2rad( 42.3304 ) ;
+            X0(4) = deg2rad( 3.9140 ) ;
     end
     
     % define input disturbance vector [rad]
