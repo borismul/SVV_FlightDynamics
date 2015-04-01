@@ -147,11 +147,6 @@ for i = 1:length(SimulationFiles)
             % Save as .png-image
             print(['results/' CaseName '.png'],'-dpng')
             
-%             % Create a tikz file for LaTeX integration
-%             addpath ../tikz
-%             matlab2tikz(['tikz/' CaseName '.tikz'], 'height', '\figureheight', 'width', '\figurewidth');
-%             rmpath ../tikz
-            
         case 'asymmetric'
             figure('Name', CaseName);
             for j = 2:5
@@ -221,11 +216,6 @@ for i = 1:length(SimulationFiles)
             
             % Save as .png-image
             print(['results/' CaseName '.png'],'-dpng')
-            
-%             % Create a tikz file for LaTeX integration
-%             addpath ../tikz
-%             matlab2tikz(['tikz/' CaseName '.tikz'], 'height', '\figureheight', 'width', '\figurewidth');
-%             rmpath ../tikz
             
     end
     close

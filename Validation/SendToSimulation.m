@@ -13,11 +13,11 @@ function [ ] = SendToSimulation(Timevector, disturbance, hp0, vo,alpha0, theta0,
     DeflectionVector{1}.name = 't';
     DeflectionVector{2}.name = 'defl';
     
-    InitialVariables{1}.name = 'hp_0';
-    InitialVariables{2}.name = 'V_0';
-    InitialVariables{3}.name = 'alpha_0';
-    InitialVariables{4}.name = 'theta_0';
-    InitialVariables{5}.name = 'mass';
+    InitialVariables{1}.name = 'hp_0' ;
+    InitialVariables{2}.name = 'V_0' ;
+    InitialVariables{3}.name = 'alpha_0' ;
+    InitialVariables{4}.name = 'theta_0' ;
+    InitialVariables{5}.name = 'mass' ;
     
     DeflectionVector.t = Timevector;
     DeflectionVector.defl = disturbance;
