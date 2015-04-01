@@ -94,25 +94,35 @@ for i = 1:length(SimulationFiles)
                         eval(['plot(T_' CaseName ',Y_' CaseName '(:,1),''g'')']);
                         title('True airspeed vs time')
                         ylabel('V_t [m/s]')
-                        legend('Validation Data', 'Numerical Model')
+                        set(gca,'fontsize',15)
+                        set(gca,'xticklabel',[])
                     case 2
                         plot(t_sp(range),alpha(range))
                         eval(['plot(T_' CaseName ',Y_' CaseName '(:,2),''g'')']);
                         title('Angle of attack vs time')
                         UNIT = sprintf('[%c]', char(176));
                         ylabel(['\alpha ' UNIT])
+                        h = legend('Validation Data', 'Numerical Model')
+                        rect = [0.70, 0.71, 0.2716, 0.0898];
+                        set(h, 'Position', rect)
+                        set(gca,'fontsize',15)
+                        set(gca,'xticklabel',[])
                     case 3
                         plot(t_sp(range),theta(range))
                         eval(['plot(T_' CaseName ',Y_' CaseName '(:,3),''g'')']);
                         title('Pitch angle vs time')
                         UNIT = sprintf('[%c]', char(176));
                         ylabel(['\Theta ' UNIT])
+                        set(gca,'fontsize',15)
+                        set(gca,'xticklabel',[])
                     case 4
                         plot(t_sp(range),q(range))
                         eval(['plot(T_' CaseName ',Y_' CaseName '(:,4),''g'')']);
                         title('Pitch rate vs time')
                         UNIT = sprintf('[%c/s]', char(176));
                         ylabel(['q ' UNIT])
+                        set(gca,'fontsize',15)
+                        set(gca,'xticklabel',[])
                     case 5
                         plot(t_sp(range),d_e(range),'r')
                         title('Elevator deflection vs time')
@@ -120,6 +130,7 @@ for i = 1:length(SimulationFiles)
                         ylabel(['\delta_e ' UNIT])
                         % only the lower plot needs an xlabel
                         xlabel('t [s]')
+                        set(gca,'fontsize',15)
                 end
             end
             hp0 = hp(range(1));
@@ -149,35 +160,47 @@ for i = 1:length(SimulationFiles)
                         title('Yaw angle vs time')
                         UNIT = sprintf('[%c]', char(176));
                         ylabel(['\beta ' UNIT ])
-                        legend('Validation Data', 'Numerical Model')
+                        set(gca,'fontsize',15)
+                        set(gca,'xticklabel',[])
                     case 2
                         plot(t_sp(range),phi(range))
                         eval(['plot(T_' CaseName ',Y_' CaseName '(:,2),''g'')']);
                         title('Roll angle vs time')
+                        h = legend('Validation Data', 'Numerical Model')
+                        rect = [0.70, 0.71, 0.2716, 0.0898];
+                        set(h, 'Position', rect)
                         UNIT = sprintf('[%c]', char(176));
                         ylabel(['\phi ' UNIT])
+                        set(gca,'fontsize',15)
+                        set(gca,'xticklabel',[])
                     case 3
                         plot(t_sp(range),p(range))
                         eval(['plot(T_' CaseName ',Y_' CaseName '(:,3),''g'')']);
                         title('Roll rate vs time')
                         UNIT = sprintf('[%c/s]', char(176));
                         ylabel(['p ' UNIT])
+                        set(gca,'fontsize',15)
+                        set(gca,'xticklabel',[])
                     case 4
                         plot(t_sp(range),r(range))
                         eval(['plot(T_' CaseName ',Y_' CaseName '(:,4),''g'')']);
                         title('Yaw rate vs time')
                         UNIT = sprintf('[%c/s]', char(176));
                         ylabel(['r ' UNIT])
+                        set(gca,'fontsize',15)
+                        set(gca,'xticklabel',[])
                     case 5
                         UNIT = sprintf('[%c]', char(176));
                         if strcmp(CaseName, 'DutchRoll')
                             plot(t_sp(range),d_r(range),'r')
                             title('Rudder deflection vs time')
                             ylabel(['\delta_r ' UNIT])
+                            set(gca,'fontsize',15)
                         else
                             plot(t_sp(range),d_a(range),'r')
                             title('Aileron deflection vs time')
                             ylabel(['\delta_a ' UNIT])
+                            set(gca,'fontsize',15)
                         end
                         xlabel('t [s]')
                 end
