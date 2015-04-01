@@ -1,8 +1,8 @@
-%% a_create_dummy.m
+%% a_create_num_step.m
 
 clear
 
-%% Dummy data
+%% Numerical solution data
 % define the name of the case
 CaseName = 'StepResponse';
 

@@ -1,10 +1,10 @@
-%% a_create_dummy.m
+%% a_create_num_state.m
 
 clear
 
-%% Dummy data
+%% Numerical solution data
 % define the name of the case
-CaseName = 'Dummy';
+CaseName = 'StateResponse';
 
 % Load dummy data first, so it can be overwritten by the real deal data
 run('Cit_par_dummy');
@@ -26,10 +26,10 @@ run('Cit_par');
 AR = A;
 
 %% Define Response Variables
-symmetry = 'symmetric';
-X0 = [0;0;0;0] ;
-T = 0:0.01:200 ;
-U = deg2rad(-1) * ones(size(T));
+symmetry = 'asymmetric';
+X0 = [0;deg2rad(15);0;0] ;
+T = 0:0.001:30 ;
+U = zeros(length(T),2);
 
 %% Save Case
 % Clear variables from workspace that will not be used after this statement

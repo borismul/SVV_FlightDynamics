@@ -21,48 +21,30 @@ for i = 1:length(SystemFiles)
     load(['systems/' SystemFile]);
     
     A = sys.a; % Matrix A from system
-    lambda = eig(sys); % Eigenvalues from system
-
-% %% For Verification
-% switch symmetry
-%     case 'symmetric'
-%         
-%         % Load V0 and q needed to modify A
-%         load(['cases/' CaseName '.mat'],'V0','c') ;
-%         
-%         % Multiply first column by V0
-%         A(:,1) = A(:,1) * V0 ;
-%         % Multiply last column by V0 divided by q
-%         A(:,4) = A(:,4) * V0 / c ;
-%         
-%         % Clear used variables
-%         clearvars V0 q
-%         
-%     case 'asymmetric'
-%         
-%         % Load V0 and q needed to modify A
-%         load(['cases/' CaseName '.mat'],'V0','b') ;
-%         
-%         % Multiply third column by 2*V0/b
-%         A(:,3) = A(:,3) * 2 * V0 / b ;
-%         % Multiply last column by 2*V0/b
-%         A(:,4) = A(:,4) * 2 * V0 / b ;
-%         
-%         % Clear used variables
-%         clearvars V0 b
-%         
-% end
+    %lambda = eig(sys); % Eigenvalues from system
 
     % Calculate eigenvalues for modified A
-    VerA = eig(A);
+    %VerA = eig(A);
     
-    [F,D] = damp(sys);
+    [ F, D, poles ] = damp(sys) ;
+    switch symmetry
+        case 'symmetric'
+            % Load V0 and c needed to modify A
+            load(['cases/' CaseName '.mat'],'V0','c') ;
+            
+            eig = poles * c / V0;
+            
+            [ eig, T_5, P ] = PeriDamp4Eig( eig, c, V0 ) ;
+        case 'asymmetric'
+            % Load V0 and b needed to modify A
+            load(['cases/' CaseName '.mat'],'V0','b') ;
+            
+            eig = poles * b / V0;
+            
+            [ eig, T_5, P ] = PeriDamp4Eig( eig, b, V0 );
+    end
     
-    P = 2*pi()*ones(size(F))./F;
-    
-    T = log(.5)*ones(size(F)) ./ -( D.*F);
-    
-    save(['Eigenvalues/' CaseName '.mat'], 'VerA', 'P', 'T', 'CaseName', 'symmetry');
+    save(['Eigenvalues/' CaseName '.mat'], 'eig', 'poles', 'P', 'T_5', 'CaseName', 'symmetry');
     
 %% For Validation
 
