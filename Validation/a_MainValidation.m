@@ -64,8 +64,8 @@ for i = 1:length(SimulationFiles)
         case 'ShortPeriod'
             % Start 29222
             % End 29363
-            t_sp = t-t(29222) ;
-            range = 29222:29363 ;
+            t_sp = t-t(29240) ;
+            range = 29240:29363 ;
             symmetry = 'symmetric' ;
         case 'AperiodicRoll'
             % Start 31297
