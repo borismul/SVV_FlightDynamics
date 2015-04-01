@@ -33,6 +33,11 @@ load('Simulation/AperiodicRoll')
 load('Simulation/ShortPeriod')
 load('Simulation/SpiralRoll')
 
+% labels
+h = legend('Validation Data', 'Numerical Model');
+%rect = [0.70, 0.71, 0.2716, 0.0898];
+rect = [0.70, 0.89, 0.2716, 0.0898];
+
 %% Loop through all Simulation files
 SimulationFiles = dir('Simulation/*.mat') ;
 for i = 1:length(SimulationFiles)
@@ -102,8 +107,7 @@ for i = 1:length(SimulationFiles)
                         title('Angle of attack vs time')
                         UNIT = sprintf('[%c]', char(176));
                         ylabel(['\alpha ' UNIT])
-                        h = legend('Validation Data', 'Numerical Model')
-                        rect = [0.70, 0.71, 0.2716, 0.0898];
+                        h = legend('Validation Data', 'Numerical Model');
                         set(h, 'Position', rect)
                         set(gca,'fontsize',15)
                         set(gca,'xticklabel',[])
@@ -143,31 +147,30 @@ for i = 1:length(SimulationFiles)
             % Save as .png-image
             print(['results/' CaseName '.png'],'-dpng')
             
-            % Create a tikz file for LaTeX integration
-            addpath ../tikz
-            matlab2tikz(['tikz/' CaseName '.tikz'], 'height', '\figureheight', 'width', '\figurewidth');
-            rmpath ../tikz
+%             % Create a tikz file for LaTeX integration
+%             addpath ../tikz
+%             matlab2tikz(['tikz/' CaseName '.tikz'], 'height', '\figureheight', 'width', '\figurewidth');
+%             rmpath ../tikz
             
         case 'asymmetric'
             figure('Name', CaseName);
-            for j = 1:5
-                subplot(5,1,j)
+            for j = 2:5
+                subplot(4,1,j-1)
                 hold on
                 switch j
                     case 1
-                        plot(t_sp(range),beta(range)-beta(range(1)))
-                        eval(['plot(T_' CaseName ',Y_' CaseName '(:,1),''g'')']);
-                        title('Yaw angle vs time')
-                        UNIT = sprintf('[%c]', char(176));
-                        ylabel(['\beta ' UNIT ])
-                        set(gca,'fontsize',15)
-                        set(gca,'xticklabel',[])
+%                         plot(t_sp(range),beta(range)-beta(range(1)))
+%                         eval(['plot(T_' CaseName ',Y_' CaseName '(:,1),''g'')']);
+%                         title('Yaw angle vs time')
+%                         UNIT = sprintf('[%c]', char(176));
+%                         ylabel(['\beta ' UNIT ])
+%                         set(gca,'fontsize',15)
+%                         set(gca,'xticklabel',[])
                     case 2
                         plot(t_sp(range),phi(range))
                         eval(['plot(T_' CaseName ',Y_' CaseName '(:,2),''g'')']);
                         title('Roll angle vs time')
-                        h = legend('Validation Data', 'Numerical Model')
-                        rect = [0.70, 0.71, 0.2716, 0.0898];
+                        h = legend('Validation Data', 'Numerical Model');
                         set(h, 'Position', rect)
                         UNIT = sprintf('[%c]', char(176));
                         ylabel(['\phi ' UNIT])
@@ -219,10 +222,10 @@ for i = 1:length(SimulationFiles)
             % Save as .png-image
             print(['results/' CaseName '.png'],'-dpng')
             
-            % Create a tikz file for LaTeX integration
-            addpath ../tikz
-            matlab2tikz(['tikz/' CaseName '.tikz'], 'height', '\figureheight', 'width', '\figurewidth');
-            rmpath ../tikz
+%             % Create a tikz file for LaTeX integration
+%             addpath ../tikz
+%             matlab2tikz(['tikz/' CaseName '.tikz'], 'height', '\figureheight', 'width', '\figurewidth');
+%             rmpath ../tikz
             
     end
     close
