@@ -49,4 +49,7 @@ function [] = plotting(CL, CD, alpha, Re, M, linearFunction, linearCLalpha,ClCdF
     
     str = {['Reynolds Range ' num2str(round(Re(end))/10^7) '*10^7' ' - ' num2str(round(Re(1))/10^7) '*10^7'],['Mach Range ' num2str(M(end)) ' - ' num2str(M(1))]};
     annotation('textbox',newPos,'String',str)
+    
+    str2 = {['Oswald factor = 0.8124'],['Cd0 = 0.0205']};
+    annotation('textbox',newPos,'String',str2)
 end
