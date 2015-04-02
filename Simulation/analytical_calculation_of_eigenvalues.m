@@ -22,7 +22,7 @@ B = -mub*(4*CYb*KZ2 + 2*Cnr);
 C = CYb*Cnr + 4*mub*Cnb;
 
 x = [A, B, C];
-eig_dutchroll = roots(x)
+eig_dutchroll = roots(x);
 
 %%%% APRIODIC ROLL %%%%
 
@@ -30,14 +30,14 @@ eig_aperiodic_roll = Clp/(4*mub*KX2);
 
 %%%% APERIODIC SPIRAL %%%%
 
-eig_spiral = (2*CL*(Clb*Cnr - Cnb*Clr))/(Clp*(CYb*Cnr + 4*mub*Cnb) - Cnp*(CYb*Clr + 4*mub*Clb));
+eig_spiral = (2*CL*(Clb*Cnr - Cnb*Clr))/(Clp*(CYb*Cnr + 4*mub*Cnb) - Cnp*(CYb*Clr + 4*mub*Clb))
 
-%%%% DUTCH ROLL AND APERIODIC ROLL %%%%
-
-A = 4*(mub^2)*(KX2*KY2 - KXZ^2);
-B = -mub*((Clr + Cnp)*KXZ + Cnr*KX2 + Clp*KZ2);
-C = 2*mub*(Clb*KXZ + Cnb*KX2) + (1/4)*(Clp*Cnr - Cnp*Clr);
-D = (1/2)*(Clb*Cnp - Cnb*Clp);
-
-x = [A, B, C, D];
-eig_dutch_aperiodic_roll = roots(x);
+% %%%% DUTCH ROLL AND APERIODIC ROLL %%%%
+% 
+% A = 4*(mub^2)*(KX2*KY2 - KXZ^2);
+% B = -mub*((Clr + Cnp)*KXZ + Cnr*KX2 + Clp*KZ2);
+% C = 2*mub*(Clb*KXZ + Cnb*KX2) + (1/4)*(Clp*Cnr - Cnp*Clr);
+% D = (1/2)*(Clb*Cnp - Cnb*Clp);
+% 
+% x = [A, B, C, D];
+% eig_dutch_aperiodic_roll = roots(x);
