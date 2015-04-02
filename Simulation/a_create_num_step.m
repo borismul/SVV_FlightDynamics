@@ -1,10 +1,10 @@
-%% a_create_dummy.m
+%% a_create_num_step.m
 
 clear
 
-%% Dummy data
+%% Numerical solution data
 % define the name of the case
-CaseName = 'Dummy';
+CaseName = 'StepResponse';
 
 % Load dummy data first, so it can be overwritten by the real deal data
 run('Cit_par_dummy');

@@ -33,6 +33,11 @@ load('Simulation/AperiodicRoll')
 load('Simulation/ShortPeriod')
 load('Simulation/SpiralRoll')
 
+% labels
+h = legend('Validation Data', 'Numerical Model');
+%rect = [0.70, 0.71, 0.2716, 0.0898];
+rect = [0.70, 0.89, 0.2716, 0.0898];
+
 %% Loop through all Simulation files
 SimulationFiles = dir('Simulation/*.mat') ;
 for i = 1:length(SimulationFiles)
@@ -59,8 +64,8 @@ for i = 1:length(SimulationFiles)
         case 'ShortPeriod'
             % Start 29222
             % End 29363
-            t_sp = t-t(29222) ;
-            range = 29222:29363 ;
+            t_sp = t-t(29240) ;
+            range = 29240:29363 ;
             symmetry = 'symmetric' ;
         case 'AperiodicRoll'
             % Start 31297
@@ -92,34 +97,44 @@ for i = 1:length(SimulationFiles)
                     case 1
                         plot(t_sp(range),u(range))
                         eval(['plot(T_' CaseName ',Y_' CaseName '(:,1),''g'')']);
-                        title('True airspeed vs time')
+                        % title('True airspeed vs time')
                         ylabel('V_t [m/s]')
-                        legend('Validation Data', 'Numerical Model')
+                        set(gca,'fontsize',15)
+                        set(gca,'xticklabel',[])
                     case 2
                         plot(t_sp(range),alpha(range))
                         eval(['plot(T_' CaseName ',Y_' CaseName '(:,2),''g'')']);
-                        title('Angle of attack vs time')
+                        % title('Angle of attack vs time')
                         UNIT = sprintf('[%c]', char(176));
                         ylabel(['\alpha ' UNIT])
+                        h = legend('Validation Data', 'Numerical Model');
+                        set(h, 'Position', rect)
+                        set(gca,'fontsize',15)
+                        set(gca,'xticklabel',[])
                     case 3
                         plot(t_sp(range),theta(range))
                         eval(['plot(T_' CaseName ',Y_' CaseName '(:,3),''g'')']);
-                        title('Pitch angle vs time')
+                        % title('Pitch angle vs time')
                         UNIT = sprintf('[%c]', char(176));
                         ylabel(['\Theta ' UNIT])
+                        set(gca,'fontsize',15)
+                        set(gca,'xticklabel',[])
                     case 4
                         plot(t_sp(range),q(range))
                         eval(['plot(T_' CaseName ',Y_' CaseName '(:,4),''g'')']);
-                        title('Pitch rate vs time')
+                        % title('Pitch rate vs time')
                         UNIT = sprintf('[%c/s]', char(176));
                         ylabel(['q ' UNIT])
+                        set(gca,'fontsize',15)
+                        set(gca,'xticklabel',[])
                     case 5
                         plot(t_sp(range),d_e(range),'r')
-                        title('Elevator deflection vs time')
+                        % title('Elevator deflection vs time')
                         UNIT = sprintf('[%c]', char(176));
                         ylabel(['\delta_e ' UNIT])
                         % only the lower plot needs an xlabel
                         xlabel('t [s]')
+                        set(gca,'fontsize',15)
                 end
             end
             hp0 = hp(range(1));
@@ -132,52 +147,58 @@ for i = 1:length(SimulationFiles)
             % Save as .png-image
             print(['results/' CaseName '.png'],'-dpng')
             
-            % Create a tikz file for LaTeX integration
-            addpath ../tikz
-            matlab2tikz(['tikz/' CaseName '.tikz'], 'height', '\figureheight', 'width', '\figurewidth');
-            rmpath ../tikz
-            
         case 'asymmetric'
             figure('Name', CaseName);
-            for j = 1:5
-                subplot(5,1,j)
+            for j = 2:5
+                subplot(4,1,j-1)
                 hold on
                 switch j
                     case 1
-                        plot(t_sp(range),beta(range)-beta(range(1)))
-                        eval(['plot(T_' CaseName ',Y_' CaseName '(:,1),''g'')']);
-                        title('Yaw angle vs time')
-                        UNIT = sprintf('[%c]', char(176));
-                        ylabel(['\beta ' UNIT ])
-                        legend('Validation Data', 'Numerical Model')
+%                         plot(t_sp(range),beta(range)-beta(range(1)))
+%                         eval(['plot(T_' CaseName ',Y_' CaseName '(:,1),''g'')']);
+%                         % title('Yaw angle vs time')
+%                         UNIT = sprintf('[%c]', char(176));
+%                         ylabel(['\beta ' UNIT ])
+%                         set(gca,'fontsize',15)
+%                         set(gca,'xticklabel',[])
                     case 2
                         plot(t_sp(range),phi(range))
                         eval(['plot(T_' CaseName ',Y_' CaseName '(:,2),''g'')']);
-                        title('Roll angle vs time')
+                        % title('Roll angle vs time')
+                        h = legend('Validation Data', 'Numerical Model');
+                        set(h, 'Position', rect)
                         UNIT = sprintf('[%c]', char(176));
                         ylabel(['\phi ' UNIT])
+                        set(gca,'fontsize',15)
+                        set(gca,'xticklabel',[])
                     case 3
                         plot(t_sp(range),p(range))
                         eval(['plot(T_' CaseName ',Y_' CaseName '(:,3),''g'')']);
-                        title('Roll rate vs time')
+                        % title('Roll rate vs time')
                         UNIT = sprintf('[%c/s]', char(176));
                         ylabel(['p ' UNIT])
+                        set(gca,'fontsize',15)
+                        set(gca,'xticklabel',[])
                     case 4
                         plot(t_sp(range),r(range))
                         eval(['plot(T_' CaseName ',Y_' CaseName '(:,4),''g'')']);
-                        title('Yaw rate vs time')
+                        % title('Yaw rate vs time')
                         UNIT = sprintf('[%c/s]', char(176));
                         ylabel(['r ' UNIT])
+                        set(gca,'fontsize',15)
+                        set(gca,'xticklabel',[])
                     case 5
                         UNIT = sprintf('[%c]', char(176));
                         if strcmp(CaseName, 'DutchRoll')
                             plot(t_sp(range),d_r(range),'r')
-                            title('Rudder deflection vs time')
+                            % title('Rudder deflection vs time')
                             ylabel(['\delta_r ' UNIT])
+                            set(gca,'fontsize',15)
                         else
                             plot(t_sp(range),d_a(range),'r')
-                            title('Aileron deflection vs time')
+                            % title('Aileron deflection vs time')
                             ylabel(['\delta_a ' UNIT])
+                            set(gca,'fontsize',15)
                         end
                         xlabel('t [s]')
                 end
@@ -195,11 +216,6 @@ for i = 1:length(SimulationFiles)
             
             % Save as .png-image
             print(['results/' CaseName '.png'],'-dpng')
-            
-            % Create a tikz file for LaTeX integration
-            addpath ../tikz
-            matlab2tikz(['tikz/' CaseName '.tikz'], 'height', '\figureheight', 'width', '\figurewidth');
-            rmpath ../tikz
             
     end
     close
