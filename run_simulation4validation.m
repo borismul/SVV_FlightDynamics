@@ -24,6 +24,8 @@ run('Simulation/a_create_data');
 % % note: that manual cases are also considered here
 run('Simulation/a_main');
 
+run('Simulation/a_eigenvalues');
+
 %% Create plots for comparison/validation
 run('Validation/a_MainValidation');
 
